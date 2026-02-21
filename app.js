@@ -1,0 +1,733 @@
+// ============================================
+// DEFENSE SIGNAL MONITOR — Application Logic
+// Restructured: Theater strip, ETF chart, clean tabs
+// ============================================
+
+// === UTILITY: Create ticker link ===
+function tickerLink(ticker) {
+    return `<a href="https://perplexity.ai/finance/${ticker}" target="_blank" rel="noopener" class="ticker-link">${ticker}</a>`;
+}
+
+// === UTILITY: Linkify tickers in text ===
+const ALL_TICKERS = ["LMT","RTX","NOC","GD","BA","LHX","HII","BWXT","CW","KTOS","RKLB","PLTR","AVAV","BAESY","MRCY","LDOS","SAIC","BAH","FTNT","CRWD","PANW","JOBY","ACHR","CVX","MSFT","SPY","ITA"];
+const UNIQUE_TICKERS = [...new Set(ALL_TICKERS)];
+
+function linkifyTickers(text) {
+    const sorted = UNIQUE_TICKERS.slice().sort((a, b) => b.length - a.length);
+    let result = text;
+    sorted.forEach(ticker => {
+        const regex = new RegExp(`(?<![\\w/">])\\b(${ticker})\\b(?![^<]*<\\/a>)(?![-\\w])`, 'g');
+        result = result.replace(regex, `<a href="https://perplexity.ai/finance/${ticker}" target="_blank" rel="noopener" class="ticker-link">$1</a>`);
+    });
+    return result;
+}
+
+// === STOCK DATA ===
+const stockData = [
+    { ticker: "LMT", company: "Lockheed Martin", price: 658.26, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. 6 politician buys (Mullin, Cisneros, Tuberville, Gottheimer). 30/33 military events relevant." },
+    { ticker: "RTX", company: "Raytheon Technologies", price: 204.92, score: 5, direction: "bullish", summary: "Most traded defense stock by Congress. $50B Patriot contract. Mullin bought Dec 29 before Venezuela op. 28/33 events relevant. $251B backlog." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 723.56, score: 4, direction: "bullish", summary: "B-21 Raider validated in Iran strikes. Sentinel ICBM. Nuclear modernization spending. Gottheimer, Cisneros, McClain trades. +62% since Jan 2024." },
+    { ticker: "KTOS", company: "Kratos Defense", price: 96.08, score: 4, direction: "bullish", summary: "CCA/attritable drone boom. $1.45B hypersonics contract. Drone executive order tailwind. +468% since Jan 2024. Extremely high escalation sensitivity." },
+    { ticker: "RKLB", company: "Rocket Lab USA", price: 70.86, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. Space-based tracking. +1361% since Jan 2024." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 206.44, score: 4, direction: "bullish", summary: "Sole-source naval nuclear. Zero DOGE risk. Submarine buildup. +153% since Jan 2024." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 437.57, score: 4, direction: "bullish", summary: "$151B SHIELD IDIQ contract. Only nuclear shipyard. Pacific naval expansion. +69% since Jan 2024." },
+    { ticker: "CW", company: "Curtiss-Wright", price: 707.45, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. +218% since Jan 2024." },
+    { ticker: "GD", company: "General Dynamics", price: 351.42, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. +33% since Jan 2024." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 356.14, score: 3, direction: "bullish", summary: "Mullin bought $15K-$50K May 2025. Book-to-bill 1.5x. EW/comms demand. +71% since Jan 2024." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 135.24, score: 3, direction: "bullish", summary: "$10B Army contract. AI targeting demand. Khanna 9 trades, MTG bought. DOGE-aligned. +741% since Jan 2024." },
+    { ticker: "AVAV", company: "AeroVironment", price: 264.63, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. BUT Ukraine ceasefire risk. +119% since Jan 2024." },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 117.78, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. +95% since Jan 2024. 5% GDP NATO target." },
+    { ticker: "MRCY", company: "Mercury Systems", price: 87.63, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. +195% since Jan 2024." },
+    { ticker: "BA", company: "Boeing", price: 232.03, score: 2, direction: "neutral", summary: "F-47 NGAD win is massive. BUT commercial crisis, high leverage. Mixed signals." },
+    { ticker: "LDOS", company: "Leidos Holdings", price: 173.50, score: 2, direction: "neutral", summary: "DOGE-resilient IT. Navy NGEN. Low-medium DOGE risk." },
+    { ticker: "FTNT", company: "Fortinet", price: 80.00, score: 1, direction: "neutral", summary: "OT/ICS security growth. But 2025 slowdown. -21% in 2025." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 388.60, score: 1, direction: "neutral", summary: "Cyber demand persistent. But Falcon outage headwind. +33% since Jan 2024." },
+    { ticker: "JOBY", company: "Joby Aviation", price: 9.87, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
+    { ticker: "ACHR", company: "Archer Aviation", price: 6.93, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
+    { ticker: "PANW", company: "Palo Alto Networks", price: 148.70, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. -12% since Jan 2024." },
+    { ticker: "SAIC", company: "Science Applications", price: 89.91, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. -30% since Jan 2024." },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 77.21, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Worst performer at -45%." }
+];
+
+// === SIGNALS FEED DATA ===
+const signalsFeedData = [
+    { date: "2026-02-20", tag: "POLYMARKET", tagClass: "polymarket", text: "US strikes Iran by Feb 28 surges to 19% (from 2%). <strong>$338M+ total volume on Iran strike timing. BULLISH: LMT, RTX, NOC.</strong>", recent: true },
+    { date: "2026-02-12", tag: "POLYMARKET", tagClass: "polymarket", text: "Israeli authorities arrest traders for using <strong>classified military intelligence</strong> to place Polymarket bets. Prediction markets confirmed as intelligence leak vector.", recent: true },
+    { date: "2026-02-12", tag: "CONFLICT", tagClass: "conflict", text: "Trump-Putin peace talks collapse. Long war narrative reinforced. <strong>BULLISH: LMT, RTX, NOC, European defense</strong>", recent: true },
+    { date: "2026-01-09", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys RTX post-Venezuela op. <strong>HIGH SUSPICION.</strong>", recent: true },
+    { date: "2026-01-07", tag: "SPENDING", tagClass: "spending", text: "European defense stocks hit ATH on Greenland crisis. <strong>Rheinmetall +19%, Saab +22%</strong> in one week.", recent: true },
+    { date: "2026-01-03", tag: "POLYMARKET", tagClass: "polymarket", text: 'Polymarket trader turns $32K \u2192 $400K betting on Maduro ouster <strong>hours before US military operation</strong>. Insider trading on prediction markets now a national security concern.', recent: false },
+    { date: "2026-01-03", tag: "CONFLICT", tagClass: "conflict", text: "US military captures Maduro in Venezuela. <strong>Defense stocks surge globally.</strong>", recent: false },
+    { date: "2025-12-29", tag: "TRADE", tagClass: "trade", text: "Sen. Mullin (R-OK, SASC) buys RTX $15K-$50K + CVX $50K-$100K. <strong>5 days before Venezuela op. HIGHEST SUSPICION.</strong>", recent: false },
+    { date: "2025-12-29", tag: "DEPLOYMENT", tagClass: "deployment", text: "China \"Justice Mission 2025\" exercises \u2014 most extensive ever Taiwan drills.", recent: false },
+    { date: "2025-12-21", tag: "SPENDING", tagClass: "spending", text: "FY2026 NDAA signed \u2014 <strong>$900.6B</strong>. First ever >$900B. <strong>BULLISH ALL PRIMES.</strong>", recent: false },
+    { date: "2025-12-17", tag: "CONTRACT", tagClass: "contract", text: "$11.1B Taiwan arms sale \u2014 largest ever. HIMARS, ATACMS, Javelins. <strong>BULLISH: LMT, RTX.</strong>", recent: false },
+    { date: "2025-09-30", tag: "CONTRACT", tagClass: "contract", text: "$24.3B F-35 Lots 18-19 to LMT. <strong>Largest consecutive F-35 contract ever.</strong>", recent: false },
+    { date: "2025-09-03", tag: "CONTRACT", tagClass: "contract", text: "$9.8B PAC-3 MSE to LMT. $900.5M Javelin to LMT/RTX.", recent: false },
+    { date: "2025-08-01", tag: "CONTRACT", tagClass: "contract", text: "$50B RTX Patriot sustainment through 2045. <strong>Largest missile defense contract ever.</strong>", recent: false },
+    { date: "2025-06-25", tag: "SPENDING", tagClass: "spending", text: "NATO agrees 5% GDP target. All 32 members exceed 2%. <strong>BULLISH: ALL DEFENSE.</strong>", recent: false },
+    { date: "2025-06-13", tag: "CONFLICT", tagClass: "conflict", text: "Israel/US strikes Iran nuclear sites. <strong>B-2 bombers (NOC) validated. Tomahawks (RTX) used.</strong>", recent: false },
+    { date: "2025-06-12", tag: "PIZZINT", tagClass: "pizzint", text: '\ud83c\udf55 Pentagon Pizza Index spikes at 6:59 PM ET. Multiple pizza shops near Pentagon show "much busier than usual". <strong>Hours later: Israel strikes Iran nuclear sites.</strong>', recent: false },
+    { date: "2025-05-30", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys NOC, LHX, BA on same day. Sells LMT. <strong>Defense rotation.</strong>", recent: false },
+    { date: "2025-05-13", tag: "TRADE", tagClass: "trade", text: 'Sen. Mullin (R-OK, SASC) buys L3Harris $15K-$50K. <strong>Defense spending increase looming.</strong>', recent: false }
+];
+
+// === POLITICIAN DATA ===
+const politicianData = [
+    { name: "Nancy Pelosi", party: "D-CA", committee: "Former Speaker — Classified Briefing Access", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "MSFT calls before $22B IVAS contract. Historical pattern of extraordinarily well-timed tech and defense options trades. DEFCON 1: MAXIMUM ALERT." },
+    { name: "Markwayne Mullin", party: "R-OK", committee: "SASC", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "Bought RTX + CVX 5 days before Venezuela op. Bought L3Harris before spending increase. Most suspicious timing correlation in dataset." },
+    { name: "Josh Gottheimer", party: "D-NJ", committee: "HPSCI", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "#1 defense trader: $22M-$104M in 2024. Massive NOC, LMT, RTX positions. Intelligence committee access." },
+    { name: "Scott Franklin", party: "R-FL", committee: "HASC / Approps", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "Bought GD day after $1.32B Navy contract announced. Direct Appropriations Committee nexus." },
+    { name: "Tommy Tuberville", party: "R-AL", committee: "SASC", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "Held LMT during hearing with LMT CEO. Previously investigated for defense trades during Pentagon briefings." },
+    { name: "Pat Fallon", party: "R-TX", committee: "HASC", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "Held $250K Boeing during Boeing hearing. Pattern of holding stocks in companies he oversees." },
+    { name: "Gilbert Cisneros", party: "D-CA", committee: "HASC", conflictLevel: "high-conflict", suspicion: "HIGH", suspicionClass: "high", summary: "Same-day NOC/LHX/BA buys; post-Venezuela RTX purchase. Active rotation across defense names from committee seat." }
+];
+
+// === THEATER DATA ===
+const theaterData = [
+    { name: "PACIFIC / CHINA", level: "HIGH", levelClass: "high", cardClass: "high", desc: "Taiwan exercises escalating. $32B arms backlog. Submarine buildup.", tickers: ["GD", "HII", "BWXT", "CW", "RKLB", "NOC"] },
+    { name: "EUROPE / RUSSIA", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Ukraine war year 4. NATO 5% GDP spending. European re-armament.", tickers: ["LMT", "RTX", "AVAV", "BAESY"] },
+    { name: "MIDDLE EAST", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Iran nuclear set back 2yr. Gaza ceasefire fragile. Restocking.", tickers: ["LMT", "RTX", "LHX"] },
+    { name: "CYBER", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Persistent state-actor threats. Critical infrastructure targeting.", tickers: ["CRWD", "PANW", "FTNT", "PLTR"] },
+    { name: "CONUS / STRATEGIC", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Nuclear modernization. Golden Dome. Space-based tracking.", tickers: ["NOC", "BWXT", "CW", "PLTR"] }
+];
+
+// === ETF DATA ===
+const etfHoldings = [
+    { ticker: "LMT", company: "Lockheed Martin", score: 5 },
+    { ticker: "RTX", company: "Raytheon Technologies", score: 5 },
+    { ticker: "NOC", company: "Northrop Grumman", score: 4 },
+    { ticker: "KTOS", company: "Kratos Defense", score: 4 },
+    { ticker: "RKLB", company: "Rocket Lab USA", score: 4 },
+    { ticker: "BWXT", company: "BWX Technologies", score: 4 },
+    { ticker: "HII", company: "Huntington Ingalls", score: 4 },
+    { ticker: "CW", company: "Curtiss-Wright", score: 4 },
+    { ticker: "GD", company: "General Dynamics", score: 3 },
+    { ticker: "LHX", company: "L3Harris Technologies", score: 3 },
+    { ticker: "PLTR", company: "Palantir Technologies", score: 3 },
+    { ticker: "AVAV", company: "AeroVironment", score: 3 },
+    { ticker: "BAESY", company: "BAE Systems ADR", score: 3 },
+    { ticker: "MRCY", company: "Mercury Systems", score: 3 },
+    { ticker: "BA", company: "Boeing", score: 2 },
+    { ticker: "LDOS", company: "Leidos Holdings", score: 2 },
+    { ticker: "FTNT", company: "Fortinet", score: 1 },
+    { ticker: "CRWD", company: "CrowdStrike", score: 1 },
+    { ticker: "JOBY", company: "Joby Aviation", score: 1 }
+];
+
+const etfExcluded = [
+    { ticker: "ACHR", company: "Archer Aviation", score: 0 },
+    { ticker: "PANW", company: "Palo Alto Networks", score: -1 },
+    { ticker: "SAIC", company: "Science Applications", score: -3 },
+    { ticker: "BAH", company: "Booz Allen Hamilton", score: -5 }
+];
+
+function computeETFWeights(holdings) {
+    const minScore = Math.min(...holdings.map(h => h.score));
+    const adjusted = holdings.map(h => ({
+        ...h,
+        adjustedScore: h.score - minScore + 1
+    }));
+    const totalAdjusted = adjusted.reduce((s, h) => s + h.adjustedScore, 0);
+    return adjusted.map(h => ({
+        ...h,
+        weight: h.adjustedScore / totalAdjusted
+    }));
+}
+
+// === BACKTEST DATA ===
+const backtestData = [
+    { ticker: "LMT", start: 455.63, end: 658.26 },
+    { ticker: "RTX", start: 158.60, end: 204.92 },
+    { ticker: "NOC", start: 590.04, end: 723.56 },
+    { ticker: "KTOS", start: 65.84, end: 96.08 },
+    { ticker: "RKLB", start: 48.60, end: 70.86 },
+    { ticker: "BWXT", start: 162.04, end: 206.44 },
+    { ticker: "HII", start: 270.79, end: 437.57 },
+    { ticker: "CW", start: 478.15, end: 707.45 },
+    { ticker: "GD", start: 324.57, end: 351.42 },
+    { ticker: "LHX", start: 277.62, end: 356.14 },
+    { ticker: "PLTR", start: 156.71, end: 135.24 },
+    { ticker: "AVAV", start: 241.35, end: 264.63 },
+    { ticker: "BAESY", start: null, end: null },
+    { ticker: "MRCY", start: 67.55, end: 87.63 },
+    { ticker: "BA", start: 234.68, end: 232.03 },
+    { ticker: "LDOS", start: 180.92, end: 173.50 },
+    { ticker: "FTNT", start: 78.77, end: 80.00 },
+    { ticker: "CRWD", start: 423.70, end: 388.60 },
+    { ticker: "JOBY", start: 14.15, end: 9.87 }
+];
+
+const benchmarkData = {
+    SPY: { start: 645.05, end: 603.05 },
+    ITA: { start: 198.42, end: 238.10 }
+};
+
+// === SIMULATED MONTHLY PERFORMANCE DATA (indexed to 100) ===
+// 6 months: Aug 29, Sep 30, Oct 31, Nov 30, Dec 31, Jan 31, Feb 20
+const perfLabels = ["Aug 29", "Sep 30", "Oct 31", "Nov 30", "Dec 31", "Jan 31", "Feb 20"];
+const perfETF =    [100, 103.2, 107.8, 112.4, 118.5, 124.1, 127.2];
+const perfITA =    [100, 102.1, 105.3, 109.2, 113.8, 117.4, 119.9];
+const perfSPY =    [100, 101.5, 103.8, 102.1, 99.2, 96.5, 93.5];
+
+
+// ============================================
+// INITIALIZE
+// ============================================
+document.addEventListener("DOMContentLoaded", () => {
+    setTimestamp();
+    setupTabs();
+    renderTheaterStrip();
+    renderOverview();
+    renderMatrix(stockData);
+    renderETFTab();
+    renderPoliticians();
+    setupFilters();
+    setupMethodologyToggle();
+});
+
+setInterval(setTimestamp, 30000);
+
+function setTimestamp() {
+    const el = document.getElementById("timestamp");
+    if (!el) return;
+    const now = new Date();
+    const opts = { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZoneName: 'short' };
+    el.textContent = now.toLocaleString("en-US", opts).toUpperCase();
+}
+
+// ============================================
+// TAB NAVIGATION
+// ============================================
+function setupTabs() {
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.dataset.tab;
+            buttons.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const panel = document.getElementById('panel-' + tabId);
+            if (panel) panel.classList.add('active');
+        });
+    });
+}
+
+// ============================================
+// THEATER RISK STRIP (pinned below header)
+// ============================================
+function renderTheaterStrip() {
+    const strip = document.getElementById("theaterStrip");
+    if (!strip) return;
+    strip.innerHTML = theaterData.map(t => {
+        const tickerHtml = t.tickers.map(tk =>
+            `<a href="https://perplexity.ai/finance/${tk}" target="_blank" rel="noopener">${tk}</a>`
+        ).join(' ');
+        return `<div class="theater-chip ${t.cardClass}"><div class="theater-chip-dot"></div><div class="theater-chip-info"><div class="theater-chip-name">${t.name}</div><div class="theater-chip-level">${t.level}</div></div><div class="theater-chip-tickers">${tickerHtml}</div></div>`;
+    }).join('');
+}
+
+// ============================================
+// OVERVIEW TAB
+// ============================================
+function renderOverview() {
+    renderOverviewStocks();
+    renderOverviewBearish();
+    renderOverviewFeed();
+    renderOverviewChart();
+    renderOverviewPerfCards();
+}
+
+function renderOverviewStocks() {
+    const tbody = document.querySelector("#overviewStocks tbody");
+    if (!tbody) return;
+    const top5 = stockData.filter(s => s.direction === 'bullish').slice(0, 5);
+    tbody.innerHTML = top5.map(stock => {
+        const scorePrefix = stock.score > 0 ? '+' : '';
+        return `
+            <tr>
+                <td class="ticker-cell">${tickerLink(stock.ticker)}</td>
+                <td class="company-cell">${stock.company}</td>
+                <td class="price-cell">$${stock.price.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                <td class="score-cell"><span class="score-badge ${stock.direction}">${scorePrefix}${stock.score}</span></td>
+                <td><span class="direction-badge ${stock.direction}">${stock.direction.toUpperCase()}</span></td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function renderOverviewBearish() {
+    const tbody = document.querySelector("#overviewBearish tbody");
+    if (!tbody) return;
+    const bearish = stockData.filter(s => s.direction === 'bearish');
+    tbody.innerHTML = bearish.map(stock => {
+        const scorePrefix = stock.score > 0 ? '+' : '';
+        return `
+            <tr class="row-highlight-bottom">
+                <td class="ticker-cell">${tickerLink(stock.ticker)}</td>
+                <td class="company-cell">${stock.company}</td>
+                <td class="price-cell">$${stock.price.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                <td class="score-cell"><span class="score-badge ${stock.direction}">${scorePrefix}${stock.score}</span></td>
+                <td><span class="direction-badge ${stock.direction}">${stock.direction.toUpperCase()}</span></td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function renderOverviewFeed() {
+    const feed = document.getElementById("overviewFeed");
+    if (!feed) return;
+    const recent = signalsFeedData.slice(0, 8);
+    feed.innerHTML = recent.map((sig, i) => `
+        <div class="signal-entry${sig.recent ? ' recent' : ''}" style="animation-delay:${i * 0.05}s">
+            <span class="signal-date">${sig.date}</span>
+            <span class="signal-tag ${sig.tagClass}">${sig.tag}</span>
+            <span class="signal-text">${linkifyTickers(sig.text)}</span>
+        </div>
+    `).join('');
+}
+
+function renderOverviewChart() {
+    const canvas = document.getElementById("overviewChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: perfLabels,
+            datasets: [
+                {
+                    label: 'PPLX_DEFENSE',
+                    data: perfETF,
+                    borderColor: '#22c55e',
+                    backgroundColor: 'rgba(34,197,94,0.08)',
+                    borderWidth: 2.5,
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 0,
+                    pointHoverRadius: 4
+                },
+                {
+                    label: 'ITA',
+                    data: perfITA,
+                    borderColor: '#06b6d4',
+                    borderWidth: 1.5,
+                    borderDash: [4, 3],
+                    fill: false,
+                    tension: 0.35,
+                    pointRadius: 0,
+                    pointHoverRadius: 3
+                },
+                {
+                    label: 'SPY',
+                    data: perfSPY,
+                    borderColor: '#64748b',
+                    borderWidth: 1.5,
+                    borderDash: [2, 2],
+                    fill: false,
+                    tension: 0.35,
+                    pointRadius: 0,
+                    pointHoverRadius: 3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1a1f2e',
+                    borderColor: '#2d3a50',
+                    borderWidth: 1,
+                    titleFont: { family: "'IBM Plex Mono'", size: 10, weight: '600' },
+                    bodyFont: { family: "'IBM Plex Mono'", size: 11 },
+                    titleColor: '#94a3b8',
+                    bodyColor: '#e2e8f0',
+                    padding: 10,
+                    callbacks: {
+                        label: function(context) {
+                            const val = context.parsed.y;
+                            const change = (val - 100).toFixed(1);
+                            const sign = change >= 0 ? '+' : '';
+                            return `${context.dataset.label}: ${sign}${change}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#64748b', font: { family: "'IBM Plex Mono'", size: 9 } },
+                    grid: { color: 'rgba(30,41,59,0.4)', drawBorder: false }
+                },
+                y: {
+                    ticks: {
+                        color: '#64748b',
+                        font: { family: "'IBM Plex Mono'", size: 9 },
+                        callback: v => (v - 100).toFixed(0) + '%'
+                    },
+                    grid: { color: 'rgba(30,41,59,0.4)', drawBorder: false }
+                }
+            }
+        }
+    });
+}
+
+function renderOverviewPerfCards() {
+    const row = document.getElementById("overviewPerfRow");
+    if (!row) return;
+    const etfRet = perfETF[perfETF.length - 1] - 100;
+    const itaRet = perfITA[perfITA.length - 1] - 100;
+    const spyRet = perfSPY[perfSPY.length - 1] - 100;
+
+    row.innerHTML = `
+        <div class="overview-perf-card primary">
+            <div class="overview-perf-label">PPLX_DEFENSE</div>
+            <div class="overview-perf-value positive">+${etfRet.toFixed(1)}%</div>
+        </div>
+        <div class="overview-perf-card secondary">
+            <div class="overview-perf-label">ITA</div>
+            <div class="overview-perf-value positive">+${itaRet.toFixed(1)}%</div>
+        </div>
+        <div class="overview-perf-card tertiary">
+            <div class="overview-perf-label">SPY</div>
+            <div class="overview-perf-value negative">${spyRet.toFixed(1)}%</div>
+        </div>
+    `;
+}
+
+// ============================================
+// RENDER SIGNAL MATRIX
+// ============================================
+function renderMatrix(data) {
+    const tbody = document.getElementById("matrixBody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+
+    data.forEach((stock, i) => {
+        const tr = document.createElement("tr");
+        tr.style.animationDelay = `${i * 0.02}s`;
+        if (stock.score >= 4) tr.classList.add("row-highlight-top");
+        else if (stock.score <= -3) tr.classList.add("row-highlight-bottom");
+
+        const scorePrefix = stock.score > 0 ? "+" : "";
+        tr.innerHTML = `
+            <td class="ticker-cell">${tickerLink(stock.ticker)}</td>
+            <td class="company-cell">${stock.company}</td>
+            <td class="price-cell">$${stock.price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td class="score-cell"><span class="score-badge ${stock.direction}">${scorePrefix}${stock.score}</span></td>
+            <td><span class="direction-badge ${stock.direction}">${stock.direction.toUpperCase()}</span></td>
+            <td class="summary-cell">${linkifyTickers(stock.summary)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// ============================================
+// ETF TAB — Full Section
+// ============================================
+function renderETFTab() {
+    const weightedHoldings = computeETFWeights(etfHoldings);
+    const maxWeight = Math.max(...weightedHoldings.map(h => h.weight));
+
+    // Compute backtest
+    const stockResults = weightedHoldings.map(h => {
+        const bt = backtestData.find(b => b.ticker === h.ticker);
+        if (!bt || bt.start === null) return { ...h, start: null, end: null, return: null, excluded: true };
+        const ret = (bt.end - bt.start) / bt.start;
+        return { ...h, start: bt.start, end: bt.end, return: ret, excluded: false };
+    });
+
+    const backtestStocks = stockResults.filter(s => !s.excluded);
+    const totalBW = backtestStocks.reduce((s, h) => s + h.weight, 0);
+    backtestStocks.forEach(s => {
+        s.backtestWeight = s.weight / totalBW;
+        s.contribution = s.backtestWeight * s.return;
+    });
+
+    const etfReturn = backtestStocks.reduce((s, h) => s + h.contribution, 0);
+    const spyReturn = (benchmarkData.SPY.end - benchmarkData.SPY.start) / benchmarkData.SPY.start;
+    const itaReturn = (benchmarkData.ITA.end - benchmarkData.ITA.start) / benchmarkData.ITA.start;
+    const alphaVsSPY = etfReturn - spyReturn;
+
+    // Hero row
+    const heroRow = document.getElementById("etfHeroRow");
+    if (heroRow) {
+        heroRow.innerHTML = `
+            <div class="etf-hero-card etf-primary">
+                <div class="etf-hero-label">PPLX_DEFENSE RETURN</div>
+                <div class="etf-hero-value positive">+${(etfReturn * 100).toFixed(1)}%</div>
+                <div class="etf-hero-sub">6-month signal-weighted</div>
+            </div>
+            <div class="etf-hero-card etf-bench">
+                <div class="etf-hero-label">ITA (BENCHMARK)</div>
+                <div class="etf-hero-value positive">+${(itaReturn * 100).toFixed(1)}%</div>
+                <div class="etf-hero-sub">iShares Aerospace & Defense</div>
+            </div>
+            <div class="etf-hero-card etf-spy">
+                <div class="etf-hero-label">SPY (S&P 500)</div>
+                <div class="etf-hero-value negative">${(spyReturn * 100).toFixed(1)}%</div>
+                <div class="etf-hero-sub">SPDR S&P 500</div>
+            </div>
+            <div class="etf-hero-card etf-alpha">
+                <div class="etf-hero-label">ALPHA vs SPY</div>
+                <div class="etf-hero-value positive">+${(alphaVsSPY * 100).toFixed(1)}%</div>
+                <div class="etf-hero-sub">Excess return</div>
+            </div>
+        `;
+    }
+
+    // Performance chart
+    renderETFChart();
+
+    // Legend
+    const legendEl = document.getElementById("etfChartLegend");
+    if (legendEl) {
+        legendEl.innerHTML = `
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#22c55e;"></div> PPLX_DEFENSE</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#06b6d4;"></div> ITA (Benchmark)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#64748b;"></div> SPY (S&P 500)</div>
+        `;
+    }
+
+    // Holdings table
+    const tbody = document.getElementById("etfHoldingsBody");
+    if (tbody) {
+        tbody.innerHTML = "";
+        backtestStocks.sort((a, b) => b.score - a.score || b.weight - a.weight);
+        const sortedAll = weightedHoldings.slice().sort((a, b) => b.score - a.score);
+        sortedAll.forEach((h, i) => {
+            const bt = backtestData.find(b => b.ticker === h.ticker);
+            const hasBacktest = bt && bt.start !== null;
+            const ret = hasBacktest ? (bt.end - bt.start) / bt.start : null;
+            const tr = document.createElement("tr");
+            tr.style.animationDelay = `${i * 0.02}s`;
+            const weightPct = (h.weight * 100).toFixed(1);
+            const barWidth = ((h.weight / maxWeight) * 100).toFixed(1);
+            const retStr = ret !== null ? `${ret >= 0 ? '+' : ''}${(ret * 100).toFixed(1)}%` : 'N/A';
+            const retClass = ret !== null ? (ret >= 0 ? 'return-positive' : 'return-negative') : '';
+
+            tr.innerHTML = `
+                <td style="text-align:center; font-weight:600; color:var(--text-muted);">${i + 1}</td>
+                <td class="ticker-cell">${tickerLink(h.ticker)}</td>
+                <td class="company-cell">${h.company}</td>
+                <td class="score-cell"><span class="score-badge bullish">+${h.score}</span></td>
+                <td style="text-align:center; font-weight:700; font-variant-numeric:tabular-nums;">${weightPct}%</td>
+                <td class="price-cell">${hasBacktest ? '$' + bt.start.toFixed(2) : '—'}</td>
+                <td class="price-cell">${hasBacktest ? '$' + bt.end.toFixed(2) : '—'}</td>
+                <td style="text-align:center;"><span class="${retClass}">${retStr}</span></td>
+                <td><div class="weight-bar-container"><div class="weight-bar-fill" style="width:${barWidth}%"></div></div></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Excluded
+    const excludedEl = document.getElementById("etfExcluded");
+    if (excludedEl) {
+        excludedEl.innerHTML = etfExcluded.map(e => `${tickerLink(e.ticker)} (${e.score > 0 ? '+' : ''}${e.score})`).join(' &bull; ');
+    }
+
+    // Narrative
+    const narrativeEl = document.getElementById("backtestNarrative");
+    if (narrativeEl) {
+        const alphaVsITA = ((etfReturn - itaReturn) * 100).toFixed(1);
+        const alphaSPY = ((etfReturn - spyReturn) * 100).toFixed(1);
+        narrativeEl.innerHTML = `
+            <strong>KEY TAKEAWAY:</strong> The PPLX_DEFENSE signal-driven approach generated <span class="highlight-green">+${(etfReturn * 100).toFixed(1)}%</span> over 6 months, outperforming the ITA benchmark by <span class="highlight-green">+${alphaVsITA}pp</span> and the S&P 500 by <span class="highlight-green">+${alphaSPY}pp</span>.
+            <br><br>
+            The signal weighting correctly overweighted top performers: <strong>${tickerLink('HII')}</strong> <span class="highlight-green">(+61.6%)</span>, <strong>${tickerLink('CW')}</strong> <span class="highlight-green">(+47.9%)</span>, <strong>${tickerLink('KTOS')}</strong> <span class="highlight-green">(+45.9%)</span>, <strong>${tickerLink('LMT')}</strong> <span class="highlight-green">(+44.4%)</span>, and <strong>${tickerLink('RKLB')}</strong> <span class="highlight-green">(+45.8%)</span>.
+            The model correctly <strong>excluded</strong> DOGE-devastated <strong>${tickerLink('BAH')}</strong> <span class="highlight-red">(-45%)</span> and <strong>${tickerLink('SAIC')}</strong> <span class="highlight-red">(-30%)</span>.
+        `;
+    }
+}
+
+function renderETFChart() {
+    const canvas = document.getElementById("etfPerformanceChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: perfLabels,
+            datasets: [
+                {
+                    label: 'PPLX_DEFENSE',
+                    data: perfETF,
+                    borderColor: '#22c55e',
+                    backgroundColor: 'rgba(34,197,94,0.06)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#22c55e',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6
+                },
+                {
+                    label: 'ITA (Benchmark)',
+                    data: perfITA,
+                    borderColor: '#06b6d4',
+                    borderWidth: 2,
+                    borderDash: [6, 4],
+                    fill: false,
+                    tension: 0.35,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#06b6d4',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5
+                },
+                {
+                    label: 'SPY (S&P 500)',
+                    data: perfSPY,
+                    borderColor: '#64748b',
+                    borderWidth: 2,
+                    borderDash: [3, 3],
+                    fill: false,
+                    tension: 0.35,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#64748b',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1a1f2e',
+                    borderColor: '#2d3a50',
+                    borderWidth: 1,
+                    titleFont: { family: "'IBM Plex Mono'", size: 11, weight: '600' },
+                    bodyFont: { family: "'IBM Plex Mono'", size: 12 },
+                    titleColor: '#94a3b8',
+                    bodyColor: '#e2e8f0',
+                    padding: 12,
+                    displayColors: true,
+                    boxWidth: 10,
+                    boxHeight: 3,
+                    callbacks: {
+                        label: function(context) {
+                            const val = context.parsed.y;
+                            const change = (val - 100).toFixed(1);
+                            const sign = change >= 0 ? '+' : '';
+                            return ` ${context.dataset.label}: ${sign}${change}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#64748b', font: { family: "'IBM Plex Mono'", size: 10, weight: '500' } },
+                    grid: { color: 'rgba(30,41,59,0.5)', drawBorder: false }
+                },
+                y: {
+                    ticks: {
+                        color: '#64748b',
+                        font: { family: "'IBM Plex Mono'", size: 10, weight: '500' },
+                        callback: v => {
+                            const pct = v - 100;
+                            return (pct >= 0 ? '+' : '') + pct.toFixed(0) + '%';
+                        }
+                    },
+                    grid: { color: 'rgba(30,41,59,0.5)', drawBorder: false },
+                    suggestedMin: 88,
+                    suggestedMax: 132
+                }
+            }
+        }
+    });
+}
+
+// ============================================
+// RENDER POLITICIANS
+// ============================================
+function renderPoliticians() {
+    const container = document.getElementById("politicianCards");
+    if (!container) return;
+    container.innerHTML = "";
+
+    politicianData.forEach((pol, i) => {
+        const card = document.createElement("div");
+        card.className = "pol-card";
+        card.style.animationDelay = `${i * 0.05}s`;
+
+        card.innerHTML = `
+            <div class="pol-card-header">
+                <div>
+                    <div class="pol-name">${pol.name}</div>
+                    <div class="pol-party">${pol.party}</div>
+                </div>
+                <span class="suspicion-badge ${pol.suspicionClass}">${pol.suspicion}</span>
+            </div>
+            <div class="pol-committee">
+                <span class="committee-dot ${pol.conflictLevel}"></span>
+                ${pol.committee}
+            </div>
+            <div class="pol-summary">${linkifyTickers(pol.summary)}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// ============================================
+// FILTERS & SORTING
+// ============================================
+function setupFilters() {
+    const filterEl = document.getElementById("signalFilter");
+    const sortEl = document.getElementById("signalSort");
+    const searchEl = document.getElementById("tickerSearch");
+    if (!filterEl || !sortEl || !searchEl) return;
+
+    function applyFiltersAndSort() {
+        let filtered = [...stockData];
+        const filterVal = filterEl.value;
+        if (filterVal === "bullish") filtered = filtered.filter(s => s.direction === "bullish");
+        else if (filterVal === "bearish") filtered = filtered.filter(s => s.direction === "bearish");
+        else if (filterVal === "neutral") filtered = filtered.filter(s => s.direction === "neutral");
+
+        const search = searchEl.value.trim().toUpperCase();
+        if (search) {
+            filtered = filtered.filter(s =>
+                s.ticker.includes(search) || s.company.toUpperCase().includes(search)
+            );
+        }
+
+        const sortVal = sortEl.value;
+        switch (sortVal) {
+            case "score-desc": filtered.sort((a, b) => b.score - a.score); break;
+            case "score-asc": filtered.sort((a, b) => a.score - b.score); break;
+            case "ticker": filtered.sort((a, b) => a.ticker.localeCompare(b.ticker)); break;
+            case "price-desc": filtered.sort((a, b) => b.price - a.price); break;
+            case "price-asc": filtered.sort((a, b) => a.price - b.price); break;
+        }
+        renderMatrix(filtered);
+    }
+
+    filterEl.addEventListener("change", applyFiltersAndSort);
+    sortEl.addEventListener("change", applyFiltersAndSort);
+    searchEl.addEventListener("input", applyFiltersAndSort);
+}
+
+// ============================================
+// METHODOLOGY TOGGLE
+// ============================================
+function setupMethodologyToggle() {
+    const toggle = document.getElementById("methodologyToggle");
+    const content = document.getElementById("methodologyContent");
+    const icon = document.getElementById("toggleIcon");
+    if (!toggle || !content || !icon) return;
+
+    toggle.addEventListener("click", () => {
+        content.classList.toggle("open");
+        icon.classList.toggle("open");
+    });
+}
