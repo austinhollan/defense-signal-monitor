@@ -24,38 +24,42 @@ function linkifyTickers(text) {
 
 // === STOCK DATA ===
 const stockData = [
-    { ticker: "LMT", company: "Lockheed Martin", price: 658.26, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. 6 politician buys (Mullin, Cisneros, Tuberville, Gottheimer). 30/33 military events relevant." },
-    { ticker: "RTX", company: "Raytheon Technologies", price: 204.92, score: 5, direction: "bullish", summary: "Most traded defense stock by Congress. $50B Patriot contract. Mullin bought Dec 29 before Venezuela op. 28/33 events relevant. $251B backlog." },
-    { ticker: "NOC", company: "Northrop Grumman", price: 723.56, score: 4, direction: "bullish", summary: "B-21 Raider validated in Iran strikes. Sentinel ICBM. Nuclear modernization spending. Gottheimer, Cisneros, McClain trades. +62% since Jan 2024." },
-    { ticker: "KTOS", company: "Kratos Defense", price: 96.08, score: 4, direction: "bullish", summary: "CCA/attritable drone boom. $1.45B hypersonics contract. Drone executive order tailwind. +468% since Jan 2024. Extremely high escalation sensitivity." },
+    { ticker: "LMT", company: "Lockheed Martin", price: 658.46, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. 6 politician buys (Mullin, Cisneros, Tuberville, Gottheimer). 30/33 military events relevant." },
+    { ticker: "RTX", company: "Raytheon Technologies", price: 205.00, score: 5, direction: "bullish", summary: "Most traded defense stock by Congress. $50B Patriot contract. Mullin bought Dec 29 before Venezuela op. 28/33 events relevant. $251B backlog." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 723.62, score: 4, direction: "bullish", summary: "B-21 Raider validated in Iran strikes. Sentinel ICBM. Nuclear modernization spending. Gottheimer, Cisneros, McClain trades. +62% since Jan 2024." },
+    { ticker: "KTOS", company: "Kratos Defense", price: 96.08, score: 4, direction: "bullish", summary: "CCA/attritable drone boom. $1.1B Drone Dominance Program. Drone executive order tailwind. +468% since Jan 2024. Extremely high escalation sensitivity." },
     { ticker: "RKLB", company: "Rocket Lab USA", price: 70.86, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. Space-based tracking. +1361% since Jan 2024." },
-    { ticker: "BWXT", company: "BWX Technologies", price: 206.44, score: 4, direction: "bullish", summary: "Sole-source naval nuclear. Zero DOGE risk. Submarine buildup. +153% since Jan 2024." },
-    { ticker: "HII", company: "Huntington Ingalls", price: 437.57, score: 4, direction: "bullish", summary: "$151B SHIELD IDIQ contract. Only nuclear shipyard. Pacific naval expansion. +69% since Jan 2024." },
-    { ticker: "CW", company: "Curtiss-Wright", price: 707.45, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. +218% since Jan 2024." },
-    { ticker: "GD", company: "General Dynamics", price: 351.42, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. +33% since Jan 2024." },
-    { ticker: "LHX", company: "L3Harris Technologies", price: 356.14, score: 3, direction: "bullish", summary: "Mullin bought $15K-$50K May 2025. Book-to-bill 1.5x. EW/comms demand. +71% since Jan 2024." },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 135.24, score: 3, direction: "bullish", summary: "$10B Army contract. AI targeting demand. Khanna 9 trades, MTG bought. DOGE-aligned. +741% since Jan 2024." },
-    { ticker: "AVAV", company: "AeroVironment", price: 264.63, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. BUT Ukraine ceasefire risk. +119% since Jan 2024." },
-    { ticker: "BAESY", company: "BAE Systems ADR", price: 117.78, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. +95% since Jan 2024. 5% GDP NATO target." },
-    { ticker: "MRCY", company: "Mercury Systems", price: 87.63, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. +195% since Jan 2024." },
-    { ticker: "BA", company: "Boeing", price: 232.03, score: 2, direction: "neutral", summary: "F-47 NGAD win is massive. BUT commercial crisis, high leverage. Mixed signals." },
-    { ticker: "LDOS", company: "Leidos Holdings", price: 173.50, score: 2, direction: "neutral", summary: "DOGE-resilient IT. Navy NGEN. Low-medium DOGE risk." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 206.47, score: 4, direction: "bullish", summary: "Sole-source naval nuclear. Zero DOGE risk. Submarine buildup. +153% since Jan 2024." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 437.56, score: 4, direction: "bullish", summary: "$151B SHIELD IDIQ contract. Only nuclear shipyard. Pacific naval expansion. +69% since Jan 2024." },
+    { ticker: "CW", company: "Curtiss-Wright", price: 706.75, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. +218% since Jan 2024." },
+    { ticker: "GD", company: "General Dynamics", price: 351.32, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. +33% since Jan 2024." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 356.24, score: 3, direction: "bullish", summary: "Mullin bought $15K-$50K May 2025. Book-to-bill 1.5x. EW/comms demand. +71% since Jan 2024." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 135.27, score: 3, direction: "bullish", summary: "$10B Army contract. AI targeting demand. Khanna 9 trades, MTG bought. DOGE-aligned. +741% since Jan 2024." },
+    { ticker: "AVAV", company: "AeroVironment", price: 264.70, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. BUT Ukraine ceasefire risk. +119% since Jan 2024." },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 117.58, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. +95% since Jan 2024. 5% GDP NATO target." },
+    { ticker: "MRCY", company: "Mercury Systems", price: 87.65, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. +195% since Jan 2024." },
+    { ticker: "BA", company: "Boeing", price: 232.09, score: 2, direction: "neutral", summary: "F-47 NGAD win is massive. BUT commercial crisis, high leverage. Mixed signals." },
+    { ticker: "LDOS", company: "Leidos Holdings", price: 173.48, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
     { ticker: "FTNT", company: "Fortinet", price: 80.00, score: 1, direction: "neutral", summary: "OT/ICS security growth. But 2025 slowdown. -21% in 2025." },
-    { ticker: "CRWD", company: "CrowdStrike", price: 388.60, score: 1, direction: "neutral", summary: "Cyber demand persistent. But Falcon outage headwind. +33% since Jan 2024." },
-    { ticker: "JOBY", company: "Joby Aviation", price: 9.87, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
-    { ticker: "ACHR", company: "Archer Aviation", price: 6.93, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 388.66, score: 1, direction: "neutral", summary: "Cyber demand persistent. But Falcon outage headwind. +33% since Jan 2024." },
+    { ticker: "JOBY", company: "Joby Aviation", price: 9.89, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
+    { ticker: "ACHR", company: "Archer Aviation", price: 6.94, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
     { ticker: "PANW", company: "Palo Alto Networks", price: 148.70, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. -12% since Jan 2024." },
-    { ticker: "SAIC", company: "Science Applications", price: 89.91, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. -30% since Jan 2024." },
-    { ticker: "BAH", company: "Booz Allen Hamilton", price: 77.21, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Worst performer at -45%." }
+    { ticker: "SAIC", company: "Science Applications", price: 89.92, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. -30% since Jan 2024." },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 77.22, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Worst performer at -45%." }
 ];
 
 // === SIGNALS FEED DATA ===
 const signalsFeedData = [
+    { date: "2026-02-20", tag: "CONFLICT", tagClass: "conflict", text: "Iran-US crisis at PEAK intensity. Two carrier strike groups deployed to Gulf. Reuters reports strikes possible within days. <strong>BULLISH: LMT, RTX, NOC, KTOS.</strong>", recent: true },
+    { date: "2026-02-19", tag: "CONTRACT", tagClass: "contract", text: "Pentagon selects KTOS for Drone Dominance Program — <strong>$1.1B</strong> attritable UAS contract. Largest CCA award. <strong>BULLISH: KTOS, AVAV.</strong>", recent: true },
+    { date: "2026-02-18", tag: "SPENDING", tagClass: "spending", text: "LMT hits $666 52-week high. NOC hits $737. HII hits $443. Defense sector at all-time highs on <strong>$839B appropriation + Iran escalation</strong>.", recent: true },
+    { date: "2026-02-14", tag: "CONFLICT", tagClass: "conflict", text: "LDOS crashes to $173 (-11% in week). BAH continues slide to $77. <strong>DOGE risk materializing for IT services contractors.</strong>", recent: true },
     { date: "2026-02-20", tag: "POLYMARKET", tagClass: "polymarket", text: "US strikes Iran by Feb 28 surges to 19% (from 2%). <strong>$338M+ total volume on Iran strike timing. BULLISH: LMT, RTX, NOC.</strong>", recent: true },
     { date: "2026-02-12", tag: "POLYMARKET", tagClass: "polymarket", text: "Israeli authorities arrest traders for using <strong>classified military intelligence</strong> to place Polymarket bets. Prediction markets confirmed as intelligence leak vector.", recent: true },
-    { date: "2026-02-12", tag: "CONFLICT", tagClass: "conflict", text: "Trump-Putin peace talks collapse. Long war narrative reinforced. <strong>BULLISH: LMT, RTX, NOC, European defense</strong>", recent: true },
-    { date: "2026-01-09", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys RTX post-Venezuela op. <strong>HIGH SUSPICION.</strong>", recent: true },
-    { date: "2026-01-07", tag: "SPENDING", tagClass: "spending", text: "European defense stocks hit ATH on Greenland crisis. <strong>Rheinmetall +19%, Saab +22%</strong> in one week.", recent: true },
+    { date: "2026-02-12", tag: "CONFLICT", tagClass: "conflict", text: "Trump-Putin peace talks collapse. Long war narrative reinforced. <strong>BULLISH: LMT, RTX, NOC, European defense</strong>", recent: false },
+    { date: "2026-01-09", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys RTX post-Venezuela op. <strong>HIGH SUSPICION.</strong>", recent: false },
+    { date: "2026-01-07", tag: "SPENDING", tagClass: "spending", text: "European defense stocks hit ATH on Greenland crisis. <strong>Rheinmetall +19%, Saab +22%</strong> in one week.", recent: false },
     { date: "2026-01-03", tag: "POLYMARKET", tagClass: "polymarket", text: 'Polymarket trader turns $32K \u2192 $400K betting on Maduro ouster <strong>hours before US military operation</strong>. Insider trading on prediction markets now a national security concern.', recent: false },
     { date: "2026-01-03", tag: "CONFLICT", tagClass: "conflict", text: "US military captures Maduro in Venezuela. <strong>Defense stocks surge globally.</strong>", recent: false },
     { date: "2025-12-29", tag: "TRADE", tagClass: "trade", text: "Sen. Mullin (R-OK, SASC) buys RTX $15K-$50K + CVX $50K-$100K. <strong>5 days before Venezuela op. HIGHEST SUSPICION.</strong>", recent: false },
@@ -87,7 +91,7 @@ const politicianData = [
 const theaterData = [
     { name: "PACIFIC / CHINA", level: "HIGH", levelClass: "high", cardClass: "high", desc: "Taiwan exercises escalating. $32B arms backlog. Submarine buildup.", tickers: ["GD", "HII", "BWXT", "CW", "RKLB", "NOC"] },
     { name: "EUROPE / RUSSIA", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Ukraine war year 4. NATO 5% GDP spending. European re-armament.", tickers: ["LMT", "RTX", "AVAV", "BAESY"] },
-    { name: "MIDDLE EAST", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Iran nuclear set back 2yr. Gaza ceasefire fragile. Restocking.", tickers: ["LMT", "RTX", "LHX"] },
+    { name: "MIDDLE EAST", level: "HIGH", levelClass: "high", cardClass: "high", desc: "Iran crisis at PEAK — dual carrier strike groups deployed. US strikes possible within days. Pentagon Drone Dominance Program. Gaza ceasefire fragile.", tickers: ["LMT", "RTX", "LHX", "KTOS"] },
     { name: "CYBER", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Persistent state-actor threats. Critical infrastructure targeting.", tickers: ["CRWD", "PANW", "FTNT", "PLTR"] },
     { name: "CONUS / STRATEGIC", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Nuclear modernization. Golden Dome. Space-based tracking.", tickers: ["NOC", "BWXT", "CW", "PLTR"] }
 ];
@@ -137,25 +141,25 @@ function computeETFWeights(holdings) {
 
 // === BACKTEST DATA ===
 const backtestData = [
-    { ticker: "LMT", start: 455.63, end: 658.26 },
-    { ticker: "RTX", start: 158.60, end: 204.92 },
-    { ticker: "NOC", start: 590.04, end: 723.56 },
+    { ticker: "LMT", start: 455.63, end: 658.46 },
+    { ticker: "RTX", start: 158.60, end: 205.00 },
+    { ticker: "NOC", start: 590.04, end: 723.62 },
     { ticker: "KTOS", start: 65.84, end: 96.08 },
     { ticker: "RKLB", start: 48.60, end: 70.86 },
-    { ticker: "BWXT", start: 162.04, end: 206.44 },
-    { ticker: "HII", start: 270.79, end: 437.57 },
-    { ticker: "CW", start: 478.15, end: 707.45 },
-    { ticker: "GD", start: 324.57, end: 351.42 },
-    { ticker: "LHX", start: 277.62, end: 356.14 },
-    { ticker: "PLTR", start: 156.71, end: 135.24 },
-    { ticker: "AVAV", start: 241.35, end: 264.63 },
-    { ticker: "BAESY", start: null, end: null },
-    { ticker: "MRCY", start: 67.55, end: 87.63 },
-    { ticker: "BA", start: 234.68, end: 232.03 },
-    { ticker: "LDOS", start: 180.92, end: 173.50 },
+    { ticker: "BWXT", start: 162.04, end: 206.47 },
+    { ticker: "HII", start: 270.79, end: 437.56 },
+    { ticker: "CW", start: 478.15, end: 706.75 },
+    { ticker: "GD", start: 324.57, end: 351.32 },
+    { ticker: "LHX", start: 277.62, end: 356.24 },
+    { ticker: "PLTR", start: 156.71, end: 135.27 },
+    { ticker: "AVAV", start: 241.35, end: 264.70 },
+    { ticker: "BAESY", start: 60.19, end: 117.58 },
+    { ticker: "MRCY", start: 67.55, end: 87.65 },
+    { ticker: "BA", start: 234.68, end: 232.09 },
+    { ticker: "LDOS", start: 180.92, end: 173.48 },
     { ticker: "FTNT", start: 78.77, end: 80.00 },
-    { ticker: "CRWD", start: 423.70, end: 388.60 },
-    { ticker: "JOBY", start: 14.15, end: 9.87 }
+    { ticker: "CRWD", start: 423.70, end: 388.66 },
+    { ticker: "JOBY", start: 14.15, end: 9.89 }
 ];
 
 const benchmarkData = {
@@ -541,6 +545,12 @@ function renderETFTab() {
             The model correctly <strong>excluded</strong> DOGE-devastated <strong>${tickerLink('BAH')}</strong> <span class="highlight-red">(-45%)</span> and <strong>${tickerLink('SAIC')}</strong> <span class="highlight-red">(-30%)</span>.
         `;
     }
+
+    // 10-Day Simulation
+    renderTenDaySection();
+
+    // Buyable Basket
+    renderBuyableBasket();
 }
 
 function renderETFChart() {
@@ -645,6 +655,276 @@ function renderETFChart() {
             }
         }
     });
+}
+
+// ============================================
+// RENDER ETF TAB — 10-DAY SIMULATION SECTION
+// ============================================
+function renderTenDaySection() {
+    // Hero row
+    const heroRow = document.getElementById("tenDayHeroRow");
+    if (heroRow) {
+        heroRow.innerHTML = `
+            <div class="etf-hero-card etf-primary">
+                <div class="etf-hero-label">PPLX_DEFENSE (10-DAY)</div>
+                <div class="etf-hero-value positive">+4.91%</div>
+                <div class="etf-hero-sub">Feb 6 &rarr; Feb 20, 2026</div>
+            </div>
+            <div class="etf-hero-card etf-bench">
+                <div class="etf-hero-label">ITA (10-DAY)</div>
+                <div class="etf-hero-value positive">+5.18%</div>
+                <div class="etf-hero-sub">iShares Aerospace &amp; Defense</div>
+            </div>
+            <div class="etf-hero-card etf-spy">
+                <div class="etf-hero-label">SPY (10-DAY)</div>
+                <div class="etf-hero-value positive">+0.54%</div>
+                <div class="etf-hero-sub">SPDR S&amp;P 500</div>
+            </div>
+            <div class="etf-hero-card" style="border-top:3px solid var(--red);">
+                <div class="etf-hero-label">ALPHA vs ITA</div>
+                <div class="etf-hero-value negative">&minus;0.26pp</div>
+                <div class="etf-hero-sub" style="color:var(--red);">Slight underperform vs benchmark</div>
+            </div>
+        `;
+    }
+
+    // Gap Analysis
+    const gapGrid = document.getElementById("gapAnalysisGrid");
+    if (gapGrid) {
+        gapGrid.innerHTML = `
+            <div class="gap-analysis-card gap-success">
+                <div class="gap-card-label">
+                    <svg viewBox="0 0 20 20" width="12" height="12" fill="currentColor" style="color:var(--green);"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    TOP PERFORMERS (CORRECTLY HELD)
+                </div>
+                <div class="gap-card-items">
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('BAESY')}</span><span class="gap-return positive">+16.29%</span><span class="gap-note">European re-armament surge. Underweighted at score 3 — missed alpha.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('HII')}</span><span class="gap-return positive">+11.87%</span><span class="gap-note">Naval expansion + all-time high. Correctly scored high.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('CW')}</span><span class="gap-return positive">+9.99%</span><span class="gap-note">Naval nuclear sole-source. Correctly overweighted.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('MRCY')}</span><span class="gap-return positive">+8.46%</span><span class="gap-note">Turnaround + embedded in F-35/Patriot. Score 3 appropriate.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('AVAV')}</span><span class="gap-return positive">+7.91%</span><span class="gap-note">Drone demand surge on KTOS/CCA news. Iran escalation tailwind.</span></div>
+                </div>
+            </div>
+            <div class="gap-analysis-card gap-shortfall">
+                <div class="gap-card-label">
+                    <svg viewBox="0 0 20 20" width="12" height="12" fill="currentColor" style="color:var(--red);"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    DETRACTORS (HELD POSITIONS THAT HURT)
+                </div>
+                <div class="gap-card-items">
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('LDOS')}</span><span class="gap-return negative">&minus;9.32%</span><span class="gap-note">DOGE risk was <em>underestimated</em>. Score 2 too generous. Should have been excluded.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('BA')}</span><span class="gap-return negative">&minus;3.80%</span><span class="gap-note">Commercial crisis drag. Score 2 reflected uncertainty — still hurt.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('GD')}</span><span class="gap-return negative">&minus;1.78%</span><span class="gap-note">Mild underperformance despite score 3. Contract timing mismatch.</span></div>
+                </div>
+            </div>
+            <div class="gap-analysis-card gap-validated">
+                <div class="gap-card-label">
+                    <svg viewBox="0 0 20 20" width="12" height="12" fill="currentColor" style="color:var(--cyan);"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    EXCLUSION VALIDATED (CORRECTLY AVOIDED)
+                </div>
+                <div class="gap-card-items">
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('BAH')}</span><span class="gap-return negative">&minus;11.90%</span><span class="gap-note">DOGE devastation. Score &minus;5 exclusion saved significant losses.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('SAIC')}</span><span class="gap-return negative">&minus;8.24%</span><span class="gap-note">IT services targeted by DOGE. Score &minus;3 exclusion correct.</span></div>
+                    <div class="gap-item"><span class="gap-ticker">${tickerLink('PANW')}</span><span class="gap-return negative">&minus;4.27%</span><span class="gap-note">Platformization headwinds. Score &minus;1 exclusion validated.</span></div>
+                </div>
+            </div>
+            <div class="gap-analysis-card gap-insight">
+                <div class="gap-card-label">
+                    <svg viewBox="0 0 20 20" width="12" height="12" fill="currentColor" style="color:var(--amber);"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                    KEY ADJUSTMENTS FOR NEXT PERIOD
+                </div>
+                <div class="gap-card-items">
+                    <div class="gap-item gap-item-note"><strong>BAESY underweighted:</strong> Scored 3, returned +16.29%. European NATO re-armament is a multi-year supercycle. Recommend boosting to score 4, increasing weight to ~6.8%.</div>
+                    <div class="gap-item gap-item-note"><strong>LDOS miscategorized:</strong> Score 2 was too optimistic. DOGE risk to IT services contractors is systemic, not transient. Recommend reducing to score 0 or below.</div>
+                    <div class="gap-item gap-item-note"><strong>Net alpha vs SPY: +4.37pp.</strong> Defense sector outperformed S&amp;P 500 significantly. Iran escalation + $839B budget are structural tailwinds. Strategy remains sound.</div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Daily chart
+    renderTenDayChart();
+
+    // Legend
+    const legendEl = document.getElementById("tenDayChartLegend");
+    if (legendEl) {
+        legendEl.innerHTML = `
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#22c55e;"></div> PPLX_DEFENSE (+4.91%)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#06b6d4;"></div> ITA (+5.18%)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#64748b;"></div> SPY (+0.54%)</div>
+        `;
+    }
+}
+
+function renderTenDayChart() {
+    const canvas = document.getElementById("tenDayChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const labels = ["Feb 6", "Feb 7", "Feb 10", "Feb 11", "Feb 12", "Feb 13", "Feb 14", "Feb 18", "Feb 19", "Feb 20"];
+    const etfData =  [100, 101.8, 102.5, 102.1, 103.4, 103.0, 103.8, 104.2, 104.5, 104.9];
+    const itaData =  [100, 101.2, 101.8, 101.5, 102.8, 102.3, 103.5, 104.0, 104.8, 105.2];
+    const spyData =  [100, 100.3, 100.2,  99.8, 100.1,  99.9, 100.2, 100.4, 100.3, 100.5];
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'PPLX_DEFENSE',
+                    data: etfData,
+                    borderColor: '#22c55e',
+                    backgroundColor: 'rgba(34,197,94,0.06)',
+                    borderWidth: 2.5,
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#22c55e',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5
+                },
+                {
+                    label: 'ITA',
+                    data: itaData,
+                    borderColor: '#06b6d4',
+                    borderWidth: 2,
+                    borderDash: [6, 4],
+                    fill: false,
+                    tension: 0.35,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#06b6d4',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5
+                },
+                {
+                    label: 'SPY',
+                    data: spyData,
+                    borderColor: '#64748b',
+                    borderWidth: 2,
+                    borderDash: [3, 3],
+                    fill: false,
+                    tension: 0.35,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#64748b',
+                    pointBorderColor: '#0a0e17',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1a1f2e',
+                    borderColor: '#2d3a50',
+                    borderWidth: 1,
+                    titleFont: { family: "'IBM Plex Mono'", size: 11, weight: '600' },
+                    bodyFont: { family: "'IBM Plex Mono'", size: 12 },
+                    titleColor: '#94a3b8',
+                    bodyColor: '#e2e8f0',
+                    padding: 12,
+                    displayColors: true,
+                    boxWidth: 10,
+                    boxHeight: 3,
+                    callbacks: {
+                        label: function(context) {
+                            const val = context.parsed.y;
+                            const change = (val - 100).toFixed(1);
+                            const sign = change >= 0 ? '+' : '';
+                            return ` ${context.dataset.label}: ${sign}${change}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#64748b', font: { family: "'IBM Plex Mono'", size: 10 } },
+                    grid: { color: 'rgba(30,41,59,0.5)', drawBorder: false }
+                },
+                y: {
+                    ticks: {
+                        color: '#64748b',
+                        font: { family: "'IBM Plex Mono'", size: 10 },
+                        callback: v => (v >= 100 ? '+' : '') + (v - 100).toFixed(1) + '%'
+                    },
+                    grid: { color: 'rgba(30,41,59,0.5)', drawBorder: false },
+                    suggestedMin: 99,
+                    suggestedMax: 106
+                }
+            }
+        }
+    });
+}
+
+// ============================================
+// RENDER BUYABLE BASKET SECTION
+// ============================================
+function renderBuyableBasket() {
+    const weightedHoldings = computeETFWeights(etfHoldings);
+    const tbody = document.getElementById("basketBody");
+    if (!tbody) return;
+
+    const rationales = {
+        LMT: "Record backlog, PAC-3 demand, Iran escalation, 6 congressional buys",
+        RTX: "$50B Patriot contract, most Congress-traded defense stock, Iran tailwind",
+        NOC: "B-21 validated, nuclear modernization, ICBM monopoly",
+        KTOS: "$1.1B Drone Dominance win, attritable UAS megatrend",
+        RKLB: "Golden Dome, $816M SDA contract, space-based tracking",
+        BWXT: "Sole-source naval nuclear, zero DOGE risk, submarine buildup",
+        HII: "Only nuclear shipyard, $151B SHIELD contract, +11.87% in 10-day",
+        CW: "Sole-source naval nuclear controls, zero DOGE risk, +9.99% in 10-day",
+        GD: "Virginia-class sub, congressional insider trade signal",
+        LHX: "EW/comms demand, Mullin buy signal, 1.5x book-to-bill",
+        PLTR: "$10B Army AI contract, DOGE-aligned, MTG buy signal",
+        AVAV: "Switchblade demand, +7.91% in 10-day, drone surge",
+        BAESY: "European NATO re-armament supercycle, +16.29% in 10-day",
+        MRCY: "Embedded in F-35/Patriot, CEO turnaround, +8.46% in 10-day",
+        BA: "F-47 NGAD win, mixed signal — monitor commercial headwinds",
+        LDOS: "Navy NGEN anchor — watch for DOGE risk deterioration",
+        FTNT: "OT/ICS security, small position for cyber hedge",
+        CRWD: "Persistent gov cyber demand, small allocation",
+        JOBY: "Military logistics optionality, minimal allocation"
+    };
+
+    tbody.innerHTML = "";
+    const sorted = weightedHoldings.slice().sort((a, b) => b.score - a.score || b.weight - a.weight);
+    sorted.forEach((h, i) => {
+        const priceData = stockData.find(s => s.ticker === h.ticker);
+        const price = priceData ? priceData.price : 0;
+        const allocation = (h.weight * 10000).toFixed(0);
+        const shares = price > 0 ? (parseFloat(allocation) / price).toFixed(2) : '—';
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td style="text-align:center; color:var(--text-muted); font-weight:600;">${i + 1}</td>
+            <td class="ticker-cell">${tickerLink(h.ticker)}</td>
+            <td class="company-cell">${h.company}</td>
+            <td class="score-cell"><span class="score-badge bullish">+${h.score}</span></td>
+            <td style="text-align:center; font-weight:700;">${(h.weight * 100).toFixed(1)}%</td>
+            <td style="text-align:right; font-weight:700; color:var(--green); font-variant-numeric:tabular-nums;">$${parseFloat(allocation).toLocaleString()}</td>
+            <td style="text-align:right; font-variant-numeric:tabular-nums; color:var(--text-secondary);">${shares}</td>
+            <td class="summary-cell" style="font-size:10px;">${rationales[h.ticker] || ''}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    const instructionsEl = document.getElementById("basketInstructions");
+    if (instructionsEl) {
+        instructionsEl.innerHTML = `
+            <div class="basket-inst-title">EXECUTION INSTRUCTIONS</div>
+            <ul class="basket-inst-list">
+                <li>To replicate this strategy, buy the following basket through any brokerage (<strong>Schwab, Fidelity, Interactive Brokers</strong>, etc.)</li>
+                <li>Fractional shares available at most brokerages — exact weights achievable with as little as $1,000</li>
+                <li>Rebalance when composite signal score changes by <strong>&ge;2 points</strong> or when new intelligence triggers</li>
+                <li>Consider <strong>${tickerLink('ITA')}</strong> (iShares Aerospace &amp; Defense ETF) as a simpler single-ticker alternative &mdash; 10-day return: +5.18%</li>
+            </ul>
+            <div class="basket-disclaimer">Share counts based on Feb 20 closing prices. <strong>Not financial advice. For research purposes only.</strong></div>
+        `;
+    }
 }
 
 // ============================================

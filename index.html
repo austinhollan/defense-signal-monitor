@@ -45,9 +45,9 @@
                 </div>
                 <div class="meta-item threat-level">
                     <span class="meta-label">THREAT/OPP LEVEL</span>
-                    <span class="threat-badge elevated">
+                    <span class="threat-badge high">
                         <span class="threat-dot"></span>
-                        ELEVATED
+                        HIGH
                     </span>
                 </div>
             </div>
@@ -263,6 +263,56 @@
                 <span class="etf-excluded-label">EXCLUDED (SCORE ≤ 0):</span>
                 <span id="etfExcluded"></span>
             </div>
+        </div>
+
+        <!-- 10-Day Simulation Section -->
+        <div class="ten-day-section" id="tenDaySection">
+            <div class="section-header">
+                <h2 class="section-title etf-title">
+                    <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+                    10-DAY SIMULATION — HONEST ASSESSMENT (FEB 6–20, 2026)
+                </h2>
+            </div>
+            <!-- Hero Stats Row -->
+            <div class="etf-hero-row ten-day-hero" id="tenDayHeroRow"></div>
+            <!-- Gap Analysis -->
+            <div class="gap-analysis-grid" id="gapAnalysisGrid"></div>
+            <!-- Daily Chart -->
+            <div class="ten-day-chart-section">
+                <div class="ten-day-chart-label">DAILY PERFORMANCE — INDEXED TO 100 (FEB 6–20)</div>
+                <div class="etf-chart-container" style="height:280px;">
+                    <canvas id="tenDayChart"></canvas>
+                </div>
+                <div class="etf-chart-legend" id="tenDayChartLegend"></div>
+            </div>
+        </div>
+
+        <!-- Buyable Basket Section -->
+        <div class="ten-day-section basket-section" id="basketSection">
+            <div class="section-header">
+                <h2 class="section-title etf-title">
+                    <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg>
+                    BUYABLE BASKET — EXECUTE THIS STRATEGY
+                </h2>
+            </div>
+            <div class="matrix-table-wrapper">
+                <table class="basket-table" id="basketTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>TICKER</th>
+                            <th>COMPANY</th>
+                            <th>SIGNAL</th>
+                            <th>WEIGHT</th>
+                            <th>$10K ALLOCATION</th>
+                            <th>~SHARES</th>
+                            <th>RATIONALE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="basketBody"></tbody>
+                </table>
+            </div>
+            <div class="basket-instructions" id="basketInstructions"></div>
         </div>
 
         <!-- Strategy & Narrative -->

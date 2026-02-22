@@ -128,8 +128,12 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
 .threat-badge.elevated {
     background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(245,158,11,0.3);
 }
+.threat-badge.high {
+    background: var(--red-glow); color: var(--red); border: 1px solid rgba(239,68,68,0.3);
+    box-shadow: 0 0 8px rgba(239,68,68,0.2);
+}
 .threat-dot {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
+    width: 7px; height: 7px; border-radius: 50%; background: currentColor;
     animation: pulseDot 2s ease-in-out infinite;
 }
 
@@ -519,7 +523,7 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
 .signal-tag.polymarket { background: rgba(168,85,247,0.15); color: #a855f7; }
 .signal-tag.pizzint { background: rgba(251,146,60,0.15); color: #fb923c; }
 
-.signal-text { font-size: 11px; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.signal-text { font-size: 11px; color: var(--text-secondary); line-height: 1.5; flex: 1; padding-right: 28px; }
 .signal-text strong { color: var(--text-primary); font-weight: 600; }
 
 /* ============ ETF SECTION ============ */
@@ -719,6 +723,128 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
 .footer-sources { font-size: 10px; color: var(--text-muted); margin-bottom: 6px; }
 .footer-copy { font-size: 9px; color: var(--text-muted); letter-spacing: 2px; opacity: 0.6; }
 
+/* ============ 10-DAY SIMULATION SECTION ============ */
+.ten-day-section {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-color);
+}
+.ten-day-chart-section { margin-top: 20px; }
+.ten-day-chart-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 2px;
+    color: var(--text-muted); text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* Gap Analysis Grid */
+.gap-analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+}
+.gap-analysis-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+}
+.gap-analysis-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+}
+.gap-success::before { background: var(--green); }
+.gap-shortfall::before { background: var(--red); }
+.gap-validated::before { background: var(--cyan); }
+.gap-insight::before { background: var(--amber); }
+
+.gap-card-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.gap-card-items { display: flex; flex-direction: column; gap: 8px; }
+.gap-item {
+    display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+    font-size: 11px;
+}
+.gap-ticker { font-weight: 700; font-size: 12px; min-width: 46px; }
+.gap-return {
+    font-weight: 700; font-size: 12px; font-variant-numeric: tabular-nums;
+    min-width: 56px;
+}
+.gap-return.positive { color: var(--green); }
+.gap-return.negative { color: var(--red); }
+.gap-note {
+    font-size: 10px; color: var(--text-muted); line-height: 1.4;
+    flex: 1; min-width: 100%;
+}
+.gap-item-note {
+    font-size: 11px; color: var(--text-secondary); line-height: 1.5;
+}
+.gap-item-note strong { color: var(--text-primary); }
+
+/* ============ BUYABLE BASKET SECTION ============ */
+.basket-section { }
+.basket-table {
+    width: 100%; border-collapse: collapse;
+    min-width: 800px;
+}
+.basket-table thead th {
+    background: var(--bg-card); font-family: var(--font-mono);
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--text-muted); text-transform: uppercase;
+    padding: 10px 14px; text-align: left;
+    border-bottom: 2px solid var(--border-accent);
+    position: sticky; top: 0; z-index: 2; white-space: nowrap;
+}
+.basket-table thead th:not(:last-child) { border-right: 1px solid rgba(30,41,59,0.3); }
+.basket-table tbody tr {
+    border-bottom: 1px solid rgba(30,41,59,0.5); transition: background 0.15s;
+}
+.basket-table tbody tr:hover { background: var(--bg-card-hover); }
+.basket-table tbody tr:last-child { border-bottom: none; }
+.basket-table td { padding: 8px 14px; vertical-align: middle; font-size: 12px; }
+
+.basket-instructions {
+    margin-top: 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--cyan);
+    border-radius: 4px;
+    padding: 16px 20px;
+}
+.basket-inst-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--cyan); text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.basket-inst-list {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 12px;
+}
+.basket-inst-list li {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.5;
+    padding-left: 16px; position: relative;
+}
+.basket-inst-list li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--cyan); font-weight: 700;
+}
+.basket-inst-list li strong { color: var(--text-primary); }
+.basket-disclaimer {
+    font-size: 10px; color: var(--text-muted);
+    padding-top: 10px; border-top: 1px solid var(--border-color);
+}
+.basket-disclaimer strong { color: var(--amber); }
+
 /* ============ ANIMATIONS ============ */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes subtlePulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
@@ -740,6 +866,7 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
     .etf-hero-row { grid-template-columns: repeat(2, 1fr); }
     .etf-strategy-grid { grid-template-columns: repeat(2, 1fr); }
     .politician-cards { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .gap-analysis-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 900px) {
@@ -748,14 +875,22 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
     .tab-panel { padding: 16px; }
     .overview-grid { grid-template-columns: 1fr; }
     .methodology-grid { grid-template-columns: 1fr; }
-    .theater-chip-tickers { display: none; }
+    /* Theater strip: horizontally scrollable on tablet, min-width chips */
+    .theater-chip { min-width: 140px; display: flex; flex-shrink: 0; }
+    .theater-strip { flex-wrap: nowrap; overflow-x: auto; }
     .etf-hero-row { grid-template-columns: 1fr 1fr; }
     .etf-strategy-grid { grid-template-columns: 1fr; }
     .politician-cards { grid-template-columns: 1fr; }
+    .gap-analysis-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 600px) {
     .tab-btn { padding: 10px 12px; font-size: 10px; letter-spacing: 1px; }
     .header-title { font-size: 16px; letter-spacing: 2px; }
     .etf-hero-row { grid-template-columns: 1fr; }
+    /* Theater strip stacks vertically on phone */
+    .theater-strip { flex-direction: column; overflow-x: unset; }
+    .theater-chip { min-width: 0; width: 100%; flex-shrink: 1; border-right: none; border-bottom: 1px solid var(--border-color); }
+    .theater-chip-tickers { display: none; }
+    .gap-analysis-grid { grid-template-columns: 1fr; }
 }
