@@ -32,6 +32,13 @@
     --orange-dim: #f97316;
     --orange-glow: rgba(251, 146, 60, 0.15);
     --orange-border: rgba(251, 146, 60, 0.4);
+    --teal: #14b8a6;
+    --teal-dim: #0d9488;
+    --teal-glow: rgba(20, 184, 166, 0.15);
+    --teal-border: rgba(20, 184, 166, 0.4);
+    --indigo: #818cf8;
+    --indigo-dim: #6366f1;
+    --indigo-glow: rgba(99, 102, 241, 0.15);
     --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
     --font-sans: 'Inter', -apple-system, sans-serif;
 }
@@ -166,6 +173,7 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
 .status-value.red { color: var(--red); }
 .status-value.amber { color: var(--amber); }
 .status-value.purple { color: #a855f7; }
+.status-value.teal { color: #14b8a6; }
 
 /* ============ THEATER RISK STRIP ============ */
 .theater-strip {
@@ -523,6 +531,20 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
 .signal-tag.polymarket { background: rgba(168,85,247,0.15); color: #a855f7; }
 .signal-tag.pizzint { background: rgba(251,146,60,0.15); color: #fb923c; }
 
+/* MILTRACK tag - teal/military green */
+.signal-tag.miltrack {
+    background: rgba(20, 184, 166, 0.15);
+    color: #14b8a6;
+    border: 1px solid rgba(20, 184, 166, 0.4);
+}
+
+/* OSINT tag - indigo/blue */
+.signal-tag.osint {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
 .signal-text { font-size: 11px; color: var(--text-secondary); line-height: 1.5; flex: 1; padding-right: 28px; }
 .signal-text strong { color: var(--text-primary); font-weight: 600; }
 
@@ -703,6 +725,11 @@ a.source-link:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
 .method-card p { font-size: 10px; color: var(--text-muted); line-height: 1.6; }
 .method-card.method-card-purple { border-left: 3px solid var(--purple); }
 .method-card.method-card-purple h3 { color: var(--purple); }
+.method-card-teal {
+    border-left: 3px solid var(--teal);
+    background: linear-gradient(135deg, rgba(20,184,166,0.05), transparent);
+}
+.method-card-teal h3 { color: var(--teal); }
 
 .method-sources {
     font-size: 10px; color: var(--text-muted);
