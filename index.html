@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; img-src 'self' data:; base-uri 'self'; form-action 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="no-referrer">
 </head>
@@ -224,6 +224,9 @@
         <!-- ETF Hero Stats -->
         <div class="etf-hero-row" id="etfHeroRow"></div>
 
+        <!-- Key Takeaway (positioned between callouts and chart) -->
+        <div class="backtest-narrative" id="backtestNarrative" style="margin-bottom: 24px;"></div>
+
         <!-- Performance Chart -->
         <div class="etf-chart-section">
             <div class="section-header">
@@ -339,7 +342,6 @@
                     <div class="etf-strat-value">iShares U.S. Aerospace & Defense ETF (ITA)</div>
                 </div>
             </div>
-            <div class="backtest-narrative" id="backtestNarrative"></div>
         </div>
     </div>
 

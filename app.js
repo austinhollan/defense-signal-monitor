@@ -51,41 +51,41 @@ const stockData = [
 
 // === SIGNALS FEED DATA ===
 const signalsFeedData = [
-    { date: "2026-02-22", tag: "MILTRACK", tagClass: "miltrack", text: "12x F-22 Raptors (1st FW, Langley) staged at RAF Lakenheath, UK. Expected to continue to Middle East Monday. Tanker delay resolved. <strong>OSINT: @sentdefender, @havoc_aviation. BULLISH: LMT, LHX.</strong>", recent: true },
-    { date: "2026-02-22", tag: "MILTRACK", tagClass: "miltrack", text: "10+ C-17A Globemaster IIIs airborne from east coast bound for Europe. Most originated Fort Hood, TX — likely air defense asset movement to Middle East. <strong>ADS-B Exchange confirmed. BULLISH: BA, LMT.</strong>", recent: true },
-    { date: "2026-02-22", tag: "MILTRACK", tagClass: "miltrack", text: "USS Gerald R. Ford (CVN-78) entered Mediterranean Sea. 2nd carrier heading to Middle East. Ford's 8th month deployed — redirected from Caribbean. <strong>Dual-carrier posture = PEAK force projection. BULLISH: HII, GD, NOC.</strong>", recent: true },
-    { date: "2026-02-21", tag: "OSINT", tagClass: "osint", text: "Sen. Lindsey Graham urges Trump to strike Iran after Middle East trip. Multiple officials cautioning restraint. Graham: 'opportunity for historic change.' <strong>OSINT: @sentdefender via Axios. ESCALATORY.</strong>", recent: true },
-    { date: "2026-02-20", tag: "MILTRACK", tagClass: "miltrack", text: "Pentagon surged 250+ aircraft to region: 64x C-17s to Al Udeid (Qatar), 31x C-17s to Prince Sultan (Saudi Arabia). Largest airlift since 2003 Iraq invasion. <strong>ADS-B/FR24 confirmed. BULLISH: ALL PRIMES.</strong>", recent: true },
-    { date: "2026-02-20", tag: "MILTRACK", tagClass: "miltrack", text: "USS Abraham Lincoln CSG confirmed operating in Arabian Sea near Oman via satellite imagery. CVW-9 includes F-35C (VMFA-314) and EA-18G Growler. <strong>Eurovision OSINT hex codes tracked. BULLISH: LMT, NOC.</strong>", recent: true },
-    { date: "2026-02-19", tag: "MILTRACK", tagClass: "miltrack", text: "F-16CJ 'Wild Weasel' SEAD aircraft deploying to Middle East. Specialized in destroying enemy air defense radars — Iran-specific capability. <strong>Historically precedes strikes by 7-14 days. BULLISH: LMT, LHX.</strong>", recent: true },
-    { date: "2026-02-18", tag: "MILTRACK", tagClass: "miltrack", text: "SSGN submarines (Ohio-class guided missile) reported deploying. Each carries 154 Tomahawk cruise missiles. Silent, undetectable first-strike platform. <strong>AIS dark confirmed. BULLISH: GD, RTX.</strong>", recent: true },
-    { date: "2026-02-15", tag: "OSINT", tagClass: "osint", text: "AIS spoofing and GPS jamming surging in Strait of Hormuz. Iran seizing vessels claiming AIS non-transmission. USDOT MARAD Advisory 2026-001 issued Feb 9. <strong>Maritime risk ELEVATED. BULLISH: HII, LHX.</strong>", recent: true },
-    { date: "2026-02-09", tag: "MILTRACK", tagClass: "miltrack", text: "P-8A Poseidon ISR patrol detected flying repeated tracks in Persian Gulf between Bahrain and UAE. KC-135 tanker briefly appeared near Iranian airspace before coverage cut. <strong>Pre-strike ISR pattern. BULLISH: NOC, RTX.</strong>", recent: true },
-    { date: "2026-02-07", tag: "MILTRACK", tagClass: "miltrack", text: "112 C-17 Globemaster IIIs reported entering European/Middle East theater in single day. 12x C-17s at Ramstein (unusual), 5x at Al Udeid, 2x MQ-4C Tritons at Al Dhafra. <strong>Naval-technology.com OSINT. BULLISH: BA, LMT.</strong>", recent: true },
-    { date: "2026-01-26", tag: "MILTRACK", tagClass: "miltrack", text: "USS Abraham Lincoln CSG confirmed deployed to Middle East by CENTCOM. Escorts: USS Spruance, USS Frank E. Petersen Jr., USS Michael Murphy. CVW-9 with F-35C Lightning II. <strong>4th carrier deployment in 8 months (abnormal). BULLISH: LMT, HII.</strong>", recent: false },
-    { date: "2026-02-20", tag: "CONFLICT", tagClass: "conflict", text: "Iran-US crisis at PEAK intensity. Two carrier strike groups deployed to Gulf. Reuters reports strikes possible within days. <strong>BULLISH: LMT, RTX, NOC, KTOS.</strong>", recent: true },
-    { date: "2026-02-19", tag: "CONTRACT", tagClass: "contract", text: "Pentagon selects KTOS for Drone Dominance Program — <strong>$1.1B</strong> attritable UAS contract. Largest CCA award. <strong>BULLISH: KTOS, AVAV.</strong>", recent: true },
-    { date: "2026-02-18", tag: "SPENDING", tagClass: "spending", text: "LMT hits $666 52-week high. NOC hits $737. HII hits $443. Defense sector at all-time highs on <strong>$839B appropriation + Iran escalation</strong>.", recent: true },
-    { date: "2026-02-14", tag: "CONFLICT", tagClass: "conflict", text: "LDOS crashes to $173 (-11% in week). BAH continues slide to $77. <strong>DOGE risk materializing for IT services contractors.</strong>", recent: true },
-    { date: "2026-02-20", tag: "POLYMARKET", tagClass: "polymarket", text: "US strikes Iran by Feb 28 surges to 19% (from 2%). <strong>$338M+ total volume on Iran strike timing. BULLISH: LMT, RTX, NOC.</strong>", recent: true },
-    { date: "2026-02-12", tag: "POLYMARKET", tagClass: "polymarket", text: "Israeli authorities arrest traders for using <strong>classified military intelligence</strong> to place Polymarket bets. Prediction markets confirmed as intelligence leak vector.", recent: true },
-    { date: "2026-02-12", tag: "CONFLICT", tagClass: "conflict", text: "Trump-Putin peace talks collapse. Long war narrative reinforced. <strong>BULLISH: LMT, RTX, NOC, European defense</strong>", recent: false },
-    { date: "2026-01-09", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys RTX post-Venezuela op. <strong>HIGH SUSPICION.</strong>", recent: false },
-    { date: "2026-01-07", tag: "SPENDING", tagClass: "spending", text: "European defense stocks hit ATH on Greenland crisis. <strong>Rheinmetall +19%, Saab +22%</strong> in one week.", recent: false },
-    { date: "2026-01-03", tag: "POLYMARKET", tagClass: "polymarket", text: 'Polymarket trader turns $32K \u2192 $400K betting on Maduro ouster <strong>hours before US military operation</strong>. Insider trading on prediction markets now a national security concern.', recent: false },
-    { date: "2026-01-03", tag: "CONFLICT", tagClass: "conflict", text: "US military captures Maduro in Venezuela. <strong>Defense stocks surge globally.</strong>", recent: false },
-    { date: "2025-12-29", tag: "TRADE", tagClass: "trade", text: "Sen. Mullin (R-OK, SASC) buys RTX $15K-$50K + CVX $50K-$100K. <strong>5 days before Venezuela op. HIGHEST SUSPICION.</strong>", recent: false },
-    { date: "2025-12-29", tag: "DEPLOYMENT", tagClass: "deployment", text: "China \"Justice Mission 2025\" exercises \u2014 most extensive ever Taiwan drills.", recent: false },
-    { date: "2025-12-21", tag: "SPENDING", tagClass: "spending", text: "FY2026 NDAA signed \u2014 <strong>$900.6B</strong>. First ever >$900B. <strong>BULLISH ALL PRIMES.</strong>", recent: false },
-    { date: "2025-12-17", tag: "CONTRACT", tagClass: "contract", text: "$11.1B Taiwan arms sale \u2014 largest ever. HIMARS, ATACMS, Javelins. <strong>BULLISH: LMT, RTX.</strong>", recent: false },
-    { date: "2025-09-30", tag: "CONTRACT", tagClass: "contract", text: "$24.3B F-35 Lots 18-19 to LMT. <strong>Largest consecutive F-35 contract ever.</strong>", recent: false },
-    { date: "2025-09-03", tag: "CONTRACT", tagClass: "contract", text: "$9.8B PAC-3 MSE to LMT. $900.5M Javelin to LMT/RTX.", recent: false },
-    { date: "2025-08-01", tag: "CONTRACT", tagClass: "contract", text: "$50B RTX Patriot sustainment through 2045. <strong>Largest missile defense contract ever.</strong>", recent: false },
-    { date: "2025-06-25", tag: "SPENDING", tagClass: "spending", text: "NATO agrees 5% GDP target. All 32 members exceed 2%. <strong>BULLISH: ALL DEFENSE.</strong>", recent: false },
-    { date: "2025-06-13", tag: "CONFLICT", tagClass: "conflict", text: "Israel/US strikes Iran nuclear sites. <strong>B-2 bombers (NOC) validated. Tomahawks (RTX) used.</strong>", recent: false },
-    { date: "2025-06-12", tag: "PIZZINT", tagClass: "pizzint", text: '\ud83c\udf55 Pentagon Pizza Index spikes at 6:59 PM ET. Multiple pizza shops near Pentagon show "much busier than usual". <strong>Hours later: Israel strikes Iran nuclear sites.</strong>', recent: false },
-    { date: "2025-05-30", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys NOC, LHX, BA on same day. Sells LMT. <strong>Defense rotation.</strong>", recent: false },
-    { date: "2025-05-13", tag: "TRADE", tagClass: "trade", text: 'Sen. Mullin (R-OK, SASC) buys L3Harris $15K-$50K. <strong>Defense spending increase looming.</strong>', recent: false }
+    { date: "2026-02-22", time: "14:32", tag: "MILTRACK", tagClass: "miltrack", text: "12x F-22 Raptors (1st FW, Langley) staged at RAF Lakenheath, UK. Expected to continue to Middle East Monday. Tanker delay resolved. <strong>OSINT: @sentdefender, @havoc_aviation. BULLISH: LMT, LHX.</strong>", recent: true, sources: [{name: "@sentdefender", url: "https://x.com/sentdefender"}, {name: "ADS-B Exchange", url: "https://globe.adsbexchange.com/"}] },
+    { date: "2026-02-22", time: "11:17", tag: "MILTRACK", tagClass: "miltrack", text: "10+ C-17A Globemaster IIIs airborne from east coast bound for Europe. Most originated Fort Hood, TX — likely air defense asset movement to Middle East. <strong>ADS-B Exchange confirmed. BULLISH: BA, LMT.</strong>", recent: true, sources: [{name: "ADS-B Exchange", url: "https://globe.adsbexchange.com/"}, {name: "Flightradar24", url: "https://www.flightradar24.com/"}] },
+    { date: "2026-02-22", time: "08:45", tag: "MILTRACK", tagClass: "miltrack", text: "USS Gerald R. Ford (CVN-78) entered Mediterranean Sea. 2nd carrier heading to Middle East. Ford's 8th month deployed — redirected from Caribbean. <strong>Dual-carrier posture = PEAK force projection. BULLISH: HII, GD, NOC.</strong>", recent: true, sources: [{name: "MarineTraffic", url: "https://www.marinetraffic.com/"}, {name: "USNI News", url: "https://news.usni.org/"}] },
+    { date: "2026-02-21", time: "19:03", tag: "OSINT", tagClass: "osint", text: "Sen. Lindsey Graham urges Trump to strike Iran after Middle East trip. Multiple officials cautioning restraint. Graham: 'opportunity for historic change.' <strong>OSINT: @sentdefender via Axios. ESCALATORY.</strong>", recent: true, sources: [{name: "Axios", url: "https://www.axios.com/"}, {name: "@sentdefender", url: "https://x.com/sentdefender"}] },
+    { date: "2026-02-20", time: "16:41", tag: "MILTRACK", tagClass: "miltrack", text: "Pentagon surged 250+ aircraft to region: 64x C-17s to Al Udeid (Qatar), 31x C-17s to Prince Sultan (Saudi Arabia). Largest airlift since 2003 Iraq invasion. <strong>ADS-B/FR24 confirmed. BULLISH: ALL PRIMES.</strong>", recent: true, sources: [{name: "ADS-B Exchange", url: "https://globe.adsbexchange.com/"}, {name: "Flightradar24", url: "https://www.flightradar24.com/"}, {name: "Defense News", url: "https://www.defensenews.com/"}] },
+    { date: "2026-02-20", time: "10:22", tag: "MILTRACK", tagClass: "miltrack", text: "USS Abraham Lincoln CSG confirmed operating in Arabian Sea near Oman via satellite imagery. CVW-9 includes F-35C (VMFA-314) and EA-18G Growler. <strong>Eurovision OSINT hex codes tracked. BULLISH: LMT, NOC.</strong>", recent: true, sources: [{name: "Eurovision OSINT", url: "https://spotlight.ebu.ch/p/iran-armada-osint-intelligence-guide"}, {name: "MarineTraffic", url: "https://www.marinetraffic.com/"}] },
+    { date: "2026-02-19", time: "13:18", tag: "MILTRACK", tagClass: "miltrack", text: "F-16CJ 'Wild Weasel' SEAD aircraft deploying to Middle East. Specialized in destroying enemy air defense radars — Iran-specific capability. <strong>Historically precedes strikes by 7-14 days. BULLISH: LMT, LHX.</strong>", recent: true, sources: [{name: "@AirSpecInt", url: "https://x.com/AirSpecInt"}, {name: "ADS-B Exchange", url: "https://globe.adsbexchange.com/"}] },
+    { date: "2026-02-18", time: "09:56", tag: "MILTRACK", tagClass: "miltrack", text: "SSGN submarines (Ohio-class guided missile) reported deploying. Each carries 154 Tomahawk cruise missiles. Silent, undetectable first-strike platform. <strong>AIS dark confirmed. BULLISH: GD, RTX.</strong>", recent: true, sources: [{name: "USNI News", url: "https://news.usni.org/"}, {name: "@MT_Anderson", url: "https://x.com/MT_Anderson"}] },
+    { date: "2026-02-15", time: "15:30", tag: "OSINT", tagClass: "osint", text: "AIS spoofing and GPS jamming surging in Strait of Hormuz. Iran seizing vessels claiming AIS non-transmission. USDOT MARAD Advisory 2026-001 issued Feb 9. <strong>Maritime risk ELEVATED. BULLISH: HII, LHX.</strong>", recent: true, sources: [{name: "MARAD Advisories", url: "https://www.maritime.dot.gov/msci"}, {name: "MarineTraffic", url: "https://www.marinetraffic.com/"}] },
+    { date: "2026-02-09", time: "07:14", tag: "MILTRACK", tagClass: "miltrack", text: "P-8A Poseidon ISR patrol detected flying repeated tracks in Persian Gulf between Bahrain and UAE. KC-135 tanker briefly appeared near Iranian airspace before coverage cut. <strong>Pre-strike ISR pattern. BULLISH: NOC, RTX.</strong>", recent: true, sources: [{name: "ADS-B Exchange", url: "https://globe.adsbexchange.com/"}, {name: "r/ADSB", url: "https://www.reddit.com/r/ADSB/"}] },
+    { date: "2026-02-07", time: "12:08", tag: "MILTRACK", tagClass: "miltrack", text: "112 C-17 Globemaster IIIs reported entering European/Middle East theater in single day. 12x C-17s at Ramstein (unusual), 5x at Al Udeid, 2x MQ-4C Tritons at Al Dhafra. <strong>Naval-technology.com OSINT. BULLISH: BA, LMT.</strong>", recent: true, sources: [{name: "Naval Technology", url: "https://www.naval-technology.com/"}, {name: "ADS-B Exchange", url: "https://globe.adsbexchange.com/"}] },
+    { date: "2026-01-26", time: "10:00", tag: "MILTRACK", tagClass: "miltrack", text: "USS Abraham Lincoln CSG confirmed deployed to Middle East by CENTCOM. Escorts: USS Spruance, USS Frank E. Petersen Jr., USS Michael Murphy. CVW-9 with F-35C Lightning II. <strong>4th carrier deployment in 8 months (abnormal). BULLISH: LMT, HII.</strong>", recent: false, sources: [{name: "CENTCOM", url: "https://www.centcom.mil/"}, {name: "USNI News", url: "https://news.usni.org/"}] },
+    { date: "2026-02-20", time: "18:15", tag: "CONFLICT", tagClass: "conflict", text: "Iran-US crisis at PEAK intensity. Two carrier strike groups deployed to Gulf. Reuters reports strikes possible within days. <strong>BULLISH: LMT, RTX, NOC, KTOS.</strong>", recent: true, sources: [{name: "Reuters Defense", url: "https://www.reuters.com/business/aerospace-defense/"}] },
+    { date: "2026-02-19", time: "14:30", tag: "CONTRACT", tagClass: "contract", text: "Pentagon selects KTOS for Drone Dominance Program — <strong>$1.1B</strong> attritable UAS contract. Largest CCA award. <strong>BULLISH: KTOS, AVAV.</strong>", recent: true, sources: [{name: "DoD Contracts", url: "https://www.defense.gov/News/Contracts/"}, {name: "Defense News", url: "https://www.defensenews.com/"}] },
+    { date: "2026-02-18", time: "16:02", tag: "SPENDING", tagClass: "spending", text: "LMT hits $666 52-week high. NOC hits $737. HII hits $443. Defense sector at all-time highs on <strong>$839B appropriation + Iran escalation</strong>.", recent: true, sources: [{name: "Perplexity Finance", url: "https://perplexity.ai/finance/LMT"}] },
+    { date: "2026-02-14", time: "16:00", tag: "CONFLICT", tagClass: "conflict", text: "LDOS crashes to $173 (-11% in week). BAH continues slide to $77. <strong>DOGE risk materializing for IT services contractors.</strong>", recent: true, sources: [{name: "Perplexity Finance", url: "https://perplexity.ai/finance/LDOS"}] },
+    { date: "2026-02-20", time: "21:30", tag: "POLYMARKET", tagClass: "polymarket", text: "US strikes Iran by Feb 28 surges to 19% (from 2%). <strong>$338M+ total volume on Iran strike timing. BULLISH: LMT, RTX, NOC.</strong>", recent: true, sources: [{name: "Polymarket", url: "https://polymarket.com/predictions/war"}] },
+    { date: "2026-02-12", time: "09:45", tag: "POLYMARKET", tagClass: "polymarket", text: "Israeli authorities arrest traders for using <strong>classified military intelligence</strong> to place Polymarket bets. Prediction markets confirmed as intelligence leak vector.", recent: true, sources: [{name: "Reuters", url: "https://www.reuters.com/"}, {name: "Polymarket", url: "https://polymarket.com/"}] },
+    { date: "2026-02-12", time: "14:20", tag: "CONFLICT", tagClass: "conflict", text: "Trump-Putin peace talks collapse. Long war narrative reinforced. <strong>BULLISH: LMT, RTX, NOC, European defense</strong>", recent: false, sources: [{name: "Reuters", url: "https://www.reuters.com/"}] },
+    { date: "2026-01-09", time: "10:30", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys RTX post-Venezuela op. <strong>HIGH SUSPICION.</strong>", recent: false, sources: [{name: "Capitol Trades", url: "https://www.capitoltrades.com/"}] },
+    { date: "2026-01-07", time: "08:00", tag: "SPENDING", tagClass: "spending", text: "European defense stocks hit ATH on Greenland crisis. <strong>Rheinmetall +19%, Saab +22%</strong> in one week.", recent: false, sources: [{name: "Defense News", url: "https://www.defensenews.com/"}] },
+    { date: "2026-01-03", time: "22:15", tag: "POLYMARKET", tagClass: "polymarket", text: "Polymarket trader turns $32K → $400K betting on Maduro ouster <strong>hours before US military operation</strong>. Insider trading on prediction markets now a national security concern.", recent: false, sources: [{name: "Polymarket", url: "https://polymarket.com/"}, {name: "Unusual Whales", url: "https://unusualwhales.com/"}] },
+    { date: "2026-01-03", time: "06:00", tag: "CONFLICT", tagClass: "conflict", text: "US military captures Maduro in Venezuela. <strong>Defense stocks surge globally.</strong>", recent: false, sources: [{name: "Reuters Defense", url: "https://www.reuters.com/business/aerospace-defense/"}] },
+    { date: "2025-12-29", time: "12:00", tag: "TRADE", tagClass: "trade", text: "Sen. Mullin (R-OK, SASC) buys RTX $15K-$50K + CVX $50K-$100K. <strong>5 days before Venezuela op. HIGHEST SUSPICION.</strong>", recent: false, sources: [{name: "Capitol Trades", url: "https://www.capitoltrades.com/"}, {name: "Quiver Quantitative", url: "https://www.quiverquant.com/"}] },
+    { date: "2025-12-29", time: "09:00", tag: "DEPLOYMENT", tagClass: "deployment", text: "China \"Justice Mission 2025\" exercises — most extensive ever Taiwan drills.", recent: false, sources: [{name: "Reuters Defense", url: "https://www.reuters.com/business/aerospace-defense/"}] },
+    { date: "2025-12-21", time: "15:00", tag: "SPENDING", tagClass: "spending", text: "FY2026 NDAA signed — <strong>$900.6B</strong>. First ever >$900B. <strong>BULLISH ALL PRIMES.</strong>", recent: false, sources: [{name: "Defense News", url: "https://www.defensenews.com/"}, {name: "DoD", url: "https://www.defense.gov/"}] },
+    { date: "2025-12-17", time: "11:00", tag: "CONTRACT", tagClass: "contract", text: "$11.1B Taiwan arms sale — largest ever. HIMARS, ATACMS, Javelins. <strong>BULLISH: LMT, RTX.</strong>", recent: false, sources: [{name: "SIPRI", url: "https://www.sipri.org/"}, {name: "Defense News", url: "https://www.defensenews.com/"}] },
+    { date: "2025-09-30", time: "14:00", tag: "CONTRACT", tagClass: "contract", text: "$24.3B F-35 Lots 18-19 to LMT. <strong>Largest consecutive F-35 contract ever.</strong>", recent: false, sources: [{name: "DoD Contracts", url: "https://www.defense.gov/News/Contracts/"}] },
+    { date: "2025-09-03", time: "14:00", tag: "CONTRACT", tagClass: "contract", text: "$9.8B PAC-3 MSE to LMT. $900.5M Javelin to LMT/RTX.", recent: false, sources: [{name: "DoD Contracts", url: "https://www.defense.gov/News/Contracts/"}] },
+    { date: "2025-08-01", time: "10:00", tag: "CONTRACT", tagClass: "contract", text: "$50B RTX Patriot sustainment through 2045. <strong>Largest missile defense contract ever.</strong>", recent: false, sources: [{name: "DoD Contracts", url: "https://www.defense.gov/News/Contracts/"}, {name: "Reuters Defense", url: "https://www.reuters.com/business/aerospace-defense/"}] },
+    { date: "2025-06-25", time: "12:00", tag: "SPENDING", tagClass: "spending", text: "NATO agrees 5% GDP target. All 32 members exceed 2%. <strong>BULLISH: ALL DEFENSE.</strong>", recent: false, sources: [{name: "Defense News", url: "https://www.defensenews.com/"}, {name: "Reuters", url: "https://www.reuters.com/"}] },
+    { date: "2025-06-13", time: "03:00", tag: "CONFLICT", tagClass: "conflict", text: "Israel/US strikes Iran nuclear sites. <strong>B-21 bombers (NOC) validated. Tomahawks (RTX) used.</strong>", recent: false, sources: [{name: "Reuters Defense", url: "https://www.reuters.com/business/aerospace-defense/"}, {name: "Al Jazeera", url: "https://www.aljazeera.com/"}] },
+    { date: "2025-06-12", time: "18:59", tag: "PIZZINT", tagClass: "pizzint", text: "🍕 Pentagon Pizza Index spikes at 6:59 PM ET. Multiple pizza shops near Pentagon show \"much busier than usual\". <strong>Hours later: Israel strikes Iran nuclear sites.</strong>", recent: false, sources: [{name: "PizzINT", url: "https://pizzint.watch"}] },
+    { date: "2025-05-30", time: "10:00", tag: "TRADE", tagClass: "trade", text: "Rep. Cisneros (D-CA, HASC) buys NOC, LHX, BA on same day. Sells LMT. <strong>Defense rotation.</strong>", recent: false, sources: [{name: "Capitol Trades", url: "https://www.capitoltrades.com/"}] },
+    { date: "2025-05-13", time: "10:00", tag: "TRADE", tagClass: "trade", text: "Sen. Mullin (R-OK, SASC) buys L3Harris $15K-$50K. <strong>Defense spending increase looming.</strong>", recent: false, sources: [{name: "Capitol Trades", url: "https://www.capitoltrades.com/"}, {name: "OpenSecrets", url: "https://www.opensecrets.org/"}] }
 ];
 
 // === POLITICIAN DATA ===
@@ -254,6 +254,30 @@ function renderOverview() {
     renderOverviewPerfCards();
 }
 
+function navigateToMatrixTicker(ticker) {
+    // Switch to matrix tab
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    const matrixBtn = document.querySelector('.tab-btn[data-tab="matrix"]');
+    const matrixPanel = document.getElementById('panel-matrix');
+    if (matrixBtn) matrixBtn.classList.add('active');
+    if (matrixPanel) matrixPanel.classList.add('active');
+    // Find and highlight the row
+    setTimeout(() => {
+        const rows = document.querySelectorAll('#matrixBody tr');
+        rows.forEach(row => {
+            row.classList.remove('matrix-highlight');
+            const tickerCell = row.querySelector('.ticker-cell');
+            if (tickerCell && tickerCell.textContent.trim() === ticker) {
+                row.classList.add('matrix-highlight');
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => row.classList.remove('matrix-highlight'), 3000);
+            }
+        });
+    }, 100);
+}
+
 function renderOverviewStocks() {
     const tbody = document.querySelector("#overviewStocks tbody");
     if (!tbody) return;
@@ -261,7 +285,7 @@ function renderOverviewStocks() {
     tbody.innerHTML = top5.map(stock => {
         const scorePrefix = stock.score > 0 ? '+' : '';
         return `
-            <tr>
+            <tr class="overview-clickable-row" data-ticker="${stock.ticker}">
                 <td class="ticker-cell">${tickerLink(stock.ticker)}</td>
                 <td class="company-cell">${stock.company}</td>
                 <td class="price-cell">$${stock.price.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
@@ -270,6 +294,13 @@ function renderOverviewStocks() {
             </tr>
         `;
     }).join('');
+    // Add click handlers (avoid intercepting ticker-link clicks)
+    tbody.querySelectorAll('.overview-clickable-row').forEach(row => {
+        row.addEventListener('click', (e) => {
+            if (e.target.closest('a.ticker-link')) return;
+            navigateToMatrixTicker(row.dataset.ticker);
+        });
+    });
 }
 
 function renderOverviewBearish() {
@@ -279,7 +310,7 @@ function renderOverviewBearish() {
     tbody.innerHTML = bearish.map(stock => {
         const scorePrefix = stock.score > 0 ? '+' : '';
         return `
-            <tr class="row-highlight-bottom">
+            <tr class="row-highlight-bottom overview-clickable-row" data-ticker="${stock.ticker}">
                 <td class="ticker-cell">${tickerLink(stock.ticker)}</td>
                 <td class="company-cell">${stock.company}</td>
                 <td class="price-cell">$${stock.price.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
@@ -288,6 +319,31 @@ function renderOverviewBearish() {
             </tr>
         `;
     }).join('');
+    // Add click handlers
+    tbody.querySelectorAll('.overview-clickable-row').forEach(row => {
+        row.addEventListener('click', (e) => {
+            if (e.target.closest('a.ticker-link')) return;
+            navigateToMatrixTicker(row.dataset.ticker);
+        });
+    });
+}
+
+function formatSignalDateTime(date, time) {
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const parts = date.split('-');
+    const m = months[parseInt(parts[1], 10) - 1];
+    const d = parseInt(parts[2], 10);
+    const hhmm = time || '00:00';
+    const [hh, mm] = hhmm.split(':').map(Number);
+    const ampm = hh >= 12 ? 'PM' : 'AM';
+    const h12 = hh % 12 || 12;
+    return `${m} ${d}, ${h12}:${mm.toString().padStart(2,'0')} ${ampm}`;
+}
+
+function renderSourceLinks(sources) {
+    if (!sources || sources.length === 0) return '';
+    const links = sources.map(s => `<a href="${s.url}" target="_blank" rel="noopener" class="signal-source-link">${s.name}</a>`).join(' ');
+    return `<span class="signal-sources">${links}</span>`;
 }
 
 function renderOverviewFeed() {
@@ -296,9 +352,9 @@ function renderOverviewFeed() {
     const recent = signalsFeedData.slice(0, 8);
     feed.innerHTML = recent.map((sig, i) => `
         <div class="signal-entry${sig.recent ? ' recent' : ''}" style="animation-delay:${i * 0.05}s">
-            <span class="signal-date">${sig.date}</span>
+            <span class="signal-date">${formatSignalDateTime(sig.date, sig.time)}</span>
             <span class="signal-tag ${sig.tagClass}">${sig.tag}</span>
-            <span class="signal-text">${linkifyTickers(sig.text)}</span>
+            <span class="signal-text">${linkifyTickers(sig.text)}${renderSourceLinks(sig.sources)}</span>
         </div>
     `).join('');
 }
@@ -533,7 +589,7 @@ function renderETFTab() {
                 <td class="price-cell">${hasBacktest ? '$' + bt.start.toFixed(2) : '—'}</td>
                 <td class="price-cell">${hasBacktest ? '$' + bt.end.toFixed(2) : '—'}</td>
                 <td style="text-align:center;"><span class="${retClass}">${retStr}</span></td>
-                <td><div class="weight-bar-container"><div class="weight-bar-fill" style="width:${barWidth}%"></div></div></td>
+                <td><div class="weight-bar-container"><div class="weight-bar-fill" style="width:${barWidth}%"></div><span class="weight-bar-label">${weightPct}%</span></div></td>
             `;
             tbody.appendChild(tr);
         });
