@@ -991,3 +991,192 @@ status-value.teal { color: #14b8a6; }
     .theater-chip-tickers { display: none; }
     .gap-analysis-grid { grid-template-columns: 1fr; }
 }
+
+/* === THEATER INTEL TAB === */
+.theater-intel-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 0 20px 40px;
+}
+
+.theater-intel-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    transition: border-color 0.2s;
+}
+
+.theater-intel-card.theater-intel-critical {
+    border-color: rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.05);
+}
+
+.theater-intel-card.theater-intel-high {
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
+}
+
+.theater-intel-card.theater-intel-elevated {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.05);
+}
+
+.theater-intel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.theater-intel-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+}
+
+.theater-intel-summary {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.theater-intel-evidence {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.theater-intel-category {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.theater-intel-cat-header {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--teal, #14b8a6);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(20, 184, 166, 0.15);
+}
+
+.theater-intel-critical .theater-intel-cat-header {
+    color: #ff4444;
+    border-bottom-color: rgba(255, 0, 0, 0.15);
+}
+
+.theater-intel-high .theater-intel-cat-header {
+    color: #f59e0b;
+    border-bottom-color: rgba(245, 158, 11, 0.15);
+}
+
+.theater-intel-elevated .theater-intel-cat-header {
+    color: #3b82f6;
+    border-bottom-color: rgba(59, 130, 246, 0.15);
+}
+
+.theater-intel-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.theater-intel-items li {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    padding: 4px 0 4px 14px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.theater-intel-items li:last-child {
+    border-bottom: none;
+}
+
+.theater-intel-items li::before {
+    content: "\25B8";
+    position: absolute;
+    left: 0;
+    color: var(--teal, #14b8a6);
+    font-size: 9px;
+}
+
+.theater-intel-critical .theater-intel-items li::before {
+    color: #ff4444;
+}
+
+.theater-intel-high .theater-intel-items li::before {
+    color: #f59e0b;
+}
+
+.theater-intel-elevated .theater-intel-items li::before {
+    color: #3b82f6;
+}
+
+.theater-intel-footer {
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.theater-intel-assets,
+.theater-intel-tickers,
+.theater-intel-sources {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.theater-intel-assets-label,
+.theater-intel-tickers-label,
+.theater-intel-sources-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-tertiary, #666);
+    margin-right: 8px;
+}
+
+.theater-level-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.theater-level-badge.critical {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4444;
+    border: 1px solid rgba(255, 0, 0, 0.35);
+}
+
+.theater-level-badge.high {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.theater-level-badge.elevated {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+}
