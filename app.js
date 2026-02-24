@@ -27,22 +27,22 @@ function linkifyTickers(text) {
 const stockData = [
     { ticker: "LMT", company: "Lockheed Martin", price: 665.11, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
     { ticker: "RTX", company: "Raytheon Technologies", price: 197.74, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
-    { ticker: "NOC", company: "Northrop Grumman", price: 732.06, score: 4, direction: "bullish", summary: "B-21 Raider validated in Iran strikes. Sentinel ICBM. Nuclear modernization. B-2 watch active — analysts flagging for repeat of Midnight Hammer." },
-    { ticker: "KTOS", company: "Kratos Defense", price: 88.75, score: 4, direction: "bullish", summary: "CCA/attritable drone boom. $1.1B Drone Dominance Program. $12.4M CCA engine contract with GE (Feb 23, AFA). Marine Corps XQ-58 Valkyrie first CCA." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 732.06, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
+    { ticker: "KTOS", company: "Kratos Defense", price: 88.75, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
     { ticker: "RKLB", company: "Rocket Lab USA", price: 68.37, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
-    { ticker: "BWXT", company: "BWX Technologies", price: 203.57, score: 4, direction: "bullish", summary: "Sole-source naval nuclear. Zero DOGE risk. Submarine buildup. Earnings report Feb 23 2026. Record $7.4B backlog." },
-    { ticker: "HII", company: "Huntington Ingalls", price: 446.08, score: 4, direction: "bullish", summary: "$151B SHIELD IDIQ contract. Only nuclear shipyard. 14 Navy vessels now deployed to Iran theater. Pacific naval expansion." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 203.57, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 446.08, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
     { ticker: "CW", company: "Curtiss-Wright", price: 699.24, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
     { ticker: "GD", company: "General Dynamics", price: 351.74, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
-    { ticker: "LHX", company: "L3Harris Technologies", price: 355.07, score: 3, direction: "bullish", summary: "Mullin bought $15K-$50K May 2025. Book-to-bill 1.5x. EW/comms demand elevated with dual-carrier Iran posture." },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 129.16, score: 3, direction: "bullish", summary: "$10B Army contract. AI targeting demand. Khanna 9 trades, MTG bought. DOGE-aligned. Greg Little keynote at GovCon Summit." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 355.07, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 129.16, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
     { ticker: "AVAV", company: "AeroVironment", price: 261.33, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
     { ticker: "BAESY", company: "BAE Systems ADR", price: 116.48, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
     { ticker: "MRCY", company: "Mercury Systems", price: 85.90, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
     { ticker: "BA", company: "Boeing", price: 233.33, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
     { ticker: "LDOS", company: "Leidos Holdings", price: 172.67, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
     { ticker: "FTNT", company: "Fortinet", price: 75.05, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
-    { ticker: "CRWD", company: "CrowdStrike", price: 348.63, score: 1, direction: "neutral", summary: "Earnings miss — stock -9.85% Feb 23. Cyber demand persistent but execution concern. State actor APT campaigns active (Google TIG Feb 10)." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 348.63, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
     { ticker: "JOBY", company: "Joby Aviation", price: 9.59, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
     { ticker: "ACHR", company: "Archer Aviation", price: 6.94, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
     { ticker: "PANW", company: "Palo Alto Networks", price: 139.63, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
@@ -128,30 +128,106 @@ const theaterData = [
 const etfHoldings = [
     { ticker: "LMT", company: "Lockheed Martin", score: 5 },
     { ticker: "RTX", company: "Raytheon Technologies", score: 5 },
-    { ticker: "NOC", company: "Northrop Grumman", score: 4 },
-    { ticker: "KTOS", company: "Kratos Defense", score: 4 },
+    { ticker: "NOC", company: "Northrop Grumman", score: 5 },
+    { ticker: "HII", company: "Huntington Ingalls", score: 5 },
+    { ticker: "BWXT", company: "BWX Technologies", score: 5 },
     { ticker: "RKLB", company: "Rocket Lab USA", score: 4 },
-    { ticker: "BWXT", company: "BWX Technologies", score: 4 },
-    { ticker: "HII", company: "Huntington Ingalls", score: 4 },
     { ticker: "CW", company: "Curtiss-Wright", score: 4 },
+    { ticker: "LHX", company: "L3Harris Technologies", score: 4 },
+    { ticker: "PLTR", company: "Palantir Technologies", score: 4 },
     { ticker: "GD", company: "General Dynamics", score: 3 },
-    { ticker: "LHX", company: "L3Harris Technologies", score: 3 },
-    { ticker: "PLTR", company: "Palantir Technologies", score: 3 },
+    { ticker: "KTOS", company: "Kratos Defense", score: 3 },
     { ticker: "AVAV", company: "AeroVironment", score: 3 },
     { ticker: "BAESY", company: "BAE Systems ADR", score: 3 },
     { ticker: "MRCY", company: "Mercury Systems", score: 3 },
     { ticker: "BA", company: "Boeing", score: 2 },
     { ticker: "LDOS", company: "Leidos Holdings", score: 2 },
     { ticker: "FTNT", company: "Fortinet", score: 1 },
-    { ticker: "CRWD", company: "CrowdStrike", score: 1 },
     { ticker: "JOBY", company: "Joby Aviation", score: 1 }
 ];
 
 const etfExcluded = [
+    { ticker: "CRWD", company: "CrowdStrike", score: 0 },
     { ticker: "ACHR", company: "Archer Aviation", score: 0 },
     { ticker: "PANW", company: "Palo Alto Networks", score: -1 },
     { ticker: "SAIC", company: "Science Applications", score: -3 },
     { ticker: "BAH", company: "Booz Allen Hamilton", score: -5 }
+];
+
+// === POSITION CHANGES — Feb 24, 2026 Update ===
+const positionChanges = [
+    {
+        ticker: "NOC",
+        company: "Northrop Grumman",
+        oldScore: 4,
+        newScore: 5,
+        action: "UPGRADE",
+        signal: "B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. Nuclear modernization centerpiece. B-21 validated in prior Iran strikes — analysts flagging for repeat.",
+        catalysts: ["$153B Pentagon spend", "B-21 +25% production", "Sentinel ICBM"]
+    },
+    {
+        ticker: "HII",
+        company: "Huntington Ingalls",
+        oldScore: 4,
+        newScore: 5,
+        action: "UPGRADE",
+        signal: "$29B shipbuilding in reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels now deployed to Iran theater. Dual-carrier posture = max demand.",
+        catalysts: ["$29B shipbuilding", "Sole nuclear shipyard", "Dual-carrier ops"]
+    },
+    {
+        ticker: "BWXT",
+        company: "BWX Technologies",
+        oldScore: 4,
+        newScore: 5,
+        action: "UPGRADE",
+        signal: "Nuclear emphasis in $153B spend — sub reactors, B-21 nuclear systems, Golden Dome. Record $7.4B backlog. Zero DOGE risk. +2.61% on day.",
+        catalysts: ["Nuclear spend surge", "$7.4B backlog", "+2.61% momentum"]
+    },
+    {
+        ticker: "PLTR",
+        company: "Palantir Technologies",
+        oldScore: 3,
+        newScore: 4,
+        action: "UPGRADE",
+        signal: "Pentagon summoned Anthropic CEO over AI guardrails — deals with xAI and Google done. PLTR as incumbent AI/targeting platform benefits from Pentagon AI push. $10B Army contract.",
+        catalysts: ["Pentagon AI push", "Anthropic dispute = PLTR leverage", "$10B Army"]
+    },
+    {
+        ticker: "RKLB",
+        company: "Rocket Lab USA",
+        oldScore: 4,
+        newScore: 4,
+        action: "HOLD",
+        signal: "Golden Dome $24B (classified) benefits space-based tracking. $816M SDA contract intact. -2.62% selloff is broad market, not fundamental.",
+        catalysts: ["Golden Dome $24B", "SDA HALO demo", "Selloff = noise"]
+    },
+    {
+        ticker: "KTOS",
+        company: "Kratos Defense",
+        oldScore: 4,
+        newScore: 3,
+        action: "DOWNGRADE",
+        signal: "-5.90% selloff despite positive CCA engine contract ($12.4M) and $1.1B Drone Dominance. Market skepticism on execution timeline. Downgrade on momentum deterioration.",
+        catalysts: ["-5.90% selloff", "Execution concern", "CCA timeline risk"]
+    },
+    {
+        ticker: "CRWD",
+        company: "CrowdStrike",
+        oldScore: 1,
+        newScore: 0,
+        action: "DOWNGRADE",
+        signal: "Earnings miss — stock -9.85% Feb 23. Cyber demand persistent but execution failing. Moving to excluded on negative momentum.",
+        catalysts: ["Earnings miss", "-9.85% crash", "Execution failure"]
+    },
+    {
+        ticker: "LHX",
+        company: "L3Harris Technologies",
+        oldScore: 3,
+        newScore: 4,
+        action: "UPGRADE",
+        signal: "F-22 deployment + 150 aircraft surge = elevated EW/comms demand. LHX book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand.",
+        catalysts: ["F-22 surge", "EW/comms demand", "1.5x book-to-bill"]
+    }
 ];
 
 function computeETFWeights(holdings) {
@@ -794,9 +870,82 @@ function renderMatrix(data) {
 }
 
 // ============================================
+// ============================================
+// RENDER ETF TAB — POSITION CHANGES SECTION
+// ============================================
+function renderPositionChanges() {
+    const container = document.getElementById('positionChangesGrid');
+    if (!container) return;
+
+    const upgrades = positionChanges.filter(p => p.action === 'UPGRADE');
+    const downgrades = positionChanges.filter(p => p.action === 'DOWNGRADE');
+    const holds = positionChanges.filter(p => p.action === 'HOLD');
+
+    // Summary stats
+    const summaryEl = document.getElementById('posChangeSummary');
+    if (summaryEl) {
+        summaryEl.innerHTML = `
+            <div class="pos-change-stat">
+                <span class="pos-stat-count upgrade-count">${upgrades.length}</span>
+                <span class="pos-stat-label">UPGRADES</span>
+            </div>
+            <div class="pos-change-stat">
+                <span class="pos-stat-count downgrade-count">${downgrades.length}</span>
+                <span class="pos-stat-label">DOWNGRADES</span>
+            </div>
+            <div class="pos-change-stat">
+                <span class="pos-stat-count hold-count">${holds.length}</span>
+                <span class="pos-stat-label">REVIEWED / HELD</span>
+            </div>
+            <div class="pos-change-stat">
+                <span class="pos-stat-count net-count">${upgrades.length - downgrades.length > 0 ? '+' : ''}${upgrades.length - downgrades.length}</span>
+                <span class="pos-stat-label">NET SCORE CHANGE</span>
+            </div>
+        `;
+    }
+
+    let html = '';
+    const allChanges = [...upgrades, ...holds, ...downgrades];
+    allChanges.forEach((pc, i) => {
+        const isUpgrade = pc.action === 'UPGRADE';
+        const isDowngrade = pc.action === 'DOWNGRADE';
+        const actionClass = isUpgrade ? 'upgrade' : isDowngrade ? 'downgrade' : 'hold';
+        const arrow = isUpgrade ? '&#9650;' : isDowngrade ? '&#9660;' : '&#9654;';
+        const scoreDelta = pc.newScore - pc.oldScore;
+        const deltaStr = scoreDelta > 0 ? `+${scoreDelta}` : scoreDelta === 0 ? '0' : `${scoreDelta}`;
+
+        html += `
+        <div class="pos-change-card ${actionClass}" style="animation-delay:${i * 0.06}s">
+            <div class="pos-change-header">
+                <div class="pos-change-ticker-group">
+                    <span class="pos-change-action-badge ${actionClass}">${arrow} ${pc.action}</span>
+                    <span class="pos-change-ticker">${tickerLink(pc.ticker)}</span>
+                    <span class="pos-change-company">${pc.company}</span>
+                </div>
+                <div class="pos-change-score-shift">
+                    <span class="pos-old-score">+${pc.oldScore}</span>
+                    <span class="pos-arrow">&rarr;</span>
+                    <span class="pos-new-score ${actionClass}">+${pc.newScore}</span>
+                    <span class="pos-delta ${actionClass}">(${deltaStr})</span>
+                </div>
+            </div>
+            <div class="pos-change-signal">${linkifyTickers(pc.signal)}</div>
+            <div class="pos-change-catalysts">
+                ${pc.catalysts.map(c => `<span class="pos-catalyst-tag ${actionClass}">${c}</span>`).join('')}
+            </div>
+        </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// ============================================
 // ETF TAB — Full Section
 // ============================================
 function renderETFTab() {
+    // Position changes section (new Feb 24)
+    renderPositionChanges();
+
     const weightedHoldings = computeETFWeights(etfHoldings);
     const maxWeight = Math.max(...weightedHoldings.map(h => h.weight));
 
