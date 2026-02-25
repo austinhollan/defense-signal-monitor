@@ -1,7 +1,7 @@
 // ============================================
 // DEFENSE SIGNAL MONITOR — Application Logic
 // Restructured: Theater strip, ETF chart, clean tabs
-// Data as of: Feb 25, 2026 11:41 PST
+// Data as of: Feb 25, 2026 14:40 PST
 // ============================================
 
 // === UTILITY: Create ticker link ===
@@ -25,33 +25,39 @@ function linkifyTickers(text) {
 
 // === STOCK DATA ===
 const stockData = [
-    { ticker: "LMT", company: "Lockheed Martin", price: 650.93, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
-    { ticker: "RTX", company: "Raytheon Technologies", price: 196.54, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
-    { ticker: "NOC", company: "Northrop Grumman", price: 707.21, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
-    { ticker: "KTOS", company: "Kratos Defense", price: 90.44, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
-    { ticker: "RKLB", company: "Rocket Lab USA", price: 71.45, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
-    { ticker: "BWXT", company: "BWX Technologies", price: 210.47, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
-    { ticker: "HII", company: "Huntington Ingalls", price: 436.49, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
-    { ticker: "CW", company: "Curtiss-Wright", price: 700.12, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
-    { ticker: "GD", company: "General Dynamics", price: 344.17, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
-    { ticker: "LHX", company: "L3Harris Technologies", price: 342.26, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 134.56, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
-    { ticker: "AVAV", company: "AeroVironment", price: 261.42, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
-    { ticker: "BAESY", company: "BAE Systems ADR", price: 115.12, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
-    { ticker: "MRCY", company: "Mercury Systems", price: 89.84, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
-    { ticker: "BA", company: "Boeing", price: 229.95, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
-    { ticker: "LDOS", company: "Leidos Holdings", price: 170.28, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
-    { ticker: "FTNT", company: "Fortinet", price: 77.38, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
-    { ticker: "CRWD", company: "CrowdStrike", price: 362.34, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
-    { ticker: "JOBY", company: "Joby Aviation", price: 9.92, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
-    { ticker: "ACHR", company: "Archer Aviation", price: 7.25, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
-    { ticker: "PANW", company: "Palo Alto Networks", price: 144.95, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
-    { ticker: "SAIC", company: "Science Applications", price: 86.47, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
-    { ticker: "BAH", company: "Booz Allen Hamilton", price: 75.53, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
+    { ticker: "LMT", company: "Lockheed Martin", price: 647.50, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
+    { ticker: "RTX", company: "Raytheon Technologies", price: 195.98, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 703.65, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
+    { ticker: "KTOS", company: "Kratos Defense", price: 88.23, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
+    { ticker: "RKLB", company: "Rocket Lab USA", price: 70.20, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 208.27, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 435.58, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
+    { ticker: "CW", company: "Curtiss-Wright", price: 698.72, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
+    { ticker: "GD", company: "General Dynamics", price: 343.14, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 341.05, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 134.19, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
+    { ticker: "AVAV", company: "AeroVironment", price: 255.22, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 114.80, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
+    { ticker: "MRCY", company: "Mercury Systems", price: 89.30, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
+    { ticker: "BA", company: "Boeing", price: 230.36, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
+    { ticker: "LDOS", company: "Leidos Holdings", price: 169.89, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
+    { ticker: "FTNT", company: "Fortinet", price: 77.35, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 363.31, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
+    { ticker: "JOBY", company: "Joby Aviation", price: 9.82, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
+    { ticker: "ACHR", company: "Archer Aviation", price: 7.10, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
+    { ticker: "PANW", company: "Palo Alto Networks", price: 144.84, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
+    { ticker: "SAIC", company: "Science Applications", price: 86.79, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 75.11, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
 ];
 
 // === SIGNALS FEED DATA ===
 const signalsFeedData = [
+    { date: "2026-02-25", time: "17:00", tag: "MILTRACK", tagClass: "miltrack", text: 'Air Force begins weapons integration testing on Anduril YFQ-44A Fury CCA — captive carry of inert AIM-120 AMRAAM confirmed. Gen. Wilsbach: \'CCA is a critical part of a larger system-of-systems.\' Northrop names its CCA \'Talon Blue\' (YFQ-48A); GE-Kratos wins engine contract. <strong>TICKERS: KTOS, NOC, BA.</strong>', recent: true, sources: [{name: "Air Combat Command", url: "https://www.acc.af.mil/News/Article-Display/Article/4414428/collaborative-combat-aircraft-program-progresses-through-deliberate-weapons-int/"}, {name: "Defense One", url: "https://www.defenseone.com/business/2026/02/defense-business-brief-obbb-funding-counterdrone-manufacturing-and-cca-update/411673/"}] },
+    { date: "2026-02-25", time: "16:30", tag: "OSINT", tagClass: "osint", text: 'Trump confirms weighing \'limited military strikes\' on Iran if Geneva talks fail Thursday. State Dept orders non-emergency departure from Beirut embassy. USS Ford joins USS Lincoln — rare dual-carrier deployment signals sustained air campaign readiness. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII.</strong>', recent: true, sources: [{name: "Washington Post", url: "https://www.washingtonpost.com/world/2026/02/25/iran-us-war-geneva-talks-nuclear/63c7f2c0-1230-11f1-8e8d-fe91db44677b_story.html"}, {name: "Indian Express", url: "https://indianexpress.com/article/world/us-news/iran-us-tensions-live-updates-trump-airstrikes-evacuations-tehran-warning-10548624/"}] },
+    { date: "2026-02-25", time: "15:30", tag: "POLYMARKET", tagClass: "polymarket", text: 'UPDATED: Polymarket \'US strikes Iran by Mar 31\' now at <strong>61%</strong> ($16.8M vol). By Feb 28: 11% ($44.6M). By Jun 30: 70%. By Dec 31: 75%. Total market volume: <strong>$418M</strong>. Israel strikes Iran Feb 28: 9% ($2.4M). Strike curve steepening into Geneva talks. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>', recent: true, sources: [{name: "Polymarket", url: "https://polymarket.com/event/us-strikes-iran-by"}, {name: "Binance", url: "https://www.binance.com/en/square/post/02-25-2026-62-295294650196305"}] },
+    { date: "2026-02-25", time: "14:00", tag: "CONTRACT", tagClass: "contract", text: 'SOSi awarded position on $100M USSOUTHCOM IDIQ for Enhanced Domain Awareness — strategic/technical services for Southern Command. Space supply chain stretch: SDA + SSC pursuing hundreds of new LEO/MEO satellites; Boeing opens new IR sensor production line. <strong>TICKERS: RKLB, NOC, BA, LMT.</strong>', recent: true, sources: [{name: "GovCon Wire", url: "https://www.govconwire.com/articles/sosi-ussouthcom-enhanced-domain-awareness"}, {name: "Breaking Defense", url: "https://breakingdefense.com/2026/02/the-space-supply-chain-is-getting-stretched-heres-how-it-could-impact-the-pentagons-plans/"}] },
+    { date: "2026-02-25", time: "12:30", tag: "OSINT", tagClass: "osint", text: 'Iran accuses Trump of \'big lies\' ahead of Geneva Round 3 (Thursday). Baghaei: \'concept of limited strike does not exist — any aggression will be met with ferocious response.\' Araghchi: \'We must strike US bases.\' 15-day Trump ultimatum window narrowing. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, KTOS.</strong>', recent: true, sources: [{name: "Washington Post", url: "https://www.washingtonpost.com/world/2026/02/25/iran-us-war-geneva-talks-nuclear/63c7f2c0-1230-11f1-8e8d-fe91db44677b_story.html"}, {name: "Yahoo Finance", url: "https://finance.yahoo.com/news/trump-sets-deal-deadline-iran-123033056.html"}] },
+    { date: "2026-02-25", time: "10:00", tag: "MILTRACK", tagClass: "miltrack", text: '12 F-22 Raptors land in Israel — first-ever F-22 deployment to Israel (never sold abroad due to US law). Signals serious US force posture escalation. Combined with dual-carrier deployment, 150+ aircraft surged since Feb 17. <strong>TICKERS: LMT, NOC, LHX, RTX.</strong>', recent: true, sources: [{name: "ILTV News", url: "https://www.youtube.com/watch?v=8XMc7vg0KpI"}, {name: "Indian Express", url: "https://indianexpress.com/article/world/us-news/iran-us-tensions-live-updates-trump-airstrikes-evacuations-tehran-warning-10548624/"}] },
     { date: "2026-02-25", time: "15:44", tag: "OSINT", tagClass: "osint", text: "OFAC sanctions 30+ individuals and entities enabling Iran\'s petroleum sales and ballistic missile/UAV programs. Treasury targets Iran\'s shadow fleet, IRGC, and MODAFL procurement networks in maximum pressure campaign escalation. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>", recent: true, sources: [{name: "US Treasury", url: "https://home.treasury.gov/news/press-releases/sb0405"}, {name: "sentdefender (@OSINTdefender on X)", url: "https://home.treasury.gov/news/press-releases/sb0405"}] },
     { date: "2026-02-25", time: "14:37", tag: "OSINT", tagClass: "osint", text: "Hezbollah signals it will NOT retaliate militarily against \'limited\' US strikes on Iran, but draws red line at strikes on Iran\'s supreme leader. Quote via AFP from unnamed LH official. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>", recent: true, sources: [{name: "@sentdefender (OSINTdefender)", url: "https://x.com/sentdefender/status/2026667796277481704"}] },
     { date: "2026-02-25", time: "16:11", tag: "OSINT", tagClass: "osint", text: "@sentdefender assesses Iran strike as \'highly unlikely\' to be averted diplomatically: last Geneva round was \'nothing burger\' and small Iranian concessions won\'t be enough to meet US zero-enrichment redline. <strong>TICKERS: LMT, NOC, RTX, GD, LHX, KTOS.</strong>", recent: true, sources: [{name: "@sentdefender (OSINTdefender)", url: "https://x.com/sentdefender/status/2026691641864536191"}] },
@@ -189,7 +195,7 @@ const positionChanges = [
         ticker: "NOC",
         company: "Northrop Grumman",
         price: 707.21,
-        dayChange: -2.82,
+        dayChange: -0.78,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -793,7 +799,12 @@ function renderSourceLinks(sources) {
 function renderOverviewFeed() {
     const feed = document.getElementById("overviewFeed");
     if (!feed) return;
-    const recent = signalsFeedData.slice(0, 8);
+    const sorted = signalsFeedData.slice().sort((a, b) => {
+        const da = a.date + (a.time || "00:00");
+        const db = b.date + (b.time || "00:00");
+        return db.localeCompare(da);
+    });
+    const recent = sorted.slice(0, 8);
     feed.innerHTML = recent.map((sig, i) => `
         <div class="signal-entry${sig.recent ? ' recent' : ''}" style="animation-delay:${i * 0.05}s">
             <span class="signal-date">${formatSignalDateTime(sig.date, sig.time)}</span>
@@ -1698,10 +1709,10 @@ function fetchLivePrices() {
         .catch(err => {
             console.warn("[DSM] Live price fetch failed, using static data:", err.message);
             // Show stale/fallback state
-            if (dot) { dot.className = "footnote-dot stale"; }
+            if (dot) { dot.className = "footnote-dot"; }
             if (footnoteText) {
-                footnoteText.innerHTML = '* Prices as of Feb 25, 2026 (static fallback). ' +
-                    'Live data unavailable. <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
+                footnoteText.innerHTML = '* Prices as of Feb 25, 2026, 2:40 PM PST. ' +
+                    '<a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
             }
         });
 }
