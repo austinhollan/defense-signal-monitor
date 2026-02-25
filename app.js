@@ -1016,11 +1016,14 @@ function renderPositionChanges() {
         const scoreDelta = pc.newScore - pc.oldScore;
         const deltaStr = scoreDelta > 0 ? `+${scoreDelta}` : scoreDelta === 0 ? '0' : `${scoreDelta}`;
 
-        // Live price + day change
-        const priceStr = '$' + pc.price.toFixed(2);
-        const changeSign = pc.dayChange >= 0 ? '+' : '';
-        const changeClass = pc.dayChange >= 0 ? 'day-positive' : 'day-negative';
-        const changeStr = `${changeSign}${pc.dayChange.toFixed(2)}%`;
+        // Live price + day change — pull from shared stockData for consistency
+        const liveStock = stockData.find(s => s.ticker === pc.ticker);
+        const livePrice = liveStock ? liveStock.price : pc.price;
+        const liveDayChange = liveStock ? liveStock.dayChange : pc.dayChange;
+        const priceStr = '$' + livePrice.toFixed(2);
+        const changeSign = liveDayChange >= 0 ? '+' : '';
+        const changeClass = liveDayChange >= 0 ? 'day-positive' : 'day-negative';
+        const changeStr = `${changeSign}${liveDayChange.toFixed(2)}%`;
 
         // Priority action badge
         let priorityHtml = '';
