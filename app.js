@@ -814,11 +814,17 @@ function renderOverviewFeed() {
     `).join('');
 }
 
+// Track chart instances for proper cleanup on re-render
+let _overviewChartInstance = null;
+let _etfChartInstance = null;
+let _tenDayChartInstance = null;
+
 function renderOverviewChart() {
     const canvas = document.getElementById("overviewChart");
     if (!canvas) return;
+    if (_overviewChartInstance) { _overviewChartInstance.destroy(); _overviewChartInstance = null; }
     const ctx = canvas.getContext("2d");
-    new Chart(ctx, {
+    _overviewChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels: perfLabels,
@@ -1196,8 +1202,9 @@ function renderETFTab() {
 function renderETFChart() {
     const canvas = document.getElementById("etfPerformanceChart");
     if (!canvas) return;
+    if (_etfChartInstance) { _etfChartInstance.destroy(); _etfChartInstance = null; }
     const ctx = canvas.getContext("2d");
-    new Chart(ctx, {
+    _etfChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels: perfLabels,
@@ -1404,7 +1411,8 @@ function renderTenDayChart() {
     const itaData =  [100, 100.9, 101.5, 101.2, 102.4, 102.8, 103.3, 103.8, 104.5, 104.8];
     const spyData =  [100, 100.0, 100.3, 100.1, 100.5, 100.7, 100.5, 100.3, 100.1, 100.4];
 
-    new Chart(ctx, {
+    if (_tenDayChartInstance) { _tenDayChartInstance.destroy(); _tenDayChartInstance = null; }
+    _tenDayChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels,
