@@ -1567,3 +1567,48 @@ status-value.teal { color: #14b8a6; }
         font-size: 1.2rem;
     }
 }
+
+/* ============================================
+   PRICE FOOTNOTE — Live data indicator
+   ============================================ */
+.price-footnote {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 20px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+.price-footnote a {
+    color: var(--green);
+    text-decoration: none;
+}
+.price-footnote a:hover {
+    text-decoration: underline;
+}
+.footnote-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+}
+.footnote-dot.live {
+    background: var(--green);
+    box-shadow: 0 0 4px var(--green);
+    animation: footnote-pulse 2s infinite;
+}
+.footnote-dot.stale {
+    background: var(--amber, #f59e0b);
+}
+.footnote-dot.error {
+    background: var(--red);
+}
+@keyframes footnote-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
