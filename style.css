@@ -1415,6 +1415,131 @@ status-value.teal { color: #14b8a6; }
     border: 1px solid rgba(100, 116, 139, 0.2);
 }
 
+/* Live price + day change inline */
+.pos-change-price-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.pos-price-value {
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+.pos-day-change {
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.72rem;
+}
+
+.pos-day-change.day-positive {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.pos-day-change.day-negative {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Priority action stat */
+.pos-change-stat.priority-stat {
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    background: rgba(251, 191, 36, 0.08);
+}
+
+.pos-stat-count.priority-count {
+    color: #fbbf24;
+}
+
+/* Priority action banner */
+.pos-change-card.has-priority {
+    border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.pos-change-card.has-priority.priority-high {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.06);
+}
+
+.priority-action-banner {
+    margin: -16px -20px 14px -20px;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(45, 58, 80, 0.5);
+    border-radius: 9px 9px 0 0;
+}
+
+.priority-action-banner.priority-buy {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);
+    border-bottom-color: rgba(34, 197, 94, 0.2);
+}
+
+.priority-action-banner.priority-exit {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+    border-bottom-color: rgba(239, 68, 68, 0.2);
+}
+
+.priority-action-banner.priority-reduce {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(251, 191, 36, 0.02) 100%);
+    border-bottom-color: rgba(251, 191, 36, 0.2);
+}
+
+.priority-action-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.priority-action-icon {
+    font-size: 0.7rem;
+}
+
+.priority-buy .priority-action-icon { color: #22c55e; }
+.priority-exit .priority-action-icon { color: #ef4444; }
+.priority-reduce .priority-action-icon { color: #fbbf24; }
+
+.priority-action-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.priority-buy .priority-action-label { color: #22c55e; }
+.priority-exit .priority-action-label { color: #ef4444; }
+.priority-reduce .priority-action-label { color: #fbbf24; }
+
+.priority-action-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: priorityPulse 2s ease-in-out infinite;
+}
+
+.priority-buy .priority-action-pulse { background: #22c55e; }
+.priority-exit .priority-action-pulse { background: #ef4444; }
+.priority-reduce .priority-action-pulse { background: #fbbf24; }
+
+@keyframes priorityPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
+    50% { opacity: 0.5; box-shadow: 0 0 8px 2px currentColor; }
+}
+
+.priority-action-rationale {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: #94a3b8;
+    font-style: italic;
+}
+
 @keyframes fadeSlideIn {
     from {
         opacity: 0;
