@@ -1764,15 +1764,14 @@ async function fetchLivePrices() {
         if (dot) { dot.className = "footnote-dot live"; }
         if (footnoteText) {
             footnoteText.innerHTML = '* Prices as of ' + timeStr +
-                '. Source: <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">Perplexity Finance</a>. ' +
-                updated + '/' + stockData.length + ' tickers updated via Polygon.io.';
+                '. ' + updated + '/' + stockData.length + ' tickers updated via <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.';
         }
         console.log("[DSM] Live prices updated:", updated, "tickers from Polygon.io");
     } else {
         if (dot) { dot.className = "footnote-dot"; }
         if (footnoteText) {
             footnoteText.innerHTML = '* Prices as of ' + timeStr + '. ' +
-                '<a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
+                '<a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.';
         }
         console.warn("[DSM] No prices updated from Polygon.io");
     }
