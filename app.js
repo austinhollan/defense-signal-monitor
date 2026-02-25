@@ -1700,77 +1700,81 @@ async function fetchLivePrices() {
                 }
             });
         }
+    } catch (err) {
+        console.warn("[DSM] Polygon batch fetch failed:", err.message);
+    }
 
-        // 2. Fetch OTC tickers individually via last-trade endpoint
-        for (const otcTicker of OTC_TICKERS) {
-            try {
-                const otcUrl = POLYGON_BASE + "/v2/last/trade/" + otcTicker + "?apiKey=" + POLYGON_API_KEY;
-                const otcRes = await fetch(otcUrl);
-                if (!otcRes.ok) continue;
-                const otcData = await otcRes.json();
-                if (otcData.results && otcData.results.p > 0) {
-                    const stock = stockData.find(s => s.ticker === otcTicker);
-                    if (stock) {
-                        stock.price = Math.round(otcData.results.p * 100) / 100;
-                        // For OTC, compute day change from previous close if available
-                        // We'll fetch prev day close separately
-                        updated++;
-                    }
-                }
-            } catch (e) {
-                console.warn("[DSM] OTC fetch failed for " + otcTicker + ":", e.message);
-            }
-        }
-
-        // 3. For BAESY, get previous close to calculate day change
+    // 2. Fetch OTC tickers individually (non-blocking)
+    for (const otcTicker of OTC_TICKERS) {
         try {
-            const prevUrl = POLYGON_BASE + "/v2/aggs/ticker/BAESY/prev?adjusted=true&apiKey=" + POLYGON_API_KEY;
-            const prevRes = await fetch(prevUrl);
-            if (prevRes.ok) {
-                const prevData = await prevRes.json();
-                if (prevData.results && prevData.results.length > 0) {
-                    const prevClose = prevData.results[0].c;
-                    const baesy = stockData.find(s => s.ticker === "BAESY");
-                    if (baesy && prevClose > 0) {
-                        baesy.dayChange = Math.round(((baesy.price - prevClose) / prevClose) * 10000) / 100;
-                    }
+            const otcUrl = POLYGON_BASE + "/v2/last/trade/" + otcTicker + "?apiKey=" + POLYGON_API_KEY;
+            const otcRes = await fetch(otcUrl);
+            if (!otcRes.ok) continue;
+            const otcData = await otcRes.json();
+            if (otcData.results && otcData.results.p > 0) {
+                const stock = stockData.find(s => s.ticker === otcTicker);
+                if (stock) {
+                    stock.price = Math.round(otcData.results.p * 100) / 100;
+                    updated++;
                 }
             }
         } catch (e) {
-            console.warn("[DSM] BAESY prev close fetch failed:", e.message);
+            console.warn("[DSM] OTC fetch failed for " + otcTicker + ":", e.message);
         }
+    }
 
-        // 4. Re-render all price-dependent views
-        if (updated > 0) {
+    // 3. For BAESY, get previous close to calculate day change
+    try {
+        const prevUrl = POLYGON_BASE + "/v2/aggs/ticker/BAESY/prev?adjusted=true&apiKey=" + POLYGON_API_KEY;
+        const prevRes = await fetch(prevUrl);
+        if (prevRes.ok) {
+            const prevData = await prevRes.json();
+            if (prevData.results && prevData.results.length > 0) {
+                const prevClose = prevData.results[0].c;
+                const baesy = stockData.find(s => s.ticker === "BAESY");
+                if (baesy && prevClose > 0) {
+                    baesy.dayChange = Math.round(((baesy.price - prevClose) / prevClose) * 10000) / 100;
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("[DSM] BAESY prev close fetch failed:", e.message);
+    }
+
+    // 4. Re-render all price-dependent views
+    if (updated > 0) {
+        try {
             renderOverview();
             renderMatrix(stockData);
             renderETFTab();
+        } catch (renderErr) {
+            console.warn("[DSM] Re-render error (non-fatal):", renderErr.message);
         }
+    }
 
-        // 5. Update footnote with timestamp
-        const now = new Date();
-        const timeStr = now.toLocaleString("en-US", {
-            month: "short", day: "numeric", year: "numeric",
-            hour: "numeric", minute: "2-digit",
-            hour12: true, timeZoneName: "short"
-        });
+    // 5. Update footnote with timestamp (always update if we got any prices)
+    const now = new Date();
+    const timeStr = now.toLocaleString("en-US", {
+        month: "short", day: "numeric", year: "numeric",
+        hour: "numeric", minute: "2-digit",
+        hour12: true, timeZoneName: "short"
+    });
 
+    if (updated > 0) {
         if (dot) { dot.className = "footnote-dot live"; }
         if (footnoteText) {
             footnoteText.innerHTML = '* Prices as of ' + timeStr +
                 '. Source: <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">Perplexity Finance</a>. ' +
                 updated + '/' + stockData.length + ' tickers updated via Polygon.io.';
         }
-
         console.log("[DSM] Live prices updated:", updated, "tickers from Polygon.io");
-
-    } catch (err) {
-        console.warn("[DSM] Live price fetch failed, using static data:", err.message);
+    } else {
         if (dot) { dot.className = "footnote-dot"; }
         if (footnoteText) {
-            footnoteText.innerHTML = '* Prices as of last server sync. ' +
+            footnoteText.innerHTML = '* Prices as of ' + timeStr + '. ' +
                 '<a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
         }
+        console.warn("[DSM] No prices updated from Polygon.io");
     }
 }
 
