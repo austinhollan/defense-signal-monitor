@@ -1652,72 +1652,121 @@ function setupMethodologyToggle() {
     });
 }
 // ============================================
-// LIVE PRICE FETCHING — Perplexity Sonar API
-// Calls /api/quotes serverless function on page load
+// LIVE PRICE FETCHING — Polygon.io Real-Time API
+// Direct client-side calls for real-time quotes
 // ============================================
 
-function fetchLivePrices() {
+const POLYGON_API_KEY = "0LypqHjCkZpXfYdbUbYMJPXIISPoM0zp";
+const POLYGON_BASE = "https://api.polygon.io";
+
+// Tickers available via batch snapshot (exchange-listed)
+const BATCH_TICKERS = ["LMT","RTX","NOC","KTOS","RKLB","BWXT","HII","CW","GD","LHX","PLTR","AVAV","MRCY","BA","LDOS","FTNT","CRWD","JOBY","ACHR","PANW","SAIC","BAH"];
+// OTC tickers need individual last-trade endpoint
+const OTC_TICKERS = ["BAESY"];
+
+async function fetchLivePrices() {
     const dot = document.getElementById("priceStatusDot");
     const footnoteText = document.getElementById("priceFootnoteText");
+    let updated = 0;
 
-    fetch("/api/quotes")
-        .then(res => {
-            if (!res.ok) throw new Error("API returned " + res.status);
-            return res.json();
-        })
-        .then(data => {
-            if (!data.quotes || !Array.isArray(data.quotes)) {
-                throw new Error("Invalid response format");
-            }
+    try {
+        // 1. Batch fetch exchange-listed tickers via snapshot
+        const batchUrl = POLYGON_BASE + "/v2/snapshot/locale/us/markets/stocks/tickers?tickers=" +
+            BATCH_TICKERS.join(",") + "&apiKey=" + POLYGON_API_KEY;
+        const batchRes = await fetch(batchUrl);
+        if (!batchRes.ok) throw new Error("Polygon snapshot returned " + batchRes.status);
+        const batchData = await batchRes.json();
 
-            let updated = 0;
-            data.quotes.forEach(q => {
-                const stock = stockData.find(s => s.ticker === q.ticker);
-                if (stock && typeof q.price === "number" && q.price > 0) {
-                    stock.price = q.price;
-                    if (typeof q.changePercent === "number") {
-                        stock.dayChange = q.changePercent;
+        if (batchData.tickers && Array.isArray(batchData.tickers)) {
+            batchData.tickers.forEach(t => {
+                const stock = stockData.find(s => s.ticker === t.ticker);
+                if (!stock) return;
+                // Use fair market value if available, otherwise last trade, otherwise day close
+                const price = t.fmv || (t.lastTrade && t.lastTrade.p) || (t.day && t.day.c);
+                if (price && price > 0) {
+                    stock.price = Math.round(price * 100) / 100;
+                    if (typeof t.todaysChangePerc === "number") {
+                        stock.dayChange = Math.round(t.todaysChangePerc * 100) / 100;
                     }
                     updated++;
                 }
             });
+        }
 
-            // Re-render all price-dependent views
-            if (updated > 0) {
-                renderOverview();
-                renderMatrix(stockData);
-                renderETFTab();
+        // 2. Fetch OTC tickers individually via last-trade endpoint
+        for (const otcTicker of OTC_TICKERS) {
+            try {
+                const otcUrl = POLYGON_BASE + "/v2/last/trade/" + otcTicker + "?apiKey=" + POLYGON_API_KEY;
+                const otcRes = await fetch(otcUrl);
+                if (!otcRes.ok) continue;
+                const otcData = await otcRes.json();
+                if (otcData.results && otcData.results.p > 0) {
+                    const stock = stockData.find(s => s.ticker === otcTicker);
+                    if (stock) {
+                        stock.price = Math.round(otcData.results.p * 100) / 100;
+                        // For OTC, compute day change from previous close if available
+                        // We'll fetch prev day close separately
+                        updated++;
+                    }
+                }
+            } catch (e) {
+                console.warn("[DSM] OTC fetch failed for " + otcTicker + ":", e.message);
             }
+        }
 
-            // Update footnote with success state
-            const ts = data.timestamp ? new Date(data.timestamp) : new Date();
-            const timeStr = ts.toLocaleString("en-US", {
-                month: "short", day: "2-digit",
-                hour: "2-digit", minute: "2-digit",
-                hour12: true, timeZoneName: "short"
-            }).toUpperCase();
-
-            if (dot) { dot.className = "footnote-dot live"; }
-            if (footnoteText) {
-                footnoteText.innerHTML = '* Prices as of ' + timeStr +
-                    '. Source: <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">Perplexity Finance</a>. ' +
-                    'Updated ' + updated + '/' + stockData.length + ' tickers.';
+        // 3. For BAESY, get previous close to calculate day change
+        try {
+            const prevUrl = POLYGON_BASE + "/v2/aggs/ticker/BAESY/prev?adjusted=true&apiKey=" + POLYGON_API_KEY;
+            const prevRes = await fetch(prevUrl);
+            if (prevRes.ok) {
+                const prevData = await prevRes.json();
+                if (prevData.results && prevData.results.length > 0) {
+                    const prevClose = prevData.results[0].c;
+                    const baesy = stockData.find(s => s.ticker === "BAESY");
+                    if (baesy && prevClose > 0) {
+                        baesy.dayChange = Math.round(((baesy.price - prevClose) / prevClose) * 10000) / 100;
+                    }
+                }
             }
+        } catch (e) {
+            console.warn("[DSM] BAESY prev close fetch failed:", e.message);
+        }
 
-            console.log("[DSM] Live prices updated:", updated, "tickers from Sonar API");
-        })
-        .catch(err => {
-            console.warn("[DSM] Live price fetch failed, using static data:", err.message);
-            // Show stale/fallback state
-            if (dot) { dot.className = "footnote-dot"; }
-            if (footnoteText) {
-                footnoteText.innerHTML = '* Prices as of Feb 25, 2026, 2:40 PM PST. ' +
-                    '<a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
-            }
+        // 4. Re-render all price-dependent views
+        if (updated > 0) {
+            renderOverview();
+            renderMatrix(stockData);
+            renderETFTab();
+        }
+
+        // 5. Update footnote with timestamp
+        const now = new Date();
+        const timeStr = now.toLocaleString("en-US", {
+            month: "short", day: "numeric", year: "numeric",
+            hour: "numeric", minute: "2-digit",
+            hour12: true, timeZoneName: "short"
         });
+
+        if (dot) { dot.className = "footnote-dot live"; }
+        if (footnoteText) {
+            footnoteText.innerHTML = '* Prices as of ' + timeStr +
+                '. Source: <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">Perplexity Finance</a>. ' +
+                updated + '/' + stockData.length + ' tickers updated via Polygon.io.';
+        }
+
+        console.log("[DSM] Live prices updated:", updated, "tickers from Polygon.io");
+
+    } catch (err) {
+        console.warn("[DSM] Live price fetch failed, using static data:", err.message);
+        if (dot) { dot.className = "footnote-dot"; }
+        if (footnoteText) {
+            footnoteText.innerHTML = '* Prices as of last server sync. ' +
+                '<a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
+        }
+    }
 }
 
-// Refresh prices every 5 minutes during market hours
+// Refresh prices every 60 seconds during market hours
 setInterval(() => {
     const now = new Date();
     const utcHour = now.getUTCHours();
@@ -1725,4 +1774,4 @@ setInterval(() => {
     if (utcHour >= 13 && utcHour <= 21) {
         fetchLivePrices();
     }
-}, 300000);
+}, 60000);
