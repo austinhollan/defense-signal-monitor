@@ -10,5 +10,8 @@
         { "key": "X-DNS-Prefetch-Control", "value": "off" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/api/quotes", "destination": "/api/quotes" }
   ]
 }
