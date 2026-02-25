@@ -614,6 +614,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setupFilters();
     setupMethodologyToggle();
     renderTheaterIntel();
+    // Fetch live prices from Sonar API
+    fetchLivePrices();
 });
 
 setInterval(setTimestamp, 30000);
@@ -1610,3 +1612,78 @@ function setupMethodologyToggle() {
         icon.classList.toggle("open");
     });
 }
+// ============================================
+// LIVE PRICE FETCHING — Perplexity Sonar API
+// Calls /api/quotes serverless function on page load
+// ============================================
+
+function fetchLivePrices() {
+    const dot = document.getElementById("priceStatusDot");
+    const footnoteText = document.getElementById("priceFootnoteText");
+
+    fetch("/api/quotes")
+        .then(res => {
+            if (!res.ok) throw new Error("API returned " + res.status);
+            return res.json();
+        })
+        .then(data => {
+            if (!data.quotes || !Array.isArray(data.quotes)) {
+                throw new Error("Invalid response format");
+            }
+
+            let updated = 0;
+            data.quotes.forEach(q => {
+                const stock = stockData.find(s => s.ticker === q.ticker);
+                if (stock && typeof q.price === "number" && q.price > 0) {
+                    stock.price = q.price;
+                    if (typeof q.changePercent === "number") {
+                        stock.dayChange = q.changePercent;
+                    }
+                    updated++;
+                }
+            });
+
+            // Re-render all price-dependent views
+            if (updated > 0) {
+                renderOverview();
+                renderMatrix(stockData);
+                renderETFTab();
+            }
+
+            // Update footnote with success state
+            const ts = data.timestamp ? new Date(data.timestamp) : new Date();
+            const timeStr = ts.toLocaleString("en-US", {
+                month: "short", day: "2-digit",
+                hour: "2-digit", minute: "2-digit",
+                hour12: true, timeZoneName: "short"
+            }).toUpperCase();
+
+            if (dot) { dot.className = "footnote-dot live"; }
+            if (footnoteText) {
+                footnoteText.innerHTML = '* Prices as of ' + timeStr +
+                    '. Source: <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">Perplexity Finance</a>. ' +
+                    'Updated ' + updated + '/' + stockData.length + ' tickers.';
+            }
+
+            console.log("[DSM] Live prices updated:", updated, "tickers from Sonar API");
+        })
+        .catch(err => {
+            console.warn("[DSM] Live price fetch failed, using static data:", err.message);
+            // Show stale/fallback state
+            if (dot) { dot.className = "footnote-dot stale"; }
+            if (footnoteText) {
+                footnoteText.innerHTML = '* Prices as of Feb 24, 2026 (static fallback). ' +
+                    'Live data unavailable. <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
+            }
+        });
+}
+
+// Refresh prices every 5 minutes during market hours
+setInterval(() => {
+    const now = new Date();
+    const utcHour = now.getUTCHours();
+    // Market hours: 9:30 AM - 4:00 PM ET = ~13:30 - 21:00 UTC
+    if (utcHour >= 13 && utcHour <= 21) {
+        fetchLivePrices();
+    }
+}, 300000);
