@@ -1,7 +1,7 @@
 // ============================================
 // DEFENSE SIGNAL MONITOR — Application Logic
 // Restructured: Theater strip, ETF chart, clean tabs
-// Data as of: Feb 26, 2026 9:31 AM PST
+// Data as of: Feb 26, 2026 10:32 AM PST
 // ============================================
 
 // === UTILITY: Create ticker link ===
