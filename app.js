@@ -1,7 +1,7 @@
 // ============================================
 // DEFENSE SIGNAL MONITOR — Application Logic
 // Restructured: Theater strip, ETF chart, clean tabs
-// Data as of: Feb 26, 2026 10:32 AM PST
+// Data as of: Feb 25, 2026 11:41 PST
 // ============================================
 
 // === UTILITY: Create ticker link ===
@@ -25,39 +25,33 @@ function linkifyTickers(text) {
 
 // === STOCK DATA ===
 const stockData = [
-    { ticker: "LMT", company: "Lockheed Martin", price: 643.32, dayChange: -0.65, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
-    { ticker: "RTX", company: "Raytheon Technologies", price: 198.04, dayChange: 1.05, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
-    { ticker: "NOC", company: "Northrop Grumman", price: 712.01, dayChange: 1.19, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
-    { ticker: "KTOS", company: "Kratos Defense", price: 91.20, dayChange: 3.37, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
-    { ticker: "RKLB", company: "Rocket Lab USA", price: 72.07, dayChange: 2.66, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
-    { ticker: "BWXT", company: "BWX Technologies", price: 208.83, dayChange: 0.27, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
-    { ticker: "HII", company: "Huntington Ingalls", price: 441.86, dayChange: 1.44, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
-    { ticker: "CW", company: "Curtiss-Wright", price: 695.63, dayChange: -0.44, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
-    { ticker: "GD", company: "General Dynamics", price: 347.82, dayChange: 1.36, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
-    { ticker: "LHX", company: "L3Harris Technologies", price: 352.83, dayChange: 3.45, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 135.42, dayChange: 0.91, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
-    { ticker: "AVAV", company: "AeroVironment", price: 257.91, dayChange: 1.05, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
-    { ticker: "BAESY", company: "BAE Systems ADR", price: 114.81, dayChange: -0.15, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
-    { ticker: "MRCY", company: "Mercury Systems", price: 89.23, dayChange: -0.07, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
-    { ticker: "BA", company: "Boeing", price: 227.98, dayChange: -1.03, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
-    { ticker: "LDOS", company: "Leidos Holdings", price: 174.98, dayChange: 3.00, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
-    { ticker: "FTNT", company: "Fortinet", price: 79.18, dayChange: 2.37, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
-    { ticker: "CRWD", company: "CrowdStrike", price: 380.02, dayChange: 4.60, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
-    { ticker: "JOBY", company: "Joby Aviation", price: 10.16, dayChange: 3.46, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
-    { ticker: "ACHR", company: "Archer Aviation", price: 7.19, dayChange: 1.27, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
-    { ticker: "PANW", company: "Palo Alto Networks", price: 149.14, dayChange: 2.97, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
-    { ticker: "SAIC", company: "Science Applications", price: 90.39, dayChange: 4.15, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
-    { ticker: "BAH", company: "Booz Allen Hamilton", price: 78.18, dayChange: 4.09, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
+    { ticker: "LMT", company: "Lockheed Martin", price: 650.93, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
+    { ticker: "RTX", company: "Raytheon Technologies", price: 196.54, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 707.21, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
+    { ticker: "KTOS", company: "Kratos Defense", price: 90.44, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
+    { ticker: "RKLB", company: "Rocket Lab USA", price: 71.45, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 210.47, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 436.49, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
+    { ticker: "CW", company: "Curtiss-Wright", price: 700.12, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
+    { ticker: "GD", company: "General Dynamics", price: 344.17, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 342.26, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 134.56, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
+    { ticker: "AVAV", company: "AeroVironment", price: 261.42, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 115.12, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
+    { ticker: "MRCY", company: "Mercury Systems", price: 89.84, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
+    { ticker: "BA", company: "Boeing", price: 229.95, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
+    { ticker: "LDOS", company: "Leidos Holdings", price: 170.28, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
+    { ticker: "FTNT", company: "Fortinet", price: 77.38, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 362.34, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
+    { ticker: "JOBY", company: "Joby Aviation", price: 9.92, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
+    { ticker: "ACHR", company: "Archer Aviation", price: 7.25, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
+    { ticker: "PANW", company: "Palo Alto Networks", price: 144.95, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
+    { ticker: "SAIC", company: "Science Applications", price: 86.47, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 75.53, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
 ];
 
 // === SIGNALS FEED DATA ===
 const signalsFeedData = [
-    { date: "2026-02-25", time: "17:00", tag: "MILTRACK", tagClass: "miltrack", text: 'Air Force begins weapons integration testing on Anduril YFQ-44A Fury CCA — captive carry of inert AIM-120 AMRAAM confirmed. Gen. Wilsbach: \'CCA is a critical part of a larger system-of-systems.\' Northrop names its CCA \'Talon Blue\' (YFQ-48A); GE-Kratos wins engine contract. <strong>TICKERS: KTOS, NOC, BA.</strong>', recent: true, sources: [{name: "Air Combat Command", url: "https://www.acc.af.mil/News/Article-Display/Article/4414428/collaborative-combat-aircraft-program-progresses-through-deliberate-weapons-int/"}, {name: "Defense One", url: "https://www.defenseone.com/business/2026/02/defense-business-brief-obbb-funding-counterdrone-manufacturing-and-cca-update/411673/"}] },
-    { date: "2026-02-25", time: "16:30", tag: "OSINT", tagClass: "osint", text: 'Trump confirms weighing \'limited military strikes\' on Iran if Geneva talks fail Thursday. State Dept orders non-emergency departure from Beirut embassy. USS Ford joins USS Lincoln — rare dual-carrier deployment signals sustained air campaign readiness. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII.</strong>', recent: true, sources: [{name: "Washington Post", url: "https://www.washingtonpost.com/world/2026/02/25/iran-us-war-geneva-talks-nuclear/63c7f2c0-1230-11f1-8e8d-fe91db44677b_story.html"}, {name: "Indian Express", url: "https://indianexpress.com/article/world/us-news/iran-us-tensions-live-updates-trump-airstrikes-evacuations-tehran-warning-10548624/"}] },
-    { date: "2026-02-25", time: "15:30", tag: "POLYMARKET", tagClass: "polymarket", text: 'UPDATED: Polymarket \'US strikes Iran by Mar 31\' now at <strong>61%</strong> ($16.8M vol). By Feb 28: 11% ($44.6M). By Jun 30: 70%. By Dec 31: 75%. Total market volume: <strong>$418M</strong>. Israel strikes Iran Feb 28: 9% ($2.4M). Strike curve steepening into Geneva talks. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>', recent: true, sources: [{name: "Polymarket", url: "https://polymarket.com/event/us-strikes-iran-by"}, {name: "Binance", url: "https://www.binance.com/en/square/post/02-25-2026-62-295294650196305"}] },
-    { date: "2026-02-25", time: "14:00", tag: "CONTRACT", tagClass: "contract", text: 'SOSi awarded position on $100M USSOUTHCOM IDIQ for Enhanced Domain Awareness — strategic/technical services for Southern Command. Space supply chain stretch: SDA + SSC pursuing hundreds of new LEO/MEO satellites; Boeing opens new IR sensor production line. <strong>TICKERS: RKLB, NOC, BA, LMT.</strong>', recent: true, sources: [{name: "GovCon Wire", url: "https://www.govconwire.com/articles/sosi-ussouthcom-enhanced-domain-awareness"}, {name: "Breaking Defense", url: "https://breakingdefense.com/2026/02/the-space-supply-chain-is-getting-stretched-heres-how-it-could-impact-the-pentagons-plans/"}] },
-    { date: "2026-02-25", time: "12:30", tag: "OSINT", tagClass: "osint", text: 'Iran accuses Trump of \'big lies\' ahead of Geneva Round 3 (Thursday). Baghaei: \'concept of limited strike does not exist — any aggression will be met with ferocious response.\' Araghchi: \'We must strike US bases.\' 15-day Trump ultimatum window narrowing. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, KTOS.</strong>', recent: true, sources: [{name: "Washington Post", url: "https://www.washingtonpost.com/world/2026/02/25/iran-us-war-geneva-talks-nuclear/63c7f2c0-1230-11f1-8e8d-fe91db44677b_story.html"}, {name: "Yahoo Finance", url: "https://finance.yahoo.com/news/trump-sets-deal-deadline-iran-123033056.html"}] },
-    { date: "2026-02-25", time: "10:00", tag: "MILTRACK", tagClass: "miltrack", text: '12 F-22 Raptors land in Israel — first-ever F-22 deployment to Israel (never sold abroad due to US law). Signals serious US force posture escalation. Combined with dual-carrier deployment, 150+ aircraft surged since Feb 17. <strong>TICKERS: LMT, NOC, LHX, RTX.</strong>', recent: true, sources: [{name: "ILTV News", url: "https://www.youtube.com/watch?v=8XMc7vg0KpI"}, {name: "Indian Express", url: "https://indianexpress.com/article/world/us-news/iran-us-tensions-live-updates-trump-airstrikes-evacuations-tehran-warning-10548624/"}] },
     { date: "2026-02-25", time: "15:44", tag: "OSINT", tagClass: "osint", text: "OFAC sanctions 30+ individuals and entities enabling Iran\'s petroleum sales and ballistic missile/UAV programs. Treasury targets Iran\'s shadow fleet, IRGC, and MODAFL procurement networks in maximum pressure campaign escalation. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>", recent: true, sources: [{name: "US Treasury", url: "https://home.treasury.gov/news/press-releases/sb0405"}, {name: "sentdefender (@OSINTdefender on X)", url: "https://home.treasury.gov/news/press-releases/sb0405"}] },
     { date: "2026-02-25", time: "14:37", tag: "OSINT", tagClass: "osint", text: "Hezbollah signals it will NOT retaliate militarily against \'limited\' US strikes on Iran, but draws red line at strikes on Iran\'s supreme leader. Quote via AFP from unnamed LH official. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>", recent: true, sources: [{name: "@sentdefender (OSINTdefender)", url: "https://x.com/sentdefender/status/2026667796277481704"}] },
     { date: "2026-02-25", time: "16:11", tag: "OSINT", tagClass: "osint", text: "@sentdefender assesses Iran strike as \'highly unlikely\' to be averted diplomatically: last Geneva round was \'nothing burger\' and small Iranian concessions won\'t be enough to meet US zero-enrichment redline. <strong>TICKERS: LMT, NOC, RTX, GD, LHX, KTOS.</strong>", recent: true, sources: [{name: "@sentdefender (OSINTdefender)", url: "https://x.com/sentdefender/status/2026691641864536191"}] },
@@ -194,8 +188,8 @@ const positionChanges = [
     {
         ticker: "NOC",
         company: "Northrop Grumman",
-        price: 712.01,
-        dayChange: 1.19,
+        price: 707.21,
+        dayChange: -2.82,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -208,8 +202,8 @@ const positionChanges = [
     {
         ticker: "HII",
         company: "Huntington Ingalls",
-        price: 441.86,
-        dayChange: 1.44,
+        price: 436.49,
+        dayChange: -2.51,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -222,8 +216,8 @@ const positionChanges = [
     {
         ticker: "BWXT",
         company: "BWX Technologies",
-        price: 208.83,
-        dayChange: 0.27,
+        price: 210.47,
+        dayChange: 3.06,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -236,8 +230,8 @@ const positionChanges = [
     {
         ticker: "PLTR",
         company: "Palantir Technologies",
-        price: 135.42,
-        dayChange: 0.91,
+        price: 134.56,
+        dayChange: 4.44,
         oldScore: 3,
         newScore: 4,
         action: "UPGRADE",
@@ -250,8 +244,8 @@ const positionChanges = [
     {
         ticker: "RKLB",
         company: "Rocket Lab USA",
-        price: 72.07,
-        dayChange: 2.66,
+        price: 71.45,
+        dayChange: 2.12,
         oldScore: 4,
         newScore: 4,
         action: "HOLD",
@@ -264,8 +258,8 @@ const positionChanges = [
     {
         ticker: "KTOS",
         company: "Kratos Defense",
-        price: 91.20,
-        dayChange: 3.37,
+        price: 90.44,
+        dayChange: -0.26,
         oldScore: 4,
         newScore: 3,
         action: "DOWNGRADE",
@@ -278,8 +272,8 @@ const positionChanges = [
     {
         ticker: "CRWD",
         company: "CrowdStrike",
-        price: 380.02,
-        dayChange: 4.60,
+        price: 362.34,
+        dayChange: 3.45,
         oldScore: 1,
         newScore: 0,
         action: "DOWNGRADE",
@@ -292,8 +286,8 @@ const positionChanges = [
     {
         ticker: "LHX",
         company: "L3Harris Technologies",
-        price: 352.83,
-        dayChange: 3.45,
+        price: 342.26,
+        dayChange: -3.39,
         oldScore: 3,
         newScore: 4,
         action: "UPGRADE",
@@ -637,6 +631,143 @@ function renderTheaterIntel() {
 // ============================================
 // INITIALIZE
 // ============================================
+
+// ============================================
+// MILTRACK GAUGE ANIMATION
+// Animates the gauge bars in the MILTRACK scoring panel
+// ============================================
+function animateMiltrackGauges() {
+    const gaugeData = [
+        { id: 'gauge-carriers', score: 3, max: 3, color: '#ef4444' },
+        { id: 'gauge-airlift',  score: 3, max: 3, color: '#ef4444' },
+        { id: 'gauge-sead',     score: 2, max: 3, color: '#f59e0b' },
+        { id: 'gauge-ssgn',     score: 3, max: 3, color: '#ef4444' },
+        { id: 'gauge-isr',      score: 2, max: 3, color: '#f59e0b' },
+        { id: 'gauge-osint',    score: 1, max: 3, color: '#14b8a6' },
+    ];
+
+    // Stagger animation: each bar fills after a short delay
+    gaugeData.forEach((g, i) => {
+        const card = document.getElementById(g.id);
+        if (!card) return;
+        const bar = card.querySelector('.miltrack-gauge-bar');
+        if (!bar) return;
+
+        // Set initial width to 0
+        bar.style.width = '0%';
+        bar.style.setProperty('--gauge-color', g.color);
+
+        setTimeout(() => {
+            const pct = Math.round((g.score / g.max) * 100);
+            bar.style.width = pct + '%';
+        }, 300 + i * 180);
+    });
+}
+
+// ============================================
+// WINDOW OF OPPORTUNITY ANALYSIS
+// Renders the diplomatic/strike timing window panel
+// ============================================
+function renderWindowOfOpportunity() {
+    const panel = document.getElementById('wooPanel');
+    if (!panel) return;
+
+    // Current WOO data (Feb 25, 2026)
+    const wooData = {
+        title: 'WINDOW OF OPPORTUNITY — IRAN STRIKE ANALYSIS',
+        subtitle: 'As of Feb 25, 2026',
+        diplomaticWindow: 10,   // days remaining per Hudson Institute estimate
+        polymarketStrike: 75,   // % chance of US strike by Dec 31
+        polymarketDeal: 28,     // % chance of nuclear deal by Mar 31
+        timelineElapsed: 72,    // % of 2-week decision window elapsed
+        cards: [
+            {
+                label: 'STRIKE PROB (DEC 31)',
+                value: '75%',
+                desc: '$418M Polymarket volume. Curve steepening after SOTU ultimatum.'
+            },
+            {
+                label: 'DEAL PROB (MAR 31)',
+                value: '28%',
+                desc: 'Iranian concessions insufficient for US zero-enrichment redline. Geneva Rd-3 Feb 26.'
+            },
+            {
+                label: 'DECISION WINDOW',
+                value: '~10d',
+                desc: 'Hudson Institute: "Force sufficient for weeks — 2-week window." Trump SOTU ultimatum.'
+            },
+            {
+                label: 'FORCE LEVEL',
+                value: 'PEAK',
+                desc: 'MILTRACK +18. "Never has the US deployed this much force and not launched strikes." — Pape, U. Chicago'
+            }
+        ],
+        bullishFactors: [
+            { text: 'Dual-carrier posture in theater (historically = action within 14 days)', class: 'bullish' },
+            { text: 'B-21 / B-2 movements being watched (Midnight Hammer repeat indicator)', class: 'bullish' },
+            { text: 'SSGN submarines deployed — silent first-strike asset, not defensive', class: 'bullish' },
+            { text: 'State Dept evacuated Lebanon; US citizens warned to leave region', class: 'bullish' },
+            { text: 'Hezbollah signals no retaliation for "limited" strikes — reduces escalation risk', class: 'bullish' },
+        ],
+        bearishFactors: [
+            { text: 'Geneva Round-3 diplomacy ongoing (Feb 26) — diplomatic window technically open', class: 'bearish' },
+            { text: 'Defense stocks sold off on Iran talk "progress" — market not 100% pricing strike', class: 'bearish' },
+            { text: 'UK PM Starmer: Diego Garcia cannot be used for Iran strikes — basing constraint', class: 'bearish' },
+            { text: 'JCS Chairman warned Trump: war "could be prolonged and damaging with US casualties"', class: 'bearish' },
+        ]
+    };
+
+    // Build timeline fill percent
+    const elapsed = wooData.timelineElapsed;
+
+    panel.innerHTML = `
+        <div class="woo-header">
+            <span class="woo-title">${wooData.title}</span>
+            <span class="woo-subtitle">${wooData.subtitle}</span>
+        </div>
+        <div class="woo-grid">
+            ${wooData.cards.map(c => `
+                <div class="woo-card">
+                    <div class="woo-card-label">${c.label}</div>
+                    <div class="woo-card-value">${c.value}</div>
+                    <div class="woo-card-desc">${c.desc}</div>
+                </div>
+            `).join('')}
+        </div>
+        <div class="woo-timeline">
+            <div class="woo-timeline-label">&#9889; DECISION WINDOW ELAPSED — 2-WEEK TRUMP ULTIMATUM</div>
+            <div class="woo-timeline-bar-wrap">
+                <div class="woo-timeline-fill" id="wooTimelineFill" style="width: 0%;"></div>
+            </div>
+            <div class="woo-timeline-ticks">
+                <span>FEB 25</span><span>FEB 27</span><span>MAR 1</span><span>MAR 4</span><span>MAR 7</span><span>MAR 11</span>
+            </div>
+        </div>
+        <div class="woo-factors-list">
+            <div style="font-size: 10px; font-weight: 700; color: var(--green, #22c55e); margin-bottom: 4px; margin-top: 8px;">&#9650; BULLISH FACTORS (STRIKE-SUPPORTIVE)</div>
+            ${wooData.bullishFactors.map(f => `
+                <div class="woo-factor-row">
+                    <div class="woo-factor-dot bullish"></div>
+                    <span>${f.text}</span>
+                </div>
+            `).join('')}
+            <div style="font-size: 10px; font-weight: 700; color: var(--red, #ef4444); margin-bottom: 4px; margin-top: 8px;">&#9660; BEARISH FACTORS (DE-ESCALATION RISK)</div>
+            ${wooData.bearishFactors.map(f => `
+                <div class="woo-factor-row">
+                    <div class="woo-factor-dot bearish"></div>
+                    <span>${f.text}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+
+    // Animate the timeline bar after a short delay
+    setTimeout(() => {
+        const fill = document.getElementById('wooTimelineFill');
+        if (fill) fill.style.width = elapsed + '%';
+    }, 500);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     setTimestamp();
     setupTabs();
@@ -648,6 +779,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setupFilters();
     setupMethodologyToggle();
     renderTheaterIntel();
+    // New: render MILTRACK gauges and Window of Opportunity
+    animateMiltrackGauges();
+    renderWindowOfOpportunity();
     // Fetch live prices from Sonar API
     fetchLivePrices();
 });
@@ -799,12 +933,7 @@ function renderSourceLinks(sources) {
 function renderOverviewFeed() {
     const feed = document.getElementById("overviewFeed");
     if (!feed) return;
-    const sorted = signalsFeedData.slice().sort((a, b) => {
-        const da = a.date + (a.time || "00:00");
-        const db = b.date + (b.time || "00:00");
-        return db.localeCompare(da);
-    });
-    const recent = sorted.slice(0, 8);
+    const recent = signalsFeedData.slice(0, 8);
     feed.innerHTML = recent.map((sig, i) => `
         <div class="signal-entry${sig.recent ? ' recent' : ''}" style="animation-delay:${i * 0.05}s">
             <span class="signal-date">${formatSignalDateTime(sig.date, sig.time)}</span>
@@ -814,17 +943,11 @@ function renderOverviewFeed() {
     `).join('');
 }
 
-// Track chart instances for proper cleanup on re-render
-let _overviewChartInstance = null;
-let _etfChartInstance = null;
-let _tenDayChartInstance = null;
-
 function renderOverviewChart() {
     const canvas = document.getElementById("overviewChart");
     if (!canvas) return;
-    if (_overviewChartInstance) { _overviewChartInstance.destroy(); _overviewChartInstance = null; }
     const ctx = canvas.getContext("2d");
-    _overviewChartInstance = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'line',
         data: {
             labels: perfLabels,
@@ -1016,14 +1139,11 @@ function renderPositionChanges() {
         const scoreDelta = pc.newScore - pc.oldScore;
         const deltaStr = scoreDelta > 0 ? `+${scoreDelta}` : scoreDelta === 0 ? '0' : `${scoreDelta}`;
 
-        // Live price + day change — pull from shared stockData for consistency
-        const liveStock = stockData.find(s => s.ticker === pc.ticker);
-        const livePrice = liveStock ? liveStock.price : pc.price;
-        const liveDayChange = (liveStock && typeof liveStock.dayChange === 'number') ? liveStock.dayChange : (pc.dayChange || 0);
-        const priceStr = '$' + livePrice.toFixed(2);
-        const changeSign = liveDayChange >= 0 ? '+' : '';
-        const changeClass = liveDayChange >= 0 ? 'day-positive' : 'day-negative';
-        const changeStr = `${changeSign}${liveDayChange.toFixed(2)}%`;
+        // Live price + day change
+        const priceStr = '$' + pc.price.toFixed(2);
+        const changeSign = pc.dayChange >= 0 ? '+' : '';
+        const changeClass = pc.dayChange >= 0 ? 'day-positive' : 'day-negative';
+        const changeStr = `${changeSign}${pc.dayChange.toFixed(2)}%`;
 
         // Priority action badge
         let priorityHtml = '';
@@ -1157,7 +1277,7 @@ function renderETFTab() {
             const tr = document.createElement("tr");
             tr.style.animationDelay = `${i * 0.02}s`;
             const weightPct = (h.weight * 100).toFixed(1);
-            const barWidth = Math.min(((h.weight / 0.12) * 100), 100).toFixed(1);
+            const barWidth = ((h.weight / maxWeight) * 100).toFixed(1);
             const retStr = ret !== null ? `${ret >= 0 ? '+' : ''}${(ret * 100).toFixed(1)}%` : 'N/A';
             const retClass = ret !== null ? (ret >= 0 ? 'return-positive' : 'return-negative') : '';
 
@@ -1205,9 +1325,8 @@ function renderETFTab() {
 function renderETFChart() {
     const canvas = document.getElementById("etfPerformanceChart");
     if (!canvas) return;
-    if (_etfChartInstance) { _etfChartInstance.destroy(); _etfChartInstance = null; }
     const ctx = canvas.getContext("2d");
-    _etfChartInstance = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'line',
         data: {
             labels: perfLabels,
@@ -1414,8 +1533,7 @@ function renderTenDayChart() {
     const itaData =  [100, 100.9, 101.5, 101.2, 102.4, 102.8, 103.3, 103.8, 104.5, 104.8];
     const spyData =  [100, 100.0, 100.3, 100.1, 100.5, 100.7, 100.5, 100.3, 100.1, 100.4];
 
-    if (_tenDayChartInstance) { _tenDayChartInstance.destroy(); _tenDayChartInstance = null; }
-    _tenDayChartInstance = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'line',
         data: {
             labels,
@@ -1663,124 +1781,72 @@ function setupMethodologyToggle() {
     });
 }
 // ============================================
-// LIVE PRICE FETCHING — Polygon.io Real-Time API
-// Direct client-side calls for real-time quotes
+// LIVE PRICE FETCHING — Perplexity Sonar API
+// Calls /api/quotes serverless function on page load
 // ============================================
 
-const POLYGON_API_KEY = "0LypqHjCkZpXfYdbUbYMJPXIISPoM0zp";
-const POLYGON_BASE = "https://api.polygon.io";
-
-// Tickers available via batch snapshot (exchange-listed)
-const BATCH_TICKERS = ["LMT","RTX","NOC","KTOS","RKLB","BWXT","HII","CW","GD","LHX","PLTR","AVAV","MRCY","BA","LDOS","FTNT","CRWD","JOBY","ACHR","PANW","SAIC","BAH"];
-// OTC tickers need individual last-trade endpoint
-const OTC_TICKERS = ["BAESY"];
-
-async function fetchLivePrices() {
+function fetchLivePrices() {
     const dot = document.getElementById("priceStatusDot");
     const footnoteText = document.getElementById("priceFootnoteText");
-    let updated = 0;
 
-    try {
-        // 1. Batch fetch exchange-listed tickers via snapshot
-        const batchUrl = POLYGON_BASE + "/v2/snapshot/locale/us/markets/stocks/tickers?tickers=" +
-            BATCH_TICKERS.join(",") + "&apiKey=" + POLYGON_API_KEY;
-        const batchRes = await fetch(batchUrl);
-        if (!batchRes.ok) throw new Error("Polygon snapshot returned " + batchRes.status);
-        const batchData = await batchRes.json();
+    fetch("/api/quotes")
+        .then(res => {
+            if (!res.ok) throw new Error("API returned " + res.status);
+            return res.json();
+        })
+        .then(data => {
+            if (!data.quotes || !Array.isArray(data.quotes)) {
+                throw new Error("Invalid response format");
+            }
 
-        if (batchData.tickers && Array.isArray(batchData.tickers)) {
-            batchData.tickers.forEach(t => {
-                const stock = stockData.find(s => s.ticker === t.ticker);
-                if (!stock) return;
-                // Use fair market value if available, otherwise last trade, otherwise day close
-                const price = t.fmv || (t.lastTrade && t.lastTrade.p) || (t.day && t.day.c);
-                if (price && price > 0) {
-                    stock.price = Math.round(price * 100) / 100;
-                    if (typeof t.todaysChangePerc === "number") {
-                        stock.dayChange = Math.round(t.todaysChangePerc * 100) / 100;
+            let updated = 0;
+            data.quotes.forEach(q => {
+                const stock = stockData.find(s => s.ticker === q.ticker);
+                if (stock && typeof q.price === "number" && q.price > 0) {
+                    stock.price = q.price;
+                    if (typeof q.changePercent === "number") {
+                        stock.dayChange = q.changePercent;
                     }
                     updated++;
                 }
             });
-        }
-    } catch (err) {
-        console.warn("[DSM] Polygon batch fetch failed:", err.message);
-    }
 
-    // 2. Fetch OTC tickers individually (non-blocking)
-    for (const otcTicker of OTC_TICKERS) {
-        try {
-            const otcUrl = POLYGON_BASE + "/v2/last/trade/" + otcTicker + "?apiKey=" + POLYGON_API_KEY;
-            const otcRes = await fetch(otcUrl);
-            if (!otcRes.ok) continue;
-            const otcData = await otcRes.json();
-            if (otcData.results && otcData.results.p > 0) {
-                const stock = stockData.find(s => s.ticker === otcTicker);
-                if (stock) {
-                    stock.price = Math.round(otcData.results.p * 100) / 100;
-                    updated++;
-                }
+            // Re-render all price-dependent views
+            if (updated > 0) {
+                renderOverview();
+                renderMatrix(stockData);
+                renderETFTab();
             }
-        } catch (e) {
-            console.warn("[DSM] OTC fetch failed for " + otcTicker + ":", e.message);
-        }
-    }
 
-    // 3. For BAESY, get previous close to calculate day change
-    try {
-        const prevUrl = POLYGON_BASE + "/v2/aggs/ticker/BAESY/prev?adjusted=true&apiKey=" + POLYGON_API_KEY;
-        const prevRes = await fetch(prevUrl);
-        if (prevRes.ok) {
-            const prevData = await prevRes.json();
-            if (prevData.results && prevData.results.length > 0) {
-                const prevClose = prevData.results[0].c;
-                const baesy = stockData.find(s => s.ticker === "BAESY");
-                if (baesy && prevClose > 0) {
-                    baesy.dayChange = Math.round(((baesy.price - prevClose) / prevClose) * 10000) / 100;
-                }
+            // Update footnote with success state
+            const ts = data.timestamp ? new Date(data.timestamp) : new Date();
+            const timeStr = ts.toLocaleString("en-US", {
+                month: "short", day: "2-digit",
+                hour: "2-digit", minute: "2-digit",
+                hour12: true, timeZoneName: "short"
+            }).toUpperCase();
+
+            if (dot) { dot.className = "footnote-dot live"; }
+            if (footnoteText) {
+                footnoteText.innerHTML = '* Prices as of ' + timeStr +
+                    '. Source: <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">Perplexity Finance</a>. ' +
+                    'Updated ' + updated + '/' + stockData.length + ' tickers.';
             }
-        }
-    } catch (e) {
-        console.warn("[DSM] BAESY prev close fetch failed:", e.message);
-    }
 
-    // 4. Re-render all price-dependent views
-    if (updated > 0) {
-        try {
-            renderOverview();
-            renderMatrix(stockData);
-            renderETFTab();
-        } catch (renderErr) {
-            console.warn("[DSM] Re-render error (non-fatal):", renderErr.message);
-        }
-    }
-
-    // 5. Update footnote with timestamp (always update if we got any prices)
-    const now = new Date();
-    const timeStr = now.toLocaleString("en-US", {
-        month: "short", day: "numeric", year: "numeric",
-        hour: "numeric", minute: "2-digit",
-        hour12: true, timeZoneName: "short"
-    });
-
-    if (updated > 0) {
-        if (dot) { dot.className = "footnote-dot live"; }
-        if (footnoteText) {
-            footnoteText.innerHTML = '* Prices as of ' + timeStr +
-                '. ' + updated + '/' + stockData.length + ' tickers updated via <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.';
-        }
-        console.log("[DSM] Live prices updated:", updated, "tickers from Polygon.io");
-    } else {
-        if (dot) { dot.className = "footnote-dot"; }
-        if (footnoteText) {
-            footnoteText.innerHTML = '* Prices as of ' + timeStr + '. ' +
-                '<a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.';
-        }
-        console.warn("[DSM] No prices updated from Polygon.io");
-    }
+            console.log("[DSM] Live prices updated:", updated, "tickers from Sonar API");
+        })
+        .catch(err => {
+            console.warn("[DSM] Live price fetch failed, using static data:", err.message);
+            // Show stale/fallback state
+            if (dot) { dot.className = "footnote-dot stale"; }
+            if (footnoteText) {
+                footnoteText.innerHTML = '* Prices as of Feb 25, 2026 (static fallback). ' +
+                    'Live data unavailable. <a href="https://perplexity.ai/finance" target="_blank" rel="noopener">View on Perplexity Finance</a>.';
+            }
+        });
 }
 
-// Refresh prices every 60 seconds during market hours
+// Refresh prices every 5 minutes during market hours
 setInterval(() => {
     const now = new Date();
     const utcHour = now.getUTCHours();
@@ -1788,4 +1854,4 @@ setInterval(() => {
     if (utcHour >= 13 && utcHour <= 21) {
         fetchLivePrices();
     }
-}, 60000);
+}, 300000);
