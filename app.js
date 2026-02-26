@@ -1019,7 +1019,7 @@ function renderPositionChanges() {
         // Live price + day change — pull from shared stockData for consistency
         const liveStock = stockData.find(s => s.ticker === pc.ticker);
         const livePrice = liveStock ? liveStock.price : pc.price;
-        const liveDayChange = liveStock ? liveStock.dayChange : pc.dayChange;
+        const liveDayChange = (liveStock && typeof liveStock.dayChange === 'number') ? liveStock.dayChange : (pc.dayChange || 0);
         const priceStr = '$' + livePrice.toFixed(2);
         const changeSign = liveDayChange >= 0 ? '+' : '';
         const changeClass = liveDayChange >= 0 ? 'day-positive' : 'day-negative';
