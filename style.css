@@ -946,99 +946,6 @@ status-value.teal { color: #14b8a6; }
     letter-spacing: 0.5px;
 }
 
-/* ============ MILTRACK SCORING ============ */
-.miltrack-scoring {
-    margin-top: 20px;
-    padding: 16px;
-    background: var(--bg-card);
-    border-radius: 8px;
-    border: 1px solid rgba(20,184,166,0.3);
-}
-.miltrack-scoring-title {
-    color: #14b8a6;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: 1px;
-}
-.miltrack-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px;
-}
-.miltrack-card {
-    padding: 10px;
-    background: rgba(20,184,166,0.05);
-    border-radius: 6px;
-    border: 1px solid rgba(20,184,166,0.15);
-}
-.miltrack-card-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: #14b8a6;
-    margin-bottom: 6px;
-}
-.miltrack-card-body {
-    font-size: 10px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-.miltrack-alert {
-    margin-top: 12px;
-    padding: 10px;
-    background: rgba(239,68,68,0.08);
-    border-radius: 6px;
-    border: 1px solid rgba(239,68,68,0.2);
-}
-.miltrack-alert-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--red);
-    margin-bottom: 4px;
-}
-.miltrack-alert-body {
-    font-size: 10px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-/* ============ MILTRACK SOURCES ============ */
-.miltrack-sources {
-    margin-top: 16px;
-    padding: 16px;
-    background: var(--bg-card);
-    border-radius: 8px;
-    border: 1px solid rgba(99,102,241,0.3);
-}
-.miltrack-sources-title {
-    color: #818cf8;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: 1px;
-}
-.miltrack-sources-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 10px;
-}
-.miltrack-source-card {
-    padding: 8px;
-    background: rgba(99,102,241,0.05);
-    border-radius: 6px;
-}
-.miltrack-source-card-title {
-    font-size: 10px;
-    font-weight: 700;
-    color: #818cf8;
-}
-.miltrack-source-card-body {
-    font-size: 10px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-    line-height: 1.5;
-}
-
 /* Custom selection */
 ::selection { background: rgba(34,197,94,0.25); color: var(--text-primary); }
 
@@ -1704,4 +1611,240 @@ status-value.teal { color: #14b8a6; }
 @keyframes footnote-pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
+}
+/* ============================================
+   MILTRACK GAUGE CARDS — Visual scoring gauges
+   ============================================ */
+.miltrack-gauges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.miltrack-gauge-card {
+    padding: 12px 14px;
+    background: rgba(20, 184, 166, 0.04);
+    border-radius: 8px;
+    border: 1px solid rgba(20, 184, 166, 0.18);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.miltrack-gauge-card:hover {
+    border-color: rgba(20, 184, 166, 0.4);
+    box-shadow: 0 0 12px rgba(20, 184, 166, 0.1);
+}
+
+.miltrack-gauge-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--teal, #14b8a6);
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.miltrack-gauge-bar-wrap {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.miltrack-gauge-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    background: var(--gauge-color, #14b8a6);
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px var(--gauge-color, #14b8a6);
+}
+
+.miltrack-gauge-bar.animate {
+    /* Width set dynamically by animateMiltrackGauges() */
+}
+
+.miltrack-gauge-score {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-bottom: 6px;
+}
+
+.gauge-val {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.gauge-max {
+    font-size: 10px;
+    color: var(--text-muted, rgba(255,255,255,0.35));
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.miltrack-gauge-detail {
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ============================================
+   WINDOW OF OPPORTUNITY (WOO) PANEL
+   ============================================ */
+.woo-panel {
+    padding: 16px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.woo-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.woo-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--amber, #f59e0b);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.woo-subtitle {
+    font-size: 10px;
+    color: var(--text-muted, rgba(255,255,255,0.35));
+    margin-left: auto;
+}
+
+.woo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.woo-card {
+    padding: 10px 12px;
+    background: rgba(245, 158, 11, 0.04);
+    border-radius: 6px;
+    border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.woo-card-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--amber, #f59e0b);
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.woo-card-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 2px;
+}
+
+.woo-card-desc {
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.woo-timeline {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(239, 68, 68, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(239, 68, 68, 0.18);
+}
+
+.woo-timeline-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--red, #ef4444);
+    margin-bottom: 6px;
+    letter-spacing: 0.7px;
+}
+
+.woo-timeline-bar-wrap {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+    position: relative;
+}
+
+.woo-timeline-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #f59e0b, #ef4444);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.woo-timeline-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5px;
+    color: var(--text-muted, rgba(255,255,255,0.35));
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 4px;
+}
+
+.woo-factors-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.woo-factor-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 9.5px;
+    color: var(--text-secondary);
+}
+
+.woo-factor-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.woo-factor-dot.bullish { background: var(--green, #22c55e); }
+.woo-factor-dot.bearish { background: var(--red, #ef4444); }
+.woo-factor-dot.neutral { background: var(--amber, #f59e0b); }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .miltrack-gauges-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .woo-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .miltrack-gauges-grid {
+        grid-template-columns: 1fr;
+    }
+    .woo-grid {
+        grid-template-columns: 1fr;
+    }
 }
