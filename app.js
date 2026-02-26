@@ -1,7 +1,7 @@
 // ============================================
 // DEFENSE SIGNAL MONITOR — Application Logic
 // Restructured: Theater strip, ETF chart, clean tabs
-// Data as of: Feb 26, 2026 7:34 AM PST
+// Data as of: Feb 26, 2026 8:35 AM PST
 // ============================================
 
 // === UTILITY: Create ticker link ===
@@ -25,29 +25,29 @@ function linkifyTickers(text) {
 
 // === STOCK DATA ===
 const stockData = [
-    { ticker: "LMT", company: "Lockheed Martin", price: 641.37, dayChange: -0.95, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
-    { ticker: "RTX", company: "Raytheon Technologies", price: 196.49, dayChange: 0.26, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
-    { ticker: "NOC", company: "Northrop Grumman", price: 704.93, dayChange: 0.18, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
-    { ticker: "KTOS", company: "Kratos Defense", price: 89.04, dayChange: 0.92, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
-    { ticker: "RKLB", company: "Rocket Lab USA", price: 70.39, dayChange: 0.27, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
-    { ticker: "BWXT", company: "BWX Technologies", price: 202.57, dayChange: -2.74, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
-    { ticker: "HII", company: "Huntington Ingalls", price: 434.48, dayChange: -0.25, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
-    { ticker: "CW", company: "Curtiss-Wright", price: 686.53, dayChange: -1.74, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
-    { ticker: "GD", company: "General Dynamics", price: 343.85, dayChange: 0.21, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
-    { ticker: "LHX", company: "L3Harris Technologies", price: 349.15, dayChange: 2.38, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 133.32, dayChange: -0.65, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
-    { ticker: "AVAV", company: "AeroVironment", price: 256.48, dayChange: 0.49, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
-    { ticker: "BAESY", company: "BAE Systems ADR", price: 114.01, dayChange: -0.84, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
-    { ticker: "MRCY", company: "Mercury Systems", price: 87.25, dayChange: -2.3, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
-    { ticker: "BA", company: "Boeing", price: 226.95, dayChange: -1.48, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
-    { ticker: "LDOS", company: "Leidos Holdings", price: 175.6, dayChange: 3.36, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
-    { ticker: "FTNT", company: "Fortinet", price: 78.63, dayChange: 1.65, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
-    { ticker: "CRWD", company: "CrowdStrike", price: 377.41, dayChange: 3.88, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
-    { ticker: "JOBY", company: "Joby Aviation", price: 10.1, dayChange: 2.85, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
-    { ticker: "ACHR", company: "Archer Aviation", price: 7.09, dayChange: -0.14, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
-    { ticker: "PANW", company: "Palo Alto Networks", price: 148.49, dayChange: 2.52, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
-    { ticker: "SAIC", company: "Science Applications", price: 91.16, dayChange: 5.04, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
-    { ticker: "BAH", company: "Booz Allen Hamilton", price: 79.63, dayChange: 6.02, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
+    { ticker: "LMT", company: "Lockheed Martin", price: 643.32, dayChange: -0.65, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
+    { ticker: "RTX", company: "Raytheon Technologies", price: 198.04, dayChange: 1.05, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 712.01, dayChange: 1.19, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
+    { ticker: "KTOS", company: "Kratos Defense", price: 91.20, dayChange: 3.37, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
+    { ticker: "RKLB", company: "Rocket Lab USA", price: 72.07, dayChange: 2.66, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 208.83, dayChange: 0.27, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 441.86, dayChange: 1.44, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
+    { ticker: "CW", company: "Curtiss-Wright", price: 695.63, dayChange: -0.44, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
+    { ticker: "GD", company: "General Dynamics", price: 347.82, dayChange: 1.36, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 352.83, dayChange: 3.45, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 135.42, dayChange: 0.91, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
+    { ticker: "AVAV", company: "AeroVironment", price: 257.91, dayChange: 1.05, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 114.81, dayChange: -0.15, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
+    { ticker: "MRCY", company: "Mercury Systems", price: 89.23, dayChange: -0.07, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
+    { ticker: "BA", company: "Boeing", price: 227.98, dayChange: -1.03, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
+    { ticker: "LDOS", company: "Leidos Holdings", price: 174.98, dayChange: 3.00, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
+    { ticker: "FTNT", company: "Fortinet", price: 79.18, dayChange: 2.37, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 380.02, dayChange: 4.60, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
+    { ticker: "JOBY", company: "Joby Aviation", price: 10.16, dayChange: 3.46, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
+    { ticker: "ACHR", company: "Archer Aviation", price: 7.19, dayChange: 1.27, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
+    { ticker: "PANW", company: "Palo Alto Networks", price: 149.14, dayChange: 2.97, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
+    { ticker: "SAIC", company: "Science Applications", price: 90.39, dayChange: 4.15, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 78.18, dayChange: 4.09, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
 ];
 
 // === SIGNALS FEED DATA ===
@@ -194,8 +194,8 @@ const positionChanges = [
     {
         ticker: "NOC",
         company: "Northrop Grumman",
-        price: 704.93,
-        dayChange: -0.08,
+        price: 712.01,
+        dayChange: 1.19,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -208,8 +208,8 @@ const positionChanges = [
     {
         ticker: "HII",
         company: "Huntington Ingalls",
-        price: 434.48,
-        dayChange: 0.34,
+        price: 441.86,
+        dayChange: 1.44,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -222,8 +222,8 @@ const positionChanges = [
     {
         ticker: "BWXT",
         company: "BWX Technologies",
-        price: 202.57,
-        dayChange: 0.14,
+        price: 208.83,
+        dayChange: 0.27,
         oldScore: 4,
         newScore: 5,
         action: "UPGRADE",
@@ -236,8 +236,8 @@ const positionChanges = [
     {
         ticker: "PLTR",
         company: "Palantir Technologies",
-        price: 133.32,
-        dayChange: -0.21,
+        price: 135.42,
+        dayChange: 0.91,
         oldScore: 3,
         newScore: 4,
         action: "UPGRADE",
@@ -250,8 +250,8 @@ const positionChanges = [
     {
         ticker: "RKLB",
         company: "Rocket Lab USA",
-        price: 70.39,
-        dayChange: 0.41,
+        price: 72.07,
+        dayChange: 2.66,
         oldScore: 4,
         newScore: 4,
         action: "HOLD",
@@ -264,8 +264,8 @@ const positionChanges = [
     {
         ticker: "KTOS",
         company: "Kratos Defense",
-        price: 89.04,
-        dayChange: -0.22,
+        price: 91.20,
+        dayChange: 3.37,
         oldScore: 4,
         newScore: 3,
         action: "DOWNGRADE",
@@ -278,8 +278,8 @@ const positionChanges = [
     {
         ticker: "CRWD",
         company: "CrowdStrike",
-        price: 377.41,
-        dayChange: 0.83,
+        price: 380.02,
+        dayChange: 4.60,
         oldScore: 1,
         newScore: 0,
         action: "DOWNGRADE",
@@ -292,8 +292,8 @@ const positionChanges = [
     {
         ticker: "LHX",
         company: "L3Harris Technologies",
-        price: 349.15,
-        dayChange: 0.20,
+        price: 352.83,
+        dayChange: 3.45,
         oldScore: 3,
         newScore: 4,
         action: "UPGRADE",
