@@ -24,19 +24,19 @@ function linkifyTickers(text) {
 
 // === STOCK DATA ===
 const stockData = [
-    { ticker: "LMT", company: "Lockheed Martin", price: 658.08, dayChange: 2.56, score: 5, direction: "bullish", summary: "Record $194B backlog. PAC-3 tripling production. F-47 win. $480M Navy ASW contract (Feb 23). C-130J FMS RAAF deal. 6 politician buys. Stock +31% YTD." },
-    { ticker: "RTX", company: "Raytheon Technologies", price: 202.62, dayChange: 2.52, score: 5, direction: "bullish", summary: "StormBreaker Navy Super Hornet approval (Feb 20). Most traded defense stock by Congress. $50B Patriot contract. Iran escalation = Patriot demand surge." },
-    { ticker: "NOC", company: "Northrop Grumman", price: 724.38, dayChange: 1.90, score: 5, direction: "bullish", summary: "UPGRADED: B-21 production +25% ($4.5B) in $153B Pentagon reconciliation. B-21 validated in Iran strikes. Sentinel ICBM. Nuclear modernization centerpiece. Analysts flagging for Midnight Hammer repeat." },
+    { ticker: "LMT", company: "Lockheed Martin", price: 658.08, dayChange: 2.56, score: 5, direction: "bullish", summary: "OPERATION EPIC FURY: F-35/F-22 engaged in Iran strikes. PAC-3 intercepting Iranian missiles. Record $194B backlog. Morningstar: defense becoming subscription model. F-47 win. $480M Navy ASW contract. 6 politician buys. Expect significant Monday gap up." },
+    { ticker: "RTX", company: "Raytheon Technologies", price: 202.62, dayChange: 2.52, score: 5, direction: "bullish", summary: "OPERATION EPIC FURY: Tomahawk missiles fired at Iran. Patriot batteries intercepting Iranian retaliation. $50B sustainment through 2045. StormBreaker approved. Most Congress-traded defense stock. Iran strikes = unprecedented Patriot/Tomahawk demand validation." },
+    { ticker: "NOC", company: "Northrop Grumman", price: 724.38, dayChange: 1.90, score: 5, direction: "bullish", summary: "OPERATION EPIC FURY: B-21 Raiders engaged in Iran strikes — combat-validated for second time. Production +25% ($4.5B) in reconciliation. Midnight Hammer repeat confirmed. Sentinel ICBM. Nuclear modernization centerpiece. IDF struck 'hundreds of military sites.'" },
     { ticker: "KTOS", company: "Kratos Defense", price: 86.18, dayChange: -6.47, score: 3, direction: "neutral", summary: "DOWNGRADED: -5.90% selloff despite $12.4M CCA engine contract (Feb 23, AFA) and $1.1B Drone Dominance. Market skepticism on execution timeline. Momentum deterioration." },
     { ticker: "RKLB", company: "Rocket Lab USA", price: 69.10, dayChange: -4.89, score: 4, direction: "bullish", summary: "$816M SDA satellite contract. Golden Dome missile defense. SDA HALO tactical SATCOM demo ecosystem. Space-based tracking." },
-    { ticker: "BWXT", company: "BWX Technologies", price: 205.98, dayChange: -0.61, score: 5, direction: "bullish", summary: "UPGRADED: Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Zero DOGE risk. Record $7.4B backlog. +2.61% on day." },
-    { ticker: "HII", company: "Huntington Ingalls", price: 444.52, dayChange: 0.34, score: 5, direction: "bullish", summary: "UPGRADED: $29B shipbuilding in $153B reconciliation — largest allocation. Only nuclear shipyard. 14 Navy vessels deployed to Iran theater. +1.84% on day." },
+    { ticker: "BWXT", company: "BWX Technologies", price: 205.98, dayChange: -0.61, score: 5, direction: "bullish", summary: "Nuclear emphasis in $153B reconciliation spend. Sole-source naval nuclear. Active carrier operations in Iran theater = accelerated nuclear submarine demand. Zero DOGE risk. Record $7.4B backlog. B-21 nuclear systems engaged." },
+    { ticker: "HII", company: "Huntington Ingalls", price: 444.52, dayChange: 0.34, score: 5, direction: "bullish", summary: "OPERATION EPIC FURY: Dual carrier strike groups (Ford + Lincoln) + 25-35 surface vessels engaged. CENTCOM: 'Armada fully operational.' $29B shipbuilding in reconciliation. Only nuclear shipyard. Naval assets in active combat operations." },
     { ticker: "CW", company: "Curtiss-Wright", price: 700.33, dayChange: -0.24, score: 4, direction: "bullish", summary: "Sole-source naval nuclear controls. Zero DOGE risk. AFA Warfare Symposium acquisition reform tailwind." },
     { ticker: "GD", company: "General Dynamics", price: 357.05, dayChange: 1.80, score: 3, direction: "bullish", summary: "Virginia-class sub production. Franklin bought day after $1.32B contract. Columbia-class ramp. SSGN deployment confirmed." },
-    { ticker: "LHX", company: "L3Harris Technologies", price: 364.54, dayChange: 2.64, score: 4, direction: "bullish", summary: "UPGRADED: F-22 deployment + 150 aircraft surge = elevated EW/comms demand. Book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand." },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 137.19, dayChange: 0.92, score: 4, direction: "bullish", summary: "UPGRADED: Pentagon summoned Anthropic CEO — AI guardrails dispute. xAI/Google deals done. PLTR incumbent AI/targeting platform benefits. $10B Army contract." },
+    { ticker: "LHX", company: "L3Harris Technologies", price: 364.54, dayChange: 2.64, score: 5, direction: "bullish", summary: "UPGRADED TO 5: Active combat operations = maximum EW/comms/sensor demand. F-22 Raptors engaged in Iran. Every aircraft in theater uses L3Harris electronic warfare and communications gear. Book-to-bill 1.5x. Iran strikes validate entire product line." },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 137.19, dayChange: 0.92, score: 5, direction: "bullish", summary: "UPGRADED TO 5: OpenAI wins Pentagon AI contract after Anthropic designated 'supply-chain risk to national security.' PLTR incumbent AI/targeting platform benefits from active combat ops. Real-time battlefield intelligence demand surging. $10B Army contract." },
     { ticker: "AVAV", company: "AeroVironment", price: 252.25, dayChange: -2.84, score: 3, direction: "bullish", summary: "Switchblade Ukraine demand. BlueHalo acquisition. Iran escalation = loitering munitions demand surge. Ukraine front stabilizing." },
-    { ticker: "BAESY", company: "BAE Systems ADR", price: 116.00, dayChange: 0.91, score: 3, direction: "bullish", summary: "European NATO re-arming supercycle. Front-line states (Poland, Baltics, Finland) accelerating spending. 4th anniversary of Ukraine invasion Feb 24." },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 116.00, dayChange: 0.91, score: 4, direction: "bullish", summary: "UPGRADED: $500M+ Army Paladin howitzer contract (Feb 27). European NATO re-arming supercycle. Iran strikes = allied rearmament acceleration. Front-line states accelerating spending. +16.29% in 10-day backtest." },
     { ticker: "MRCY", company: "Mercury Systems", price: 89.03, dayChange: -0.61, score: 3, direction: "bullish", summary: "CEO turnaround. Embedded in F-35/Patriot. Iran crisis = accelerated Patriot/F-35 procurement." },
     { ticker: "BA", company: "Boeing", price: 227.53, dayChange: -0.82, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
     { ticker: "LDOS", company: "Leidos Holdings", price: 175.10, dayChange: -0.43, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
@@ -45,12 +45,26 @@ const stockData = [
     { ticker: "JOBY", company: "Joby Aviation", price: 10.06, dayChange: -1.66, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
     { ticker: "ACHR", company: "Archer Aviation", price: 7.12, dayChange: -3.52, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
     { ticker: "PANW", company: "Palo Alto Networks", price: 148.92, dayChange: -0.32, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
-    { ticker: "SAIC", company: "Science Applications", price: 92.26, dayChange: 0.61, score: -3, direction: "bearish", summary: "High DOGE risk. IT consulting targeted. Continued DOGE pressure." },
-    { ticker: "BAH", company: "Booz Allen Hamilton", price: 78.83, dayChange: -1.18, score: -5, direction: "bearish", summary: "DOGE devastation. Named in $5.1B Pentagon cut. Civil revenue -20%. Stock -3.82% Feb 23. Worst performer." }
+    { ticker: "SAIC", company: "Science Applications", price: 92.26, dayChange: 0.61, score: -2, direction: "bearish", summary: "$95M GAO IT modernization contract win (Feb 27). Still DOGE-exposed but new contract provides some cushion. Upgrading from -3 to -2." },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 78.83, dayChange: -1.18, score: -3, direction: "bearish", summary: "DOGE devastation offset: $697M Army MCTP training contract win (Feb 27). Active combat operations = surge in training/simulation demand. But still DOGE-exposed on civil side. Upgrading from -5 to -3 on new contract." }
 ];
 
 // === SIGNALS FEED DATA ===
 const signalsFeedData = [
+    { date: "2026-02-28", time: "22:30", tag: "OSINT", tagClass: "osint", text: 'Iranians celebrate in streets of Karaj and Galehdar City after reports of Supreme Leader Khamenei\'s death. @sentdefender: \'I\'ll miss our conversations\' — posts GIF referencing Khamenei. Regime collapse signals emerging. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII, BWXT.</strong>', recent: true, sources: [{name: "@sentdefender", url: "https://x.com/sentdefender/status/2027876133039997364"}, {name: "@sentdefender", url: "https://x.com/sentdefender/status/2027877189488636270"}] },
+    { date: "2026-02-28", time: "22:06", tag: "MILTRACK", tagClass: "miltrack", text: 'CENTCOM debunks Iranian propaganda: \"No U.S. casualties. No U.S. Navy ship struck. The Armada is fully operational. Damage to U.S. installations minimal — has not impacted operations.\" Iran claims of 50 dead U.S. service members called a LIE. <strong>TICKERS: LMT, RTX, NOC, HII, GD.</strong>', recent: true, sources: [{name: "U.S. Central Command (@CENTCOM)", url: "https://x.com/CENTCOM/status/2027868060217192498"}] },
+    { date: "2026-02-28", time: "22:00", tag: "OSINT", tagClass: "osint", text: 'Dubai International Airport concourse damaged by Iranian drone attack — 4 staff injured. Dubai Media Office confirms minor structural damage. Iran retaliating against Gulf states hosting US forces. UAE, Saudi Arabia, Bahrain, Kuwait, Jordan all targeted. <strong>TICKERS: LMT, RTX, NOC, LHX, HII.</strong>', recent: true, sources: [{name: "@sentdefender", url: "https://x.com/sentdefender/status/2027874896349393206"}] },
+    { date: "2026-02-28", time: "19:28", tag: "OSINT", tagClass: "osint", text: 'Trump tells Axios from Mar-a-Lago: \"I can go long and take over the whole thing, or end it in two or three days.\" Claims several \'off ramps\' from Operation Epic Fury. \"In any case, it will take them several years to recover from this attack.\" VP Vance monitors from Situation Room. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII.</strong>', recent: true, sources: [{name: "@sentdefender (Axios interview)", url: "https://x.com/sentdefender/status/2027828107697099138"}] },
+    { date: "2026-02-28", time: "17:00", tag: "MILTRACK", tagClass: "miltrack", text: '<strong>OPERATION EPIC FURY LAUNCHED.</strong> US and Israel conducting massive strike campaign across Iran. Trump declares military operations in video statement, urges Iranian people to rise against regime. Objectives: destroy nuclear program, dismantle missile capability, neutralize Iranian navy, eliminate Axis of Resistance. <strong>B-21 RAIDERS, TOMAHAWKS, F-22/F-35 ALL ENGAGED. TICKERS: LMT, RTX, NOC, GD, LHX, HII, BWXT, KTOS, RKLB.</strong>', recent: true, sources: [{name: "LiveNOW from FOX", url: "https://www.livenowfox.com/news/us-military-strikes-iran"}, {name: "ISW Special Report", url: "https://understandingwar.org/research/middle-east/iran-update-special-report-us-and-israeli-strikes-february-28-2026/"}] },
+    { date: "2026-02-28", time: "15:12", tag: "OSINT", tagClass: "osint", text: 'Fox News: <strong>Supreme Leader Ayatollah Khamenei confirmed dead</strong> per Israeli officials. Khamenei\'s compound and offices in Tehran hit during strikes. 40+ Iranian security/regime figures killed including IRGC commander, defense minister, Security Council secretary, and head of Khamenei\'s military bureau. <strong>REGIME DECAPITATION. TICKERS: ALL PRIMES.</strong>', recent: true, sources: [{name: "NPR", url: "https://www.npr.org/2026/02/28/nx-s1-5730158/israel-iran-strikes-trump-us"}, {name: "LiveNOW from FOX", url: "https://www.livenowfox.com/news/us-military-strikes-iran"}] },
+    { date: "2026-02-28", time: "14:20", tag: "OSINT", tagClass: "osint", text: 'Netanyahu nationally televised address: \"There are growing signs that Khamenei is no longer around.\" IDF reports striking <strong>\"hundreds of military sites\"</strong> including missile launchers in western Iran. Iran\'s Foreign Ministry calls attack \'gross violation\' of sovereignty. Iranian Red Crescent: 200+ killed. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>', recent: true, sources: [{name: "NPR", url: "https://www.npr.org/2026/02/28/nx-s1-5730158/israel-iran-strikes-trump-us"}, {name: "LiveNOW from FOX", url: "https://www.livenowfox.com/news/us-military-strikes-iran"}] },
+    { date: "2026-02-28", time: "08:40", tag: "CONFLICT", tagClass: "conflict", text: '<strong>IRAN RETALIATES.</strong> ~35 missiles (Emad/Ghadr) fired at Israel by 5:42 AM ET. Air raid sirens in Israel. Iran also strikes US bases across Bahrain, UAE, Kuwait, Jordan, Saudi Arabia. Dubai airport concourse damaged. CENTCOM: no US casualties, US Navy fleet fully operational. Iraqi PMF airstrikes in Jurf al Sakhr — 2 PMF killed. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII.</strong>', recent: true, sources: [{name: "ISW Special Report", url: "https://understandingwar.org/research/middle-east/iran-update-special-report-us-and-israeli-strikes-february-28-2026/"}, {name: "NPR", url: "https://www.npr.org/2026/02/28/nx-s1-5730158/israel-iran-strikes-trump-us"}] },
+    { date: "2026-02-28", time: "12:00", tag: "POLYMARKET", tagClass: "polymarket", text: '<strong>POLYMARKET RESOLVED: US strikes Iran by Feb 28 = YES.</strong> $529M total volume on Iran strike contracts. Bloomberg reports 6 accounts made ~$1M profit — all freshly created in February, shares purchased hours before first explosions at ~$0.10. Blockchain sleuths hunting insider trading. Gulf state strike Iran by Mar 7: 46%. Iran strike gulf oil facilities by Mar 31: 51%. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>', recent: true, sources: [{name: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-02-28/polymarket-iran-bets-hit-529-million-as-new-wallets-draw-notice"}, {name: "Polymarket", url: "https://polymarket.com/event/will-a-gulf-state-strike-iran-by-march-7"}] },
+    { date: "2026-02-28", time: "08:00", tag: "CYBER", tagClass: "cyber", text: '<strong>OpenAI wins Pentagon AI contract</strong> hours after Anthropic was cut. Trump on Truth Social: \"We don\'t need it, we don\'t want it.\" Hegseth designates Anthropic a <strong>\"supply-chain risk to national security.\"</strong> Altman: DoW \"displayed deep respect for safety.\" PLTR/xAI/Google already integrated. <strong>TICKERS: PLTR.</strong>', recent: true, sources: [{name: "Business Insider", url: "https://www.businessinsider.com/openai-ai-deal-sam-altman-pentagon-defense-department-anthropic-2026-2"}, {name: "The Meridiem", url: "https://www.themeridiem.com/ai/2026/2/28/openai-wins-pentagon-ai-contract-as-technical-safeguards-become-vendor-baseline"}] },
+    { date: "2026-02-28", time: "10:00", tag: "EARNINGS", tagClass: "spending", text: 'Morningstar/MarketWatch: Iran strikes will boost defense stocks when markets reopen Monday. Analyst thesis: defense sector evolving into <strong>subscription-model businesses</strong> — maintenance contracts drive recurring revenue on growing installed base. LMT F-35 program = 26% of sales. RTX Patriot sustainment through 2045. NOC B-21 long-term support. <strong>BULLISH: LMT, RTX, NOC.</strong>', recent: true, sources: [{name: "Morningstar", url: "https://www.morningstar.com/news/marketwatch/20260228188/us-strikes-on-iran-will-likely-boost-defense-stocks-heres-what-will-keep-the-cash-flowing-even-after-the-conflict-ends"}] },
+    { date: "2026-02-27", time: "18:00", tag: "CONTRACT", tagClass: "contract", text: 'BAE Systems books <strong>$500M+ Army contract</strong> for additional M109A7 Paladin self-propelled howitzers. Artillery production acceleration supports long-range fires modernization. <strong>TICKERS: BAESY.</strong>', recent: true, sources: [{name: "GovCon Wire", url: "https://www.govconwire.com/articles/saic-gao-95m-tis-contract-win"}] },
+    { date: "2026-02-27", time: "16:00", tag: "CONTRACT", tagClass: "contract", text: 'Booz Allen Hamilton secures <strong>$697M Army MCTP</strong> training support contract. Covers mission command training, simulation exercises, and large-scale combat operations training worldwide. <strong>TICKERS: BAH.</strong>', recent: true, sources: [{name: "Washington Technology", url: "https://www.washingtontechnology.com/contracts/2026/02/booz-allen-wins-697m-army-training-support-contract/411755/"}, {name: "GovCon Wire", url: "https://www.govconwire.com/articles/booz-allen-697m-army-mctp-training-contract"}] },
+    { date: "2026-02-27", time: "14:00", tag: "CONTRACT", tagClass: "contract", text: 'SAIC wins <strong>$95M GAO contract</strong> for enterprise IT modernization services under Technical Information Services program. End-to-end IT support for Government Accountability Office. <strong>TICKERS: SAIC.</strong>', recent: true, sources: [{name: "GovCon Wire", url: "https://www.govconwire.com/articles/saic-gao-95m-tis-contract-win"}] },
     { date: "2026-02-25", time: "17:00", tag: "MILTRACK", tagClass: "miltrack", text: 'Air Force begins weapons integration testing on Anduril YFQ-44A Fury CCA — captive carry of inert AIM-120 AMRAAM confirmed. Gen. Wilsbach: \'CCA is a critical part of a larger system-of-systems.\' Northrop names its CCA \'Talon Blue\' (YFQ-48A); GE-Kratos wins engine contract. <strong>TICKERS: KTOS, NOC, BA.</strong>', recent: true, sources: [{name: "Air Combat Command", url: "https://www.acc.af.mil/News/Article-Display/Article/4414428/collaborative-combat-aircraft-program-progresses-through-deliberate-weapons-int/"}, {name: "Defense One", url: "https://www.defenseone.com/business/2026/02/defense-business-brief-obbb-funding-counterdrone-manufacturing-and-cca-update/411673/"}] },
     { date: "2026-02-25", time: "16:30", tag: "OSINT", tagClass: "osint", text: 'Trump confirms weighing \'limited military strikes\' on Iran if Geneva talks fail Thursday. State Dept orders non-emergency departure from Beirut embassy. USS Ford joins USS Lincoln — rare dual-carrier deployment signals sustained air campaign readiness. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII.</strong>', recent: true, sources: [{name: "Washington Post", url: "https://www.washingtonpost.com/world/2026/02/25/iran-us-war-geneva-talks-nuclear/63c7f2c0-1230-11f1-8e8d-fe91db44677b_story.html"}, {name: "Indian Express", url: "https://indianexpress.com/article/world/us-news/iran-us-tensions-live-updates-trump-airstrikes-evacuations-tehran-warning-10548624/"}] },
     { date: "2026-02-25", time: "15:30", tag: "POLYMARKET", tagClass: "polymarket", text: 'UPDATED: Polymarket \'US strikes Iran by Mar 31\' now at <strong>61%</strong> ($16.8M vol). By Feb 28: 11% ($44.6M). By Jun 30: 70%. By Dec 31: 75%. Total market volume: <strong>$418M</strong>. Israel strikes Iran Feb 28: 9% ($2.4M). Strike curve steepening into Geneva talks. <strong>TICKERS: LMT, RTX, NOC, GD, LHX.</strong>', recent: true, sources: [{name: "Polymarket", url: "https://polymarket.com/event/us-strikes-iran-by"}, {name: "Binance", url: "https://www.binance.com/en/square/post/02-25-2026-62-295294650196305"}] },
@@ -152,7 +166,7 @@ const politicianData = [
 const theaterData = [
     { name: "PACIFIC / CHINA", level: "HIGH", levelClass: "high", cardClass: "high", desc: "Taiwan 'Justice Mission 2025' \u2014 most extensive Chinese exercises ever. $11.1B Taiwan arms sale. Chinese Volt Typhoon cyber pre-positioning confirmed active. Submarine buildup accelerating. SDA satellite constellation expanding. $24B Golden Dome (classified). Middle East drawdown may temporarily reduce Pacific posture.", tickers: ["GD", "HII", "BWXT", "CW", "RKLB", "NOC"] },
     { name: "EUROPE / RUSSIA", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Feb 24 = 4th anniversary Ukraine invasion. Russia launched 347 drones/missiles overnight Feb 21-22 \u2014 shifted to water/railway targets. 4x hypersonic Zirkon missiles used. NATO airspace incursions deliberate. All NATO 2%+ GDP, new 5% target. Front-line states accelerating orders. Trump-Putin talks collapsed Feb 12. Ceasefire odds: 0%.", tickers: ["LMT", "RTX", "AVAV", "BAESY"] },
-    { name: "MIDDLE EAST", level: "CRITICAL", levelClass: "critical", cardClass: "critical", desc: "LARGEST US buildup since Iraq 2003. 150+ aircraft surged since Feb 17. 12x F-22s departing Lakenheath to CENTCOM. 60+ attack aircraft at Jordan base (3x normal). Dual carrier (Ford + Lincoln). 25-35 surface vessels with 600+ Tomahawks. SSGN subs deployed. State Dept evacuated Lebanon. Trump 'leaning toward initial strike.' Joint Chiefs warn of 'prolonged costly war.' 2-week decision window. Next Geneva talks Thursday.", tickers: ["LMT", "RTX", "LHX", "KTOS", "NOC"] },
+    { name: "MIDDLE EAST", level: "\u26A0\uFE0F ACTIVE COMBAT", levelClass: "critical", cardClass: "critical", desc: "OPERATION EPIC FURY UNDERWAY. US and Israel conducting massive strike campaign across Iran. Khamenei reportedly killed (Israeli officials). 40+ regime figures eliminated. IDF struck 'hundreds of military sites.' Iran retaliating with missiles at Israel, US bases across Gulf. Dubai airport hit. CENTCOM: no US casualties, fleet fully operational. Trump: 'I can go long or end it in 2-3 days.'", tickers: ["LMT", "RTX", "NOC", "LHX", "KTOS", "HII", "GD", "BWXT"] },
     { name: "CYBER", level: "HIGH", levelClass: "high", cardClass: "high", desc: "State actors all targeting US defense contractors \u2014 Google TIG confirms Russia/China/Iran/NK campaigns. Dragos: Chinese/Iranian APTs embedding in critical infrastructure. AIS spoofing surge in Hormuz. FCC warns 4x telecom ransomware increase. Pentagon AI guardrails dispute. Google-Wiz $32B deal reshaping market.", tickers: ["CRWD", "PANW", "FTNT", "PLTR"] },
     { name: "CONUS / STRATEGIC", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Nuclear modernization accelerating. $153B reconciliation spending \u2014 all into 2026. B-21 production +25% ($4.5B). Golden Dome $24B (classified). $1.5T FY2027 target. BWXT record $7.4B backlog. Iran eyeing CONUS proxy strikes per NYT.", tickers: ["NOC", "BWXT", "CW", "PLTR", "RKLB"] }
 ];
@@ -166,12 +180,12 @@ const etfHoldings = [
     { ticker: "BWXT", company: "BWX Technologies", score: 5 },
     { ticker: "RKLB", company: "Rocket Lab USA", score: 4 },
     { ticker: "CW", company: "Curtiss-Wright", score: 4 },
-    { ticker: "LHX", company: "L3Harris Technologies", score: 4 },
-    { ticker: "PLTR", company: "Palantir Technologies", score: 4 },
+    { ticker: "LHX", company: "L3Harris Technologies", score: 5 },
+    { ticker: "PLTR", company: "Palantir Technologies", score: 5 },
     { ticker: "GD", company: "General Dynamics", score: 3 },
     { ticker: "KTOS", company: "Kratos Defense", score: 3 },
     { ticker: "AVAV", company: "AeroVironment", score: 3 },
-    { ticker: "BAESY", company: "BAE Systems ADR", score: 3 },
+    { ticker: "BAESY", company: "BAE Systems ADR", score: 4 },
     { ticker: "MRCY", company: "Mercury Systems", score: 3 },
     { ticker: "BA", company: "Boeing", score: 2 },
     { ticker: "LDOS", company: "Leidos Holdings", score: 2 },
@@ -183,12 +197,62 @@ const etfExcluded = [
     { ticker: "CRWD", company: "CrowdStrike", score: 0 },
     { ticker: "ACHR", company: "Archer Aviation", score: 0 },
     { ticker: "PANW", company: "Palo Alto Networks", score: -1 },
-    { ticker: "SAIC", company: "Science Applications", score: -3 },
-    { ticker: "BAH", company: "Booz Allen Hamilton", score: -5 }
+    { ticker: "SAIC", company: "Science Applications", score: -2 },
+    { ticker: "BAH", company: "Booz Allen Hamilton", score: -3 }
 ];
 
-// === POSITION CHANGES — Feb 24, 2026 Update ===
+// === POSITION CHANGES — Feb 28, 2026 Update (Operation Epic Fury) ===
 const positionChanges = [
+    { ticker: "LHX", company: "L3Harris Technologies", price: 364.54, dayChange: 2.64,
+        oldScore: 4,
+        newScore: 5,
+        action: "UPGRADE",
+        priority: "BUY",
+        priorityUrgency: "high",
+        priorityRationale: "Active combat operations in Iran validate L3Harris EW/comms/sensor product line. Every aircraft, ship, and sub in theater uses L3Harris gear. Iran strikes = immediate surge demand for replacements and spares. Buy before Monday open.",
+        signal: "Operation Epic Fury: 150+ aircraft engaged with L3Harris electronics. F-22 Raptors, carrier air wings, and ISR platforms all dependent on L3Harris EW suites. Demand acceleration from active combat.",
+        catalysts: ["Active combat ops", "EW/comms demand surge", "Monday gap up expected"]
+    },
+    { ticker: "PLTR", company: "Palantir Technologies", price: 137.20, dayChange: 0.92,
+        oldScore: 4,
+        newScore: 5,
+        action: "UPGRADE",
+        priority: "BUY",
+        priorityUrgency: "high",
+        priorityRationale: "Anthropic designated supply-chain risk to national security. PLTR is THE incumbent AI/targeting platform. Active combat operations = maximum battlefield intelligence demand. OpenAI deal validates AI-in-defense thesis.",
+        signal: "OpenAI wins Pentagon AI contract hours after Anthropic cut. PLTR incumbent in AI targeting/intelligence. Active combat ops in Iran = surge demand for real-time battlefield analytics.",
+        catalysts: ["Anthropic supply-chain risk", "Active combat AI demand", "Pentagon AI consolidation"]
+    },
+    { ticker: "BAESY", company: "BAE Systems ADR", price: 116.00, dayChange: 0.91,
+        oldScore: 3,
+        newScore: 4,
+        action: "UPGRADE",
+        priority: "BUY",
+        priorityUrgency: "medium",
+        priorityRationale: "$500M Paladin contract validates continued Army investment. Iran strikes will accelerate allied rearmament. European NATO supercycle intact. Was underweighted at score 3 — 10-day backtest showed +16.29%.",
+        signal: "$500M+ Army Paladin howitzer contract. European NATO re-arming supercycle accelerating. Iran strikes = allied demand surge.",
+        catalysts: ["$500M Paladin contract", "NATO rearmament", "Iran catalyst"]
+    },
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 78.83, dayChange: -1.18,
+        oldScore: -5,
+        newScore: -3,
+        action: "UPGRADE",
+        priority: null,
+        priorityUrgency: null,
+        priorityRationale: null,
+        signal: "$697M Army MCTP training support contract. Active combat operations create training/simulation surge demand. DOGE risk partially offset by military training tailwind.",
+        catalysts: ["$697M MCTP contract", "Combat training demand", "DOGE offset"]
+    },
+    { ticker: "SAIC", company: "Science Applications", price: 92.26, dayChange: 0.61,
+        oldScore: -3,
+        newScore: -2,
+        action: "UPGRADE",
+        priority: null,
+        priorityUrgency: null,
+        priorityRationale: null,
+        signal: "$95M GAO IT modernization contract. New business partially offsets DOGE exposure.",
+        catalysts: ["$95M GAO contract", "IT modernization", "DOGE still a risk"]
+    },
     { ticker: "NOC", company: "Northrop Grumman", price: 724.38, dayChange: 1.90,
         oldScore: 4,
         newScore: 5,
@@ -218,16 +282,6 @@ const positionChanges = [
         priorityRationale: "Nuclear sub reactor demand is a multi-year structural tailwind that just accelerated. Zero DOGE exposure. $7.4B backlog = 3+ years revenue visibility. Any Iran strike accelerates nuclear modernization timeline.",
         signal: "Nuclear emphasis in $153B spend — sub reactors, B-21 nuclear systems, Golden Dome. Record $7.4B backlog. Zero DOGE risk. +2.95% on day.",
         catalysts: ["Nuclear spend surge", "$7.4B backlog", "+2.95% momentum"]
-    },
-    { ticker: "PLTR", company: "Palantir Technologies", price: 137.20, dayChange: 0.92,
-        oldScore: 3,
-        newScore: 4,
-        action: "UPGRADE",
-        priority: null,
-        priorityUrgency: null,
-        priorityRationale: null,
-        signal: "Pentagon summoned Anthropic CEO over AI guardrails — deals with xAI and Google done. PLTR as incumbent AI/targeting platform benefits from Pentagon AI push. $10B Army contract.",
-        catalysts: ["Pentagon AI push", "Anthropic dispute = PLTR leverage", "$10B Army"]
     },
     { ticker: "RKLB", company: "Rocket Lab USA", price: 69.10, dayChange: -4.89,
         oldScore: 4,
@@ -261,13 +315,13 @@ const positionChanges = [
     },
     { ticker: "LHX", company: "L3Harris Technologies", price: 364.54, dayChange: 2.64,
         oldScore: 3,
-        newScore: 4,
+        newScore: 5,
         action: "UPGRADE",
         priority: "BUY",
         priorityUrgency: "medium",
-        priorityRationale: "EW/comms demand surge from 150+ aircraft deployment still being priced in. Red-on-red dip today (-0.24%) offers entry point. Any Iran strike = immediate demand spike for L3Harris sensor/comm packages across carrier air wings.",
-        signal: "F-22 deployment + 150 aircraft surge = elevated EW/comms demand. LHX book-to-bill 1.5x. Iran dual-carrier posture maximizes sensor/comm gear demand.",
-        catalysts: ["F-22 surge", "EW/comms demand", "1.5x book-to-bill"]
+        priorityRationale: "EW/comms demand surge from 150+ aircraft deployment and active combat operations. Iran strikes = immediate demand spike for L3Harris sensor/comm packages across carrier air wings.",
+        signal: "F-22 deployment + 150 aircraft surge + Operation Epic Fury = maximum EW/comms demand. LHX book-to-bill 1.5x. Active combat validates entire product line.",
+        catalysts: ["Active combat ops", "EW/comms demand", "1.5x book-to-bill"]
     }
 ];
 
@@ -324,65 +378,65 @@ const perfSPY =    [100, 101.5, 103.8, 102.1, 99.2, 96.5, 105.8];
 const theaterIntelData = [
     {
         name: "MIDDLE EAST",
-        level: "CRITICAL",
+        level: "\u26A0\uFE0F ACTIVE COMBAT",
         levelClass: "critical",
-        summary: "The largest concentration of American airpower in the Middle East since the 2003 Iraq invasion, assembled after the collapse of US-Iran nuclear talks on Feb 17. Multiple analysts assess a 2-week decision window before force becomes unsustainable.",
+        summary: "OPERATION EPIC FURY is underway. The US and Israel launched a massive strike campaign across Iran on Feb 28, 2026. Israeli officials report Supreme Leader Khamenei killed. 40+ regime figures eliminated. IDF struck 'hundreds of military sites.' Iran retaliating with missiles at Israel and US bases across the Gulf. CENTCOM: no US casualties.",
         evidence: [
             {
-                category: "AIR POWER SURGE",
+                category: "OPERATION EPIC FURY \u2014 STRIKES",
                 items: [
-                    "150+ US military aircraft deployed to region since Feb 17 (Washington Post satellite analysis)",
-                    "12x F-22 Raptors departed RAF Lakenheath under tanker escort toward CENTCOM (Feb 24)",
-                    "60+ attack aircraft at Muwaffaq Salti AB, Jordan \u2014 3x normal (satellite confirmed)",
-                    "F-35 stealth fighters visible at Jordanian base with new air defense installations",
-                    "6x E-3 AWACS heading to Saudi Arabia for air coordination",
-                    "F-16CJ Wild Weasel SEAD aircraft deploying \u2014 historically precedes strikes by 7-14 days",
-                    "B-2 stealth bombers on standby in Missouri; B-21 movement being monitored"
+                    "US and Israel launched coordinated strike campaign across Iran \u2014 Feb 28, 2026",
+                    "Trump declared operations in video statement, urged Iranian people to rise against regime",
+                    "Objectives: destroy nuclear program, dismantle missiles, neutralize navy, eliminate Axis of Resistance",
+                    "IDF reports striking 'hundreds of military sites' including missile launchers in western Iran",
+                    "B-21 Raiders, Tomahawks, F-22, F-35, and carrier-based aircraft all engaged",
+                    "Israeli officials: Supreme Leader Khamenei killed \u2014 compound in Tehran struck",
+                    "40+ regime figures killed: IRGC commander, defense minister, Security Council secretary",
+                    "Iranian Red Crescent: 200+ casualties reported across Iran"
                 ]
             },
             {
-                category: "NAVAL FORCE POSTURE",
+                category: "IRAN RETALIATION",
                 items: [
+                    "Iran fired ~35 missiles (Emad/Ghadr) at Israel by 5:42 AM ET \u2014 air raid sirens active",
+                    "Iran strikes US bases across Bahrain, UAE, Kuwait, Jordan, Saudi Arabia",
+                    "Dubai International Airport concourse damaged by Iranian drone attack \u2014 4 staff injured",
+                    "Iraqi PMF airstrikes in Jurf al Sakhr \u2014 Kataib Hezbollah stronghold, 2 PMF killed",
+                    "CENTCOM: 'No U.S. casualties. No U.S. Navy ship struck. Armada fully operational.'",
+                    "CENTCOM debunks Iran claims of 50 dead US service members as propaganda"
+                ]
+            },
+            {
+                category: "FORCE POSTURE (PRE-STRIKE BUILDUP)",
+                items: [
+                    "150+ aircraft deployed since Feb 17 \u2014 largest concentration since Iraq 2003",
                     "Dual carrier strike groups: USS Ford (CVN-78) + USS Abraham Lincoln (CVN-72)",
-                    "Ford crew at sea since June \u2014 twice-extended deployment, record length approaching",
-                    "25-35 surface vessels including ~12 Arleigh Burke destroyers with Aegis combat systems",
-                    "Estimated 600+ Tomahawk cruise missiles available across fleet",
-                    "SSGN submarines deployed (Ohio-class: 154 Tomahawks each, always AIS-dark)",
-                    "3 Littoral Combat Ships in Gulf for mine countermeasures at Strait of Hormuz",
-                    "USS George H.W. Bush showing preparatory activity in Norfolk \u2014 potential 3rd carrier"
+                    "12x F-22 Raptors deployed to CENTCOM from RAF Lakenheath",
+                    "60+ attack aircraft at Muwaffaq Salti AB, Jordan \u2014 3x normal",
+                    "SSGN submarines deployed (Ohio-class: 154 Tomahawks each)",
+                    "600+ Tomahawk cruise missiles available across fleet"
                 ]
             },
             {
-                category: "DIPLOMATIC SIGNALS",
+                category: "POST-STRIKE OUTLOOK",
                 items: [
-                    "State Department evacuated non-essential personnel and families from Lebanon",
-                    "Trump gave Iran '10-15 day' ultimatum; NYT reports he's 'leaning toward initial strike'",
-                    "Joint Chiefs Chairman Gen. Caine warned of 'prolonged, damaging conflict with numerous US casualties'",
-                    "Next US-Iran talks scheduled Thursday in Geneva \u2014 last diplomatic window",
-                    "Diego Garcia UK access dispute: PM Starmer says base cannot be used for Iran strikes",
-                    "Iran Ambassador UN letter: 'all bases and assets of hostile force are legitimate targets'",
-                    "Sen. Lindsey Graham urging Trump to strike after Middle East trip"
-                ]
-            },
-            {
-                category: "INTELLIGENCE & ANALYSIS",
-                items: [
-                    "Robert Pape (U. Chicago): 'Never has the US deployed this much force and not launched strikes'",
-                    "Richard Weitz (Hudson Institute): 'Force sufficient for weeks, not days \u2014 2-week decision window'",
-                    "CNN: US military positioned for 'multiple waves of strikes' into Iran",
-                    "Polymarket: US strikes Iran by Feb 28 at 16% ($40.1M vol); by Mar 31: 63%; total vol $393M",
-                    "MILTRACK Composite Score: CRITICAL +18 \u2014 highest ever, comparable only to Iraq 2003"
+                    "Trump told Axios: 'I can go long and take over the whole thing, or end it in 2-3 days'",
+                    "VP Vance monitoring from Situation Room; Trump from Mar-a-Lago",
+                    "Iranians celebrating in streets of Karaj and Galehdar City \u2014 regime collapse signals",
+                    "Polymarket: US strike resolved YES \u2014 $529M volume. Gulf state strike Iran by Mar 7: 46%",
+                    "Morningstar: strikes will boost defense stocks Monday \u2014 sector evolving into subscription model",
+                    "Markets closed Saturday \u2014 full impact expected Monday open"
                 ]
             }
         ],
-        keyAssets: "2 CSGs (Ford, Lincoln), 150+ aircraft, 600+ Tomahawks, SSGN subs, F-22/F-35/F-16CJ/B-2, THAAD/Patriot batteries",
-        tickers: ["LMT", "RTX", "NOC", "LHX", "KTOS", "HII", "GD"],
+        keyAssets: "2 CSGs (Ford, Lincoln), 150+ aircraft, 600+ Tomahawks, SSGN subs, F-22/F-35/B-21, THAAD/Patriot batteries",
+        tickers: ["LMT", "RTX", "NOC", "LHX", "KTOS", "HII", "GD", "BWXT"],
         sources: [
-            {name: "Washington Post", url: "https://www.washingtonpost.com/investigations/2026/02/24/united-states-iran-buildup/"},
-            {name: "Defense One", url: "https://www.defenseone.com/threats/2026/02/the-d-brief-february-24-2026/411640/"},
-            {name: "Army Recognition", url: "https://www.armyrecognition.com/news/aerospace-news/2026/u-s-sends-12-f-22-raptors-from-uk-base-to-middle-east-as-tensions-with-iran-escalate"},
-            {name: "Alhurra", url: "https://alhurra.com/en/13586"},
-            {name: "Polymarket", url: "https://polymarket.com/event/us-strikes-iran-by/us-strikes-iran-by-february-27-2026"}
+            {name: "ISW Special Report", url: "https://understandingwar.org/research/middle-east/iran-update-special-report-us-and-israeli-strikes-february-28-2026/"},
+            {name: "NPR", url: "https://www.npr.org/2026/02/28/nx-s1-5730158/israel-iran-strikes-trump-us"},
+            {name: "LiveNOW from FOX", url: "https://www.livenowfox.com/news/us-military-strikes-iran"},
+            {name: "CENTCOM", url: "https://x.com/CENTCOM/status/2027868060217192498"},
+            {name: "Bloomberg (Polymarket)", url: "https://www.bloomberg.com/news/articles/2026-02-28/polymarket-iran-bets-hit-529-million-as-new-wallets-draw-notice"}
         ]
     },
     {
