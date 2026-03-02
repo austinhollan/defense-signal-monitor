@@ -1,93 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Defense Signal Monitor</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Defense Signal Monitor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="title">
-      <h1>Defense Signal Monitor</h1>
-      <p class="subtitle">Market + conflict intelligence for defense contractors</p>
+
+    <!-- TOP STATUS BAR -->
+    <div class="top-status-bar">
+        <div class="status-item">
+            <span class="status-label">LIVE SIGNALS</span>
+            <span class="status-value">73</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">CONTRACT WINS (30D)</span>
+            <span class="status-value gold">12</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">CYBER ALERTS</span>
+            <span class="status-value red">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">MIL EVENTS (90D)</span>
+            <span class="status-value">52</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">MILTRACK SIGNALS</span>
+            <span class="status-value teal">18</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BETTING MARKETS</span>
+            <span class="status-value purple">14</span>
+        </div>
     </div>
 
-    <div class="meta">
-      <div class="update-time" id="updateTime">Updating…</div>
-      <div class="data-source">
-        Data from <a href="https://polygon.io/" target="_blank" rel="noopener">Polygon.io</a>
-        <span class="prices-asof">* Prices as of Mar 2, 2026, 8:40 AM PST</span>
-      </div>
+    <!-- PRICE DATA FOOTNOTE -->
+    <div class="price-footnote" id="priceFootnote">
+        <span class="footnote-dot" id="priceStatusDot"></span>
+        <span id="priceFootnoteText">* Prices as of Mar 2, 2026, 9:03 AM PST<a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
     </div>
-  </header>
 
-  <main>
-    <!-- Theater strip -->
-    <section id="theaterStrip" class="theater-strip"></section>
+    <!-- THEATER RISK ASSESSMENT — pinned below header -->
+    <div class="theater-strip" id="theaterStrip"></div>
 
-    <!-- ETF chart -->
-    <section class="etf-chart">
-      <h2>Defense ETF (ITA)</h2>
-      <canvas id="itaChart" width="800" height="300"></canvas>
-    </section>
+    <!-- TAB NAVIGATION -->
+    <nav class="tab-bar" id="tabBar">
+        <button class="tab-btn active" data-tab="overview">
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+            OVERVIEW
+        </button>
+        <button class="tab-btn" data-tab="matrix">
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+            SIGNAL MATRIX
+        </button>
+        <button class="tab-btn" data-tab="etf">
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+            PPLX_DEFENSE ETF
+        </button>
+        <button class="tab-btn" data-tab="theater">
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6.5 7.5 7.17c.526.668 1 1.28 1 1.83s-.5 1-.5 2v1c0 .552.448 1 1 1h1c.552 0 1-.448 1-1v-1c0-.552.448-1 1-1h.5c.552 0 1-.448 1-1V7a1 1 0 011-1h.757a5.96 5.96 0 01.411 2c0 .682-.131 1.332-.332 1.973-.5.137-1 .527-1.336 1.027H12a1 1 0 00-1 1v2.5a5.985 5.985 0 01-1 .168V13a1 1 0 00-1-1H8a1 1 0 00-1-1V9.5c0-.552-.448-1-1-1h-.67A5.97 5.97 0 014.332 8.027z"/></svg>
+            THEATER INTEL
+        </button>
+        <button class="tab-btn" data-tab="watchlist">
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
+            WATCHLIST
+        </button>
+    </nav>
 
-    <!-- Tabs -->
-    <section class="tabs">
-      <div class="tab-buttons">
-        <button class="tab-btn active" data-tab="signals">Signals</button>
-        <button class="tab-btn" data-tab="stocks">Stocks</button>
-        <button class="tab-btn" data-tab="about">About</button>
-      </div>
+    <!-- ============ TAB CONTENT PANELS ============ -->
 
-      <div class="tab-content active" id="signals">
-        <div id="signalsFeed" class="signals-feed"></div>
-      </div>
+    <!-- TAB: OVERVIEW -->
+    <div class="tab-panel active" id="panel-overview">
+        <div class="overview-grid">
+            <!-- LEFT COLUMN: Top 5 Stocks -->
+            <div class="overview-col overview-col-left">
+                <div class="widget-header">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+                    <span>TOP 5 SIGNAL STOCKS</span>
+                </div>
+                <div class="mini-table-wrapper">
+                    <table class="mini-table" id="overviewStocks">
+                        <thead>
+                            <tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
 
-      <div class="tab-content" id="stocks">
-        <div class="stock-controls">
-          <input type="text" id="stockSearch" placeholder="Search tickers or companies…" />
-          <select id="sortSelect">
-            <option value="score">Sort by Score</option>
-            <option value="change">Sort by Day Change</option>
-            <option value="price">Sort by Price</option>
-            <option value="ticker">Sort by Ticker</option>
-          </select>
+                <!-- Bottom 3 stocks -->
+                <div class="widget-header" style="margin-top:16px;">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" style="color:var(--red);"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+                    <span>BOTTOM 3 — BEARISH</span>
+                </div>
+                <div class="mini-table-wrapper">
+                    <table class="mini-table" id="overviewBearish">
+                        <thead>
+                            <tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN: ETF Performance Mini Chart -->
+            <div class="overview-col overview-col-center">
+                <div class="widget-header">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+                    <span>PPLX_DEFENSE vs BENCHMARKS</span>
+                </div>
+                <div class="overview-chart-wrap">
+                    <canvas id="overviewChart"></canvas>
+                </div>
+                <div class="overview-perf-row" id="overviewPerfRow"></div>
+            </div>
+
+            <!-- RIGHT COLUMN: Recent Activity Feed -->
+            <div class="overview-col overview-col-right">
+                <div class="widget-header">
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1v1h10V6H5zm0 3v1h10V9H5zm0 3v1h7v-1H5z"/></svg>
+                    <span>RECENT SIGNALS</span>
+                    <span class="live-indicator"><span class="pulse-dot"></span>LIVE</span>
+                </div>
+                <div class="signals-feed compact-feed" id="overviewFeed"></div>
+            </div>
         </div>
-        <div id="stockCards" class="stock-cards"></div>
-      </div>
+    </div>
 
-      <div class="tab-content" id="about">
-        <div class="about">
-          <h2>About</h2>
-          <p>
-            Defense Signal Monitor tracks real-time market moves and breaking geopolitical signals that can impact defense contractor equities.
-            It is intended for informational purposes only.
-          </p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- JS (split into parts for maintainability) -->
-  <script src="dsm_part1.js"></script>
-  <script src="dsm_part2.js"></script>
-  <script src="dsm_part3.js"></script>
-  <script src="dsm_part4.js"></script>
-  <script src="dsm_part5.js"></script>
-  <script src="dsm_part6.js"></script>
-</body>
-</html>
+    <!-- TAB: SIGNAL MATRIX -->
+    <div class="tab-panel" id="panel-matrix">
+        <div class="section-header">
+            <h2 class="section-title">
+                <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
