@@ -1,115 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Defense Signal Monitor</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEFENSE SIGNAL MONITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.polygon.io; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="no-referrer">
 </head>
 <body>
+    <!-- Scanline + grid overlays -->
+    <div class="scanline-overlay"></div>
+    <div class="grid-overlay"></div>
 
-<!-- Top bar -->
-<div class="top-bar">
-  <span class="title">DEFENSE SIGNAL MONITOR</span>
-  <span class="subtitle">Live geopolitical & defense stock tracking</span>
-</div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <div class="header-title-group">
+                <div class="radar-icon">
+                    <svg viewBox="0 0 48 48" width="44" height="44">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+                        <circle cx="24" cy="24" r="14" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
+                        <circle cx="24" cy="24" r="8" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
+                        <circle cx="24" cy="24" r="2" fill="#22c55e"/>
+                        <line x1="24" y1="24" x2="24" y2="4" stroke="#22c55e" stroke-width="1.5" class="radar-sweep"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="header-title">DEFENSE SIGNAL MONITOR</h1>
+                    <p class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</p>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">LAST UPDATED</span>
+                    <span class="meta-value" id="timestamp"></span>
+                </div>
+                <div class="meta-item threat-level">
+                    <span class="meta-label">THREAT/OPP LEVEL</span>
+                    <span class="threat-badge critical" style="background:rgba(255,0,0,0.15);color:#ff4444;border-color:rgba(255,0,0,0.35);">
+                        <span class="threat-dot" style="background:#ff4444;"></span>
+                        CRITICAL
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<!-- Tab buttons -->
-<div class="tabs">
-  <button class="tab-button active" data-tab="signals">Signals</button>
-  <button class="tab-button" data-tab="stocks">Stocks</button>
-  <button class="tab-button" data-tab="watchlist">Watchlist</button>
-  <button class="tab-button" data-tab="heatmap">Heatmap</button>
-  <button class="tab-button" data-tab="etf">ETF Chart</button>
-  <button class="tab-button" data-tab="about">About</button>
-</div>
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span class="status-label">ACTIVE THEATERS</span>
+            <span class="status-value">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">TRACKED TICKERS</span>
+            <span class="status-value">23</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BULLISH SIGNALS</span>
+            <span class="status-value green">13</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">NEUTRAL</span>
+            <span class="status-value amber">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BEARISH</span>
+            <span class="status-value red">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">MIL EVENTS (90D)</span>
+            <span class="status-value">112</span>
+        </div>
+    </div>
 
-<!-- Signals Tab -->
-<div class="tab-content active" id="signals">
+    <!-- PRICE DATA FOOTNOTE -->
+    <div class="price-footnote" id="priceFootnote">
+        <span class="footnote-dot" id="priceStatusDot"></span>
+        <span id="priceFootnoteText">* Prices as of Mar 2, 2026, 7:40 AM PST. <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
+    </div>
 
-  <div class="module theater-strip">
-    <div class="theater-title">Theater Strip</div>
-    <div class="theater-items" id="theaterStrip"></div>
-  </div>
+    <!-- THEATER RISK ASSESSMENT — pinned below header -->
+    <div class="theater-strip" id="theaterStrip"></div>
 
-  <div class="module">
-    <div class="module-title">SIGNALS FEED</div>
-    <div class="signal-feed" id="signalsFeed"></div>
-  </div>
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
 
-  <div class="module">
-    <div class="module-title">WATCHLIST MOVERS</div>
-    <div id="movers"></div>
-  </div>
+        <!-- Left Column: Signals Feed -->
+        <section class="panel signals-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">LATEST SIGNALS</h2>
+                <div class="panel-controls">
+                    <button class="filter-btn active" data-filter="all">ALL</button>
+                    <button class="filter-btn" data-filter="miltrack">MILTRACK</button>
+                    <button class="filter-btn" data-filter="contract">CONTRACT</button>
+                    <button class="filter-btn" data-filter="polymarket">POLYMARKET</button>
+                    <button class="filter-btn" data-filter="congress">CONGRESS</button>
+                    <button class="filter-btn" data-filter="cyber">CYBER</button>
+                    <button class="filter-btn" data-filter="osint">OSINT</button>
+                </div>
+            </div>
+            <div class="signals-feed" id="signalsFeed"></div>
+        </section>
 
-</div>
+        <!-- Right Column: Stock Intelligence -->
+        <section class="panel stocks-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">DEFENSE STOCK INTELLIGENCE</h2>
+            </div>
 
-<!-- Stocks Tab -->
-<div class="tab-content" id="stocks">
-  <div class="module">
-    <div class="module-title">TRACKED DEFENSE STOCKS</div>
-    <div class="stock-grid" id="stockGrid"></div>
-  </div>
-</div>
+            <!-- ETF Composite Chart -->
+            <div class="etf-chart-container">
+                <div class="etf-chart-header">
+                    <h3>Defense Composite Index</h3>
+                    <span class="etf-chart-subtitle">Weighted average of 23 tracked defense tickers</span>
+                </div>
+                <canvas id="etfChart" width="400" height="200"></canvas>
+            </div>
 
-<!-- Watchlist Tab -->
-<div class="tab-content" id="watchlist">
-  <div class="module">
-    <div class="module-title">Personal Watchlist</div>
-    <input id="watchlistInput" placeholder="Add ticker (e.g. TSLA)" />
-    <button id="addWatchlist">Add</button>
-    <div id="watchlistContainer"></div>
-  </div>
-</div>
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="table">TABLE</button>
+                <button class="tab-btn" data-tab="analysis">ANALYSIS</button>
+                <button class="tab-btn" data-tab="positions">POSITIONS</button>
+                <button class="tab-btn" data-tab="excluded">EXCLUDED</button>
+            </div>
 
-<!-- Heatmap Tab -->
-<div class="tab-content" id="heatmap">
-  <div class="module">
-    <div class="module-title">SECTOR HEATMAP</div>
-    <div id="heatmapContainer"></div>
-  </div>
-</div>
+            <!-- Tab Content: Stock Table -->
+            <div class="tab-content active" id="tableTab">
+                <div class="stock-table" id="stockTable"></div>
+            </div>
 
-<!-- ETF Tab -->
-<div class="tab-content" id="etf">
-  <div class="module">
-    <div class="module-title">ITA ETF TRACKING</div>
-    <canvas id="etfChart"></canvas>
-  </div>
-</div>
+            <!-- Tab Content: Analysis -->
+            <div class="tab-content" id="analysisTab">
+                <div class="analysis-content">
+                    <h3>Signal Score Methodology</h3>
+                    <p>Composite scoring based on: geopolitical escalation (40%), contract awards (25%), congressional trading (15%), technical momentum (10%), and strategic positioning (10%).</p>
 
-<!-- About Tab -->
-<div class="tab-content" id="about">
-  <div class="module">
-    <div class="module-title">About Defense Signal Monitor</div>
-    <p>
-      DSM tracks macro + tactical defense signals (contracts, congressional trades,
-      military movements, geopolitics) and maps them to high-sensitivity defense equities.
-      Data sources include Pentagon contract releases, major defense media, OSINT,
-      and prediction market sentiment.
-    </p>
-    <p>
-      Prices are pulled from <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.
-    </p>
-  </div>
-</div>
+                    <h3>Current Market Regime</h3>
+                    <div class="regime-indicators">
+                        <div class="regime-item">
+                            <span class="regime-label">GEOPOLITICAL RISK</span>
+                            <span class="regime-value critical">EXTREME</span>
+                        </div>
+                        <div class="regime-item">
+                            <span class="regime-label">DEFENSE BUDGET</span>
+                            <span class="regime-value high">EXPANDING</span>
+                        </div>
+                        <div class="regime-item">
+                            <span class="regime-label">DOD PROCUREMENT</span>
+                            <span class="regime-value high">ACCELERATING</span>
+                        </div>
+                    </div>
 
-<!-- Footer -->
-<div class="footer">
-  <div class="footnote">
-    <a href="https://polygon.io" target="_blank" rel="noopener">* Prices as of Mar 2, 2026, 7:20 AM PST</a>
-  </div>
-  <div class="legal">Not investment advice.</div>
-</div>
+                    <h3>Key Watch Items</h3>
+                    <ul>
+                        <li><strong>Iran Escalation:</strong> Direct US-Iran combat operations driving immediate munitions demand</li>
+                        <li><strong>Air Defense:</strong> Patriot/THAAD interception rates and resupply contracts</li>
+                        <li><strong>Congressional Action:</strong> War Powers Resolution challenges, emergency defense appropriations</li>
+                        <li><strong>Industrial Base:</strong> Production capacity constraints in missiles, drones, and electronics</li>
+                    </ul>
+                </div>
+            </div>
 
-<!-- Scripts (split into 6 parts for easier maintenance) -->
-<script src="dsm_part1.js"></script>
-<script src="dsm_part2.js"></script>
-<script src="dsm_part3.js"></script>
-<script src="dsm_part4.js"></script>
-<script src="dsm_part5.js"></script>
-<script src="dsm_part6.js"></script>
+            <!-- Tab Content: Positions -->
+            <div class="tab-content" id="positionsTab">
+                <div class="positions-content">
+                    <h3>Recommended Positioning</h3>
+                    <div class="position-cards" id="positionCards"></div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Excluded -->
+            <div class="tab-content" id="excludedTab">
+                <div class="excluded-content">
+                    <h3>Excluded / Watchlist</h3>
+                    <p>Tickers excluded due to negative momentum, earnings issues, or high uncertainty.</p>
+                    <div class="excluded-list" id="excludedList"></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- SCRIPTS (split for size / maintainability) -->
+    <script src="./dsm_part1.js"></script>
+    <script src="./dsm_part2.js"></script>
+    <script src="./dsm_part3.js"></script>
+    <script src="./dsm_part4.js"></script>
+    <script src="./dsm_part5.js"></script>
+    <script src="./dsm_part6.js"></script>
 
 </body>
 </html>
