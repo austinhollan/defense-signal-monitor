@@ -1,29 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Defense Signal Monitor</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEFENSE SIGNAL MONITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.polygon.io; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="no-referrer">
 </head>
 <body>
+    <!-- Scanline + grid overlays -->
+    <div class="scanline-overlay"></div>
+    <div class="grid-overlay"></div>
 
     <!-- HEADER -->
     <header class="header">
-        <div class="header-title">DEFENSE SIGNAL MONITOR</div>
-        <div class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</div>
+        <div class="header-left">
+            <div class="header-title-group">
+                <div class="radar-icon">
+                    <svg viewBox="0 0 48 48" width="44" height="44">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+                        <circle cx="24" cy="24" r="14" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
+                        <circle cx="24" cy="24" r="8" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
+                        <circle cx="24" cy="24" r="2" fill="#22c55e"/>
+                        <line x1="24" y1="24" x2="24" y2="4" stroke="#22c55e" stroke-width="1.5" class="radar-sweep"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="header-title">DEFENSE SIGNAL MONITOR</h1>
+                    <p class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</p>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">LAST UPDATED</span>
+                    <span class="meta-value" id="timestamp"></span>
+                </div>
+                <div class="meta-item threat-level">
+                    <span class="meta-label">THREAT/OPP LEVEL</span>
+                    <span class="threat-badge critical" style="background:rgba(255,0,0,0.15);color:#ff4444;border-color:rgba(255,0,0,0.35);">
+                        <span class="threat-dot" style="background:#ff4444;"></span>
+                        CRITICAL
+                    </span>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- STATUS BAR -->
     <div class="status-bar">
         <div class="status-item">
-            <span class="status-label">LIVE STATUS</span>
-            <span class="status-value green">ACTIVE</span>
+            <span class="status-label">ACTIVE THEATERS</span>
+            <span class="status-value">5</span>
         </div>
         <div class="status-item">
-            <span class="status-label">SIGNAL UNIVERSE</span>
+            <span class="status-label">TRACKED TICKERS</span>
             <span class="status-value">23</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BULLISH SIGNALS</span>
+            <span class="status-value green">13</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">NEUTRAL</span>
+            <span class="status-value amber">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BEARISH</span>
+            <span class="status-value red">5</span>
         </div>
         <div class="status-item">
             <span class="status-label">MIL EVENTS (90D)</span>
@@ -42,7 +93,7 @@
     <!-- PRICE DATA FOOTNOTE -->
     <div class="price-footnote" id="priceFootnote">
         <span class="footnote-dot" id="priceStatusDot"></span>
-        <span id="priceFootnoteText">* Prices as of Mar 2, 2026, 11:00 AM PST<a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
+        <span id="priceFootnoteText">* Prices as of Mar 2, 2026, 11:23 AM PST <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
     </div>
 
     <!-- THEATER RISK ASSESSMENT — pinned below header -->
