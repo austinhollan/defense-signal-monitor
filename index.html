@@ -1,257 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEFENSE SIGNAL MONITOR</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./style.css">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.polygon.io; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="no-referrer">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Defense Signal Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #101722;
+      --panel2: #0e141d;
+      --text: #e8eef7;
+      --muted: #9fb0c6;
+      --line: rgba(255,255,255,0.08);
+      --green: #00e676;
+      --red: #ff5252;
+      --amber: #ffb300;
+      --cyan: #00bcd4;
+      --blue: #5c7cfa;
+      --purple: #b197fc;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 30% -10%, rgba(92,124,250,0.25), transparent 55%),
+                  radial-gradient(900px 500px at 80% 0%, rgba(177,151,252,0.22), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.35;
+    }
+
+    header {
+      padding: 22px 20px 16px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,23,34,0.9), rgba(11,15,20,0.2));
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+    }
+
+    .title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Orbitron, sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      padding: 16px 20px 22px;
+    }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: rgba(16,23,34,0.75);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 20px 55px rgba(0,0,0,0.35);
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(232,238,247,0.88);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .tab {
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(14,20,29,0.7);
+      color: rgba(232,238,247,0.9);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 120ms ease, background 120ms ease;
+    }
+
+    .tab.active {
+      background: rgba(92,124,250,0.22);
+      border-color: rgba(92,124,250,0.35);
+    }
+
+    .tab:hover { transform: translateY(-1px); }
+
+    .section { display: none; margin-top: 12px; }
+    .section.active { display: block; }
+
+    /* Theater strip */
+    .theater {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 980px) {
+      .theater { grid-template-columns: 1fr; }
+    }
+
+    .theaterCard {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(14,20,29,0.65);
+      padding: 12px;
+      min-height: 108px;
+    }
+
+    .theaterTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .theaterName {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      font-size: 12.5px;
+    }
+
+    .theaterTag {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(232,238,247,0.9);
+    }
+
+    .t-red { background: rgba(255,82,82,0.12); border-color: rgba(255,82,82,0.35); }
+    .t-amber { background: rgba(255,179,0,0.12); border-color: rgba(255,179,0,0.35); }
+    .t-cyan { background: rgba(0,188,212,0.10); border-color: rgba(0,188,212,0.35); }
+
+    .theaterBody {
+      color: rgba(232,238,247,0.88);
+      font-size: 12px;
+    }
+
+    /* Stock table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+    }
+
+    thead th {
+      background: rgba(14,20,29,0.9);
+      border-bottom: 1px solid var(--line);
+      font-size: 11px;
+      text-align: left;
+      color: rgba(232,238,247,0.85);
+      padding: 10px 10px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    tbody td {
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 12.5px;
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background: rgba(92,124,250,0.08);
+    }
+
+    .ticker {
+      font-weight: 700;
+      font-family: Orbitron, sans-serif;
+      letter-spacing: 0.4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 11px;
+      line-height: 1;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .bull { background: rgba(0,230,118,0.12); border-color: rgba(0,230,118,0.35); color: rgba(232,238,247,0.95); }
+    .bear { background: rgba(255,82,82,0.10); border-color: rgba(255,82,82,0.32); color: rgba(232,238,247,0.95); }
+    .neutral { background: rgba(255,179,0,0.10); border-color: rgba(255,179,0,0.30); color: rgba(232,238,247,0.95); }
+
+    .chg-pos { color: var(--green); font-weight: 600; }
+    .chg-neg { color: var(--red); font-weight: 600; }
+    .muted { color: var(--muted); }
+
+    .note {
+      margin-top: 10px;
+      color: rgba(159,176,198,0.95);
+      font-size: 11.5px;
+    }
+
+    .note a { color: rgba(159,176,198,0.95); }
+
+    /* Signals */
+    .signal {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(14,20,29,0.65);
+      margin-bottom: 10px;
+    }
+
+    .signalTop {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .signalMeta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .signalTag {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgba(232,238,247,0.92);
+    }
+
+    .tag-contract { background: rgba(92,124,250,0.14); border-color: rgba(92,124,250,0.35); }
+    .tag-miltrack { background: rgba(255,82,82,0.12); border-color: rgba(255,82,82,0.35); }
+    .tag-osint { background: rgba(0,188,212,0.10); border-color: rgba(0,188,212,0.35); }
+    .tag-polymarket { background: rgba(177,151,252,0.12); border-color: rgba(177,151,252,0.35); }
+    .tag-cyber { background: rgba(0,230,118,0.10); border-color: rgba(0,230,118,0.32); }
+    .tag-conflict { background: rgba(255,179,0,0.10); border-color: rgba(255,179,0,0.30); }
+
+    .signalTime {
+      font-size: 11px;
+      color: rgba(159,176,198,0.95);
+    }
+
+    .signalBody {
+      font-size: 12.5px;
+      color: rgba(232,238,247,0.9);
+    }
+
+    .sources {
+      margin-top: 8px;
+      font-size: 11.5px;
+      color: rgba(159,176,198,0.95);
+    }
+
+    .sources a {
+      color: rgba(159,176,198,0.95);
+      text-decoration: underline;
+      margin-right: 10px;
+    }
+
+    .ticker-link {
+      color: rgba(92,124,250,0.95);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .ticker-link:hover { text-decoration: underline; }
+
+    /* Right column */
+    .rightCard {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(14,20,29,0.65);
+      margin-bottom: 12px;
+    }
+
+    .rightCard h3 {
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: rgba(232,238,247,0.88);
+    }
+
+    .metric {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 12.5px;
+    }
+
+    .metric:last-child { border-bottom: none; }
+
+    .k { color: rgba(159,176,198,0.95); }
+    .v { font-weight: 600; }
+
+    /* Charts */
+    canvas { max-width: 100%; }
+
+    /* Footer */
+    footer {
+      padding: 14px 20px 22px;
+      color: rgba(159,176,198,0.85);
+      font-size: 11.5px;
+      border-top: 1px solid var(--line);
+    }
+
+  </style>
 </head>
 <body>
-    <!-- Scanline + grid overlays -->
-    <div class="scanline-overlay"></div>
-    <div class="grid-overlay"></div>
-
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-left">
-            <div class="header-title-group">
-                <div class="radar-icon">
-                    <svg viewBox="0 0 48 48" width="44" height="44">
-                        <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
-                        <circle cx="24" cy="24" r="14" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
-                        <circle cx="24" cy="24" r="8" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
-                        <circle cx="24" cy="24" r="2" fill="#22c55e"/>
-                        <line x1="24" y1="24" x2="24" y2="4" stroke="#22c55e" stroke-width="1.5" class="radar-sweep"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="header-title">DEFENSE SIGNAL MONITOR</h1>
-                    <p class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</p>
-                </div>
-            </div>
-        </div>
-        <div class="header-right">
-            <div class="header-meta">
-                <div class="meta-item">
-                    <span class="meta-label">LAST UPDATED</span>
-                    <span class="meta-value" id="timestamp"></span>
-                </div>
-                <div class="meta-item threat-level">
-                    <span class="meta-label">THREAT/OPP LEVEL</span>
-                    <span class="threat-badge critical" style="background:rgba(255,0,0,0.15);color:#ff4444;border-color:rgba(255,0,0,0.35);">
-                        <span class="threat-dot" style="background:#ff4444;"></span>
-                        CRITICAL
-                    </span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- STATUS BAR -->
-    <div class="status-bar">
-        <div class="status-item">
-            <span class="status-label">ACTIVE THEATERS</span>
-            <span class="status-value">5</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">TRACKED TICKERS</span>
-            <span class="status-value">23</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">BULLISH SIGNALS</span>
-            <span class="status-value green">13</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">NEUTRAL</span>
-            <span class="status-value amber">5</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">BEARISH</span>
-            <span class="status-value red">5</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">MIL EVENTS (90D)</span>
-            <span class="status-value">52</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">MILTRACK SIGNALS</span>
-            <span class="status-value teal">18</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">BETTING MARKETS</span>
-            <span class="status-value purple">14</span>
-        </div>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <h1>Defense Signal Monitor</h1>
+        <div class="sub">Live defense + conflict signals, updated hourly (market hours).</div>
+      </div>
+      <div class="tabs" id="tabs"></div>
     </div>
+  </header>
 
-    <!-- PRICE DATA FOOTNOTE -->
-    <div class="price-footnote" id="priceFootnote">
-        <span class="footnote-dot" id="priceStatusDot"></span>
-        <span id="priceFootnoteText">* Prices as of Mar 2, 2026, 9:44 AM PST <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
-    </div>
+  <main class="wrap">
+    <div class="grid">
+      <section class="panel">
+        <div class="theater" id="theater"></div>
 
-    <!-- THEATER RISK ASSESSMENT — pinned below header -->
-    <div class="theater-strip" id="theaterStrip"></div>
-
-    <!-- TAB NAVIGATION -->
-    <nav class="tab-bar" id="tabBar">
-        <button class="tab-btn active" data-tab="overview">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-            OVERVIEW
-        </button>
-        <button class="tab-btn" data-tab="matrix">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-            SIGNAL MATRIX
-        </button>
-        <button class="tab-btn" data-tab="etf">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            PPLX_DEFENSE ETF
-        </button>
-        <button class="tab-btn" data-tab="theater">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6.5 7.5 7.17c.526.668 1 1.28 1 1.83s-.5 1-.5 2v1c0 .552.448 1 1 1h1c.552 0 1-.448 1-1v-1c0-.552.448-1 1-1h.5c.552 0 1-.448 1-1V7a1 1 0 011-1h.757a5.96 5.96 0 01.411 2c0 .682-.131 1.332-.332 1.973-.5.137-1 .527-1.336 1.027H12a1 1 0 00-1 1v2.5a5.985 5.985 0 01-1 .168V13a1 1 0 00-1-1H8a1 1 0 00-1-1V9.5c0-.552-.448-1-1-1h-.67A5.97 5.97 0 014.332 8.027z"/></svg>
-            THEATER INTEL
-        </button>
-        <button class="tab-btn" data-tab="watchlist">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
-            WATCHLIST
-        </button>
-    </nav>
-
-    <!-- ============ TAB CONTENT PANELS ============ -->
-
-    <!-- TAB: OVERVIEW -->
-    <div class="tab-panel active" id="panel-overview">
-        <div class="overview-grid">
-            <!-- LEFT COLUMN: Top 5 Stocks -->
-            <div class="overview-col overview-col-left">
-                <div class="widget-header">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-                    <span>TOP 5 SIGNAL STOCKS</span>
-                </div>
-                <div class="mini-table-wrapper">
-                    <table class="mini-table" id="overviewStocks">
-                        <thead>
-                            <tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-
-                <!-- Bottom 3 stocks -->
-                <div class="widget-header" style="margin-top:16px;">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" style="color:var(--red);"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-                    <span>BOTTOM 3 — BEARISH</span>
-                </div>
-                <div class="mini-table-wrapper">
-                    <table class="mini-table" id="overviewBearish">
-                        <thead>
-                            <tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- CENTER COLUMN: ETF Performance Mini Chart -->
-            <div class="overview-col overview-col-center">
-                <div class="widget-header">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-                    <span>PPLX_DEFENSE vs BENCHMARKS</span>
-                </div>
-                <div class="overview-chart-wrap">
-                    <canvas id="overviewChart"></canvas>
-                </div>
-                <div class="overview-perf-row" id="overviewPerfRow"></div>
-            </div>
-
-            <!-- RIGHT COLUMN: Recent Activity Feed -->
-            <div class="overview-col overview-col-right">
-                <div class="widget-header">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1v1h10V6H5zm0 3v1h10V9H5zm0 3v1h7v-1H5z"/></svg>
-                    <span>RECENT SIGNALS</span>
-                    <span class="live-indicator"><span class="pulse-dot"></span>LIVE</span>
-                </div>
-                <div class="signals-feed compact-feed" id="overviewFeed"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB: SIGNAL MATRIX -->
-    <div class="tab-panel" id="panel-matrix">
-        <div class="section-header">
-            <h2 class="section-title">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-                SIGNAL MATRIX — 23 TRACKED SECURITIES
-            </h2>
-            <div class="matrix-controls">
-                <div class="filter-group">
-                    <label class="filter-label">FILTER</label>
-                    <select id="signalFilter" class="filter-select">
-                        <option value="all">ALL SIGNALS</option>
-                        <option value="bullish">BULLISH ONLY</option>
-                        <option value="bearish">BEARISH ONLY</option>
-                        <option value="neutral">NEUTRAL ONLY</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label">SORT</label>
-                    <select id="signalSort" class="filter-select">
-                        <option value="score">SIGNAL STRENGTH</option>
-                        <option value="price">PRICE (HIGH TO LOW)</option>
-                        <option value="change">CHANGE %</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label">SEARCH</label>
-                    <input type="text" id="signalSearch" class="filter-input" placeholder="Ticker or company...">
-                </div>
-            </div>
+        <div class="row">
+          <h2 id="sectionTitle">Stocks</h2>
+          <div class="sub" id="sectionSubtitle">Defense tickers + cyber adjacents</div>
         </div>
 
-        <div class="signal-matrix" id="signalMatrix"></div>
-    </div>
+        <div id="sections"></div>
 
-    <!-- TAB: ETF -->
-    <div class="tab-panel" id="panel-etf">
-        <div class="section-header">
-            <h2 class="section-title">PPLX_DEFENSE — COMPOSITE ETF</h2>
+        <div class="note">
+          * Prices as of Mar 2, 2026, 10:03 AM PST — data via <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>
         </div>
-        <div class="chart-container">
-            <canvas id="etfChart"></canvas>
-        </div>
-        <div class="etf-stats" id="etfStats"></div>
-    </div>
+      </section>
 
-    <!-- TAB: THEATER INTEL -->
-    <div class="tab-panel" id="panel-theater">
-        <div class="section-header">
-            <h2 class="section-title">THEATER INTELLIGENCE</h2>
+      <aside>
+        <div class="rightCard">
+          <h3>Overview</h3>
+          <div class="metric"><span class="k">Risk level</span><span class="v" id="riskLevel">—</span></div>
+          <div class="metric"><span class="k">Top theater</span><span class="v" id="topTheater">—</span></div>
+          <div class="metric"><span class="k">Highest score</span><span class="v" id="topTicker">—</span></div>
+          <div class="metric"><span class="k">Biggest mover</span><span class="v" id="biggestMover">—</span></div>
         </div>
-        <div class="theater-grid" id="theaterGrid"></div>
-    </div>
 
-    <!-- TAB: WATCHLIST -->
-    <div class="tab-panel" id="panel-watchlist">
-        <div class="section-header">
-            <h2 class="section-title">WATCHLIST</h2>
+        <div class="rightCard">
+          <h3>ETF proxy</h3>
+          <div class="sub" style="margin-bottom:8px">ITA (Defense) vs SPY</div>
+          <canvas id="etfChart" height="180"></canvas>
         </div>
-        <div class="watchlist-grid" id="watchlistGrid"></div>
-    </div>
 
-    <!-- Load JS parts -->
-    <script src="./dsm_part1.js"></script>
-    <script src="./dsm_part2.js"></script>
-    <script src="./dsm_part3.js"></script>
-    <script src="./dsm_part4.js"></script>
-    <script src="./dsm_part5.js"></script>
-    <script src="./dsm_part6.js"></script>
+        <div class="rightCard">
+          <h3>Watch</h3>
+          <div class="sub" id="watchText">—</div>
+        </div>
+
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Built for rapid situational awareness. Not investment advice.
+    </div>
+  </footer>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- App logic split into parts -->
+  <script src="dsm_part1.js"></script>
+  <script src="dsm_part2.js"></script>
+  <script src="dsm_part3.js"></script>
+  <script src="dsm_part4.js"></script>
+  <script src="dsm_part5.js"></script>
+  <script src="dsm_part6.js"></script>
 </body>
 </html>
