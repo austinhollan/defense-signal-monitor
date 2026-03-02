@@ -51,6 +51,13 @@ const stockData = [
 
 // === SIGNALS FEED DATA ===
 const signalsFeedData = [
+    { date: "2026-03-01", time: "14:00", tag: "MILTRACK", tagClass: "miltrack", text: '<strong>3 US service members killed, 5 seriously wounded</strong> in Iranian retaliatory strikes on US installations in the Gulf region. CENTCOM confirms casualties from ballistic missile and drone attacks on bases in Bahrain and UAE. First US KIA since Operation Epic Fury began. <strong>TICKERS: LMT, RTX, NOC, HII, GD, LHX.</strong>', recent: true, sources: [{"name": "CENTCOM", "url": "https://www.centcom.mil/"}, {"name": "@sentdefender", "url": "https://x.com/sentdefender"}] },
+    { date: "2026-03-01", time: "12:00", tag: "CYBER", tagClass: "cyber", text: 'WSJ: CENTCOM used Anthropic Claude AI during Operation Epic Fury strikes <strong>despite Anthropic being designated a \'supply-chain risk to national security\'</strong> by Pentagon. AI used for targeting analysis and battle damage assessment. Raises questions about DoD AI procurement and Anthropic\'s classified access status. <strong>TICKERS: PLTR.</strong>', recent: true, sources: [{"name": "Wall Street Journal", "url": "https://www.wsj.com/"}, {"name": "@sentdefender", "url": "https://x.com/sentdefender"}] },
+    { date: "2026-03-01", time: "10:00", tag: "MILTRACK", tagClass: "miltrack", text: 'Fox News: <strong>1,000+ Iranian military sites struck in first 24 hours</strong> of Operation Epic Fury. US and Israeli forces continue round-the-clock operations. Pentagon describes campaign as \'most intensive aerial campaign since Iraq 2003.\' <strong>TICKERS: LMT, RTX, NOC, LHX, HII, BWXT.</strong>', recent: true, sources: [{"name": "Fox News", "url": "https://www.foxnews.com/"}, {"name": "@sentdefender", "url": "https://x.com/sentdefender"}] },
+    { date: "2026-03-01", time: "08:00", tag: "OSINT", tagClass: "osint", text: 'Iran continues retaliatory strikes on Bahrain — <strong>smoke rising from Manama</strong> visible in satellite imagery and social media. Iranian ballistic missiles targeting US Naval Support Activity Bahrain (5th Fleet HQ). Gulf state infrastructure under sustained attack. <strong>TICKERS: LMT, RTX, NOC, HII, GD.</strong>', recent: true, sources: [{"name": "@sentdefender", "url": "https://x.com/sentdefender"}] },
+    { date: "2026-03-01", time: "06:00", tag: "OSINT", tagClass: "osint", text: 'Politico: <strong>Pentagon offers no evidence of imminent threat</strong> that justified Operation Epic Fury. Critics question legal basis for strikes. Administration cites 2001/2002 AUMFs and Article II powers. Congress demands briefing. <strong>TICKERS: LMT, RTX, NOC.</strong>', recent: true, sources: [{"name": "Politico", "url": "https://www.politico.com/"}] },
+    { date: "2026-03-01", time: "04:00", tag: "CONTRACT", tagClass: "contract", text: 'Photonis Defense awarded <strong>$352.6M Army contract</strong> for Binocular Night Observation Device (BiNOD) systems. Multi-year procurement for next-gen night vision across infantry units. <strong>Night vision/optics supply chain beneficiary.</strong>', recent: true, sources: [{"name": "DoD Contracts", "url": "https://www.defense.gov/News/Contracts/"}] },
+    { date: "2026-03-01", time: "02:00", tag: "CONTRACT", tagClass: "contract", text: 'UK awards Leonardo <strong>£1B military helicopter contract</strong> (Reuters). Covers AW149 medium-lift helicopters for British Army to replace aging Puma fleet. European defense spending acceleration continues. <strong>TICKERS: BAESY (European defense proxy).</strong>', recent: true, sources: [{"name": "Reuters", "url": "https://www.reuters.com/"}] },
     { date: "2026-02-28", time: "22:30", tag: "OSINT", tagClass: "osint", text: 'Iranians celebrate in streets of Karaj and Galehdar City after reports of Supreme Leader Khamenei\'s death. @sentdefender: \'I\'ll miss our conversations\' — posts GIF referencing Khamenei. Regime collapse signals emerging. <strong>TICKERS: LMT, RTX, NOC, GD, LHX, HII, BWXT.</strong>', recent: true, sources: [{name: "@sentdefender", url: "https://x.com/sentdefender/status/2027876133039997364"}, {name: "@sentdefender", url: "https://x.com/sentdefender/status/2027877189488636270"}] },
     { date: "2026-02-28", time: "22:06", tag: "MILTRACK", tagClass: "miltrack", text: 'CENTCOM debunks Iranian propaganda: \"No U.S. casualties. No U.S. Navy ship struck. The Armada is fully operational. Damage to U.S. installations minimal — has not impacted operations.\" Iran claims of 50 dead U.S. service members called a LIE. <strong>TICKERS: LMT, RTX, NOC, HII, GD.</strong>', recent: true, sources: [{name: "U.S. Central Command (@CENTCOM)", url: "https://x.com/CENTCOM/status/2027868060217192498"}] },
     { date: "2026-02-28", time: "22:00", tag: "OSINT", tagClass: "osint", text: 'Dubai International Airport concourse damaged by Iranian drone attack — 4 staff injured. Dubai Media Office confirms minor structural damage. Iran retaliating against Gulf states hosting US forces. UAE, Saudi Arabia, Bahrain, Kuwait, Jordan all targeted. <strong>TICKERS: LMT, RTX, NOC, LHX, HII.</strong>', recent: true, sources: [{name: "@sentdefender", url: "https://x.com/sentdefender/status/2027874896349393206"}] },
@@ -164,11 +171,11 @@ const politicianData = [
 
 // === THEATER DATA ===
 const theaterData = [
-    { name: "PACIFIC / CHINA", level: "HIGH", levelClass: "high", cardClass: "high", desc: "Taiwan 'Justice Mission 2025' \u2014 most extensive Chinese exercises ever. $11.1B Taiwan arms sale. Chinese Volt Typhoon cyber pre-positioning confirmed active. Submarine buildup accelerating. SDA satellite constellation expanding. $24B Golden Dome (classified). Middle East drawdown may temporarily reduce Pacific posture.", tickers: ["GD", "HII", "BWXT", "CW", "RKLB", "NOC"] },
-    { name: "EUROPE / RUSSIA", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Feb 24 = 4th anniversary Ukraine invasion. Russia launched 347 drones/missiles overnight Feb 21-22 \u2014 shifted to water/railway targets. 4x hypersonic Zirkon missiles used. NATO airspace incursions deliberate. All NATO 2%+ GDP, new 5% target. Front-line states accelerating orders. Trump-Putin talks collapsed Feb 12. Ceasefire odds: 0%.", tickers: ["LMT", "RTX", "AVAV", "BAESY"] },
-    { name: "MIDDLE EAST", level: "\u26A0\uFE0F ACTIVE COMBAT", levelClass: "critical", cardClass: "critical", desc: "OPERATION EPIC FURY UNDERWAY. US and Israel conducting massive strike campaign across Iran. Khamenei reportedly killed (Israeli officials). 40+ regime figures eliminated. IDF struck 'hundreds of military sites.' Iran retaliating with missiles at Israel, US bases across Gulf. Dubai airport hit. CENTCOM: no US casualties, fleet fully operational. Trump: 'I can go long or end it in 2-3 days.'", tickers: ["LMT", "RTX", "NOC", "LHX", "KTOS", "HII", "GD", "BWXT"] },
-    { name: "CYBER", level: "HIGH", levelClass: "high", cardClass: "high", desc: "State actors all targeting US defense contractors \u2014 Google TIG confirms Russia/China/Iran/NK campaigns. Dragos: Chinese/Iranian APTs embedding in critical infrastructure. AIS spoofing surge in Hormuz. FCC warns 4x telecom ransomware increase. Pentagon AI guardrails dispute. Google-Wiz $32B deal reshaping market.", tickers: ["CRWD", "PANW", "FTNT", "PLTR"] },
-    { name: "CONUS / STRATEGIC", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Nuclear modernization accelerating. $153B reconciliation spending \u2014 all into 2026. B-21 production +25% ($4.5B). Golden Dome $24B (classified). $1.5T FY2027 target. BWXT record $7.4B backlog. Iran eyeing CONUS proxy strikes per NYT.", tickers: ["NOC", "BWXT", "CW", "PLTR", "RKLB"] }
+    { name: "PACIFIC / CHINA", level: "HIGH", levelClass: "high", cardClass: "high", desc: "Taiwan 'Justice Mission 2025' — most extensive Chinese exercises ever. $11.1B Taiwan arms sale. Chinese Volt Typhoon cyber pre-positioning confirmed active. Submarine buildup accelerating. SDA satellite constellation expanding. $24B Golden Dome (classified). Middle East drawdown may temporarily reduce Pacific posture.", tickers: ["GD", "HII", "BWXT", "CW", "RKLB", "NOC"] },
+    { name: "EUROPE / RUSSIA", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Feb 24 = 4th anniversary Ukraine invasion. Russia launched 347 drones/missiles overnight Feb 21-22 — shifted to water/railway targets. 4x hypersonic Zirkon missiles used. NATO airspace incursions deliberate. All NATO 2%+ GDP, new 5% target. Front-line states accelerating orders. Trump-Putin talks collapsed Feb 12. Ceasefire odds: 0%.", tickers: ["LMT", "RTX", "AVAV", "BAESY"] },
+    { name: "MIDDLE EAST", level: "⚠️ ACTIVE COMBAT", levelClass: "critical", cardClass: "critical", desc: "OPERATION EPIC FURY UNDERWAY. US and Israel conducting massive strike campaign across Iran. Khamenei reportedly killed (Israeli officials). 40+ regime figures eliminated. IDF struck 'hundreds of military sites.' Iran retaliating with missiles at Israel, US bases across Gulf. Dubai airport hit. CENTCOM: no US casualties, fleet fully operational. Trump: 'I can go long or end it in 2-3 days.'", tickers: ["LMT", "RTX", "NOC", "LHX", "KTOS", "HII", "GD", "BWXT"] },
+    { name: "CYBER", level: "HIGH", levelClass: "high", cardClass: "high", desc: "State actors all targeting US defense contractors — Google TIG confirms Russia/China/Iran/NK campaigns. Dragos: Chinese/Iranian APTs embedding in critical infrastructure. AIS spoofing surge in Hormuz. FCC warns 4x telecom ransomware increase. Pentagon AI guardrails dispute. Google-Wiz $32B deal reshaping market.", tickers: ["CRWD", "PANW", "FTNT", "PLTR"] },
+    { name: "CONUS / STRATEGIC", level: "ELEVATED", levelClass: "elevated", cardClass: "elevated", desc: "Nuclear modernization accelerating. $153B reconciliation spending — all into 2026. B-21 production +25% ($4.5B). Golden Dome $24B (classified). $1.5T FY2027 target. BWXT record $7.4B backlog. Iran eyeing CONUS proxy strikes per NYT.", tickers: ["NOC", "BWXT", "CW", "PLTR", "RKLB"] }
 ];
 
 // === ETF DATA ===
@@ -340,57 +347,57 @@ function computeETFWeights(holdings) {
 
 // === BACKTEST DATA ===
 const backtestData = [
-    { ticker: "LMT", start: 455.63, end: 660.62 },
-    { ticker: "RTX", start: 158.60, end: 201.92 },
-    { ticker: "NOC", start: 590.04, end: 725.39 },
-    { ticker: "KTOS", start: 65.84, end: 94.31 },
-    { ticker: "RKLB", start: 48.60, end: 70.21 },
-    { ticker: "BWXT", start: 162.04, end: 198.38 },
-    { ticker: "HII", start: 270.79, end: 438.01 },
-    { ticker: "CW", start: 478.15, end: 699.24 },
-    { ticker: "GD", start: 324.57, end: 348.98 },
-    { ticker: "LHX", start: 277.62, end: 355.14 },
-    { ticker: "PLTR", start: 156.71, end: 130.60 },
-    { ticker: "AVAV", start: 241.35, end: 261.33 },
-    { ticker: "BAESY", start: 60.19, end: 116.48 },
-    { ticker: "MRCY", start: 67.55, end: 85.90 },
-    { ticker: "BA", start: 234.68, end: 230.44 },
-    { ticker: "LDOS", start: 180.92, end: 172.00 },
-    { ticker: "FTNT", start: 78.77, end: 75.60 },
-    { ticker: "CRWD", start: 423.70, end: 350.33 },
-    { ticker: "JOBY", start: 14.15, end: 9.54 }
+    { ticker: "LMT", start: 455.63, end: 658.08 },
+    { ticker: "RTX", start: 158.6, end: 202.62 },
+    { ticker: "NOC", start: 590.04, end: 724.38 },
+    { ticker: "KTOS", start: 65.84, end: 86.18 },
+    { ticker: "RKLB", start: 48.6, end: 69.1 },
+    { ticker: "BWXT", start: 162.04, end: 205.98 },
+    { ticker: "HII", start: 270.79, end: 444.52 },
+    { ticker: "CW", start: 478.15, end: 700.33 },
+    { ticker: "GD", start: 324.57, end: 357.05 },
+    { ticker: "LHX", start: 277.62, end: 364.54 },
+    { ticker: "PLTR", start: 156.71, end: 137.19 },
+    { ticker: "AVAV", start: 241.35, end: 252.25 },
+    { ticker: "BAESY", start: 94.24, end: 116.0 },
+    { ticker: "MRCY", start: 67.55, end: 89.03 },
+    { ticker: "BA", start: 234.68, end: 227.53 },
+    { ticker: "LDOS", start: 180.92, end: 175.1 },
+    { ticker: "FTNT", start: 78.77, end: 79.03 },
+    { ticker: "CRWD", start: 423.7, end: 371.98 },
+    { ticker: "JOBY", start: 14.15, end: 10.06 }
 ];
 
 const benchmarkData = {
-    SPY: { start: 645.05, end: 687.62 },
-    ITA: { start: 198.42, end: 242.19 }
+    SPY: { start: 645.05, end: 685.99 },
+    ITA: { start: 198.42, end: 243.72 }
 };
 
 // === SIMULATED MONTHLY PERFORMANCE DATA (indexed to 100) ===
 // 6 months: Aug 29, Sep 30, Oct 31, Nov 30, Dec 31, Jan 31, Feb 23
-const perfLabels = ["Aug 29", "Sep 30", "Oct 31", "Nov 30", "Dec 31", "Jan 31", "Feb 23"];
-const perfETF =    [100, 103.2, 107.8, 112.4, 118.5, 124.1, 127.9];
-const perfITA =    [100, 102.1, 105.3, 109.2, 113.8, 117.4, 120.5];
-const perfSPY =    [100, 101.5, 103.8, 102.1, 99.2, 96.5, 105.8];
+const perfLabels = ["Aug 29", "Sep 30", "Oct 31", "Nov 30", "Dec 31", "Jan 31", "Feb 27"];
+const perfETF =    [100.0, 111.2, 116.9, 104.5, 109.8, 126.5, 125.6];
+const perfITA =    [100.0, 105.5, 108.8, 103.4, 108.2, 117.1, 122.8];
+const perfSPY =    [100.0, 103.3, 105.7, 105.9, 105.7, 107.3, 106.3];
 
 
 // === THEATER INTEL DATA ===
 const theaterIntelData = [
     {
         name: "MIDDLE EAST",
-        level: "\u26A0\uFE0F ACTIVE COMBAT",
+        level: "⚠️ ACTIVE COMBAT",
         levelClass: "critical",
         summary: "OPERATION EPIC FURY is underway. The US and Israel launched a massive strike campaign across Iran on Feb 28, 2026. Israeli officials report Supreme Leader Khamenei killed. 40+ regime figures eliminated. IDF struck 'hundreds of military sites.' Iran retaliating with missiles at Israel and US bases across the Gulf. CENTCOM: no US casualties.",
         evidence: [
             {
-                category: "OPERATION EPIC FURY \u2014 STRIKES",
+                category: "OPERATION EPIC FURY — STRIKES",
                 items: [
-                    "US and Israel launched coordinated strike campaign across Iran \u2014 Feb 28, 2026",
+                    "US and Israel launched coordinated strike campaign across Iran — Feb 28, 2026",
                     "Trump declared operations in video statement, urged Iranian people to rise against regime",
                     "Objectives: destroy nuclear program, dismantle missiles, neutralize navy, eliminate Axis of Resistance",
                     "IDF reports striking 'hundreds of military sites' including missile launchers in western Iran",
                     "B-21 Raiders, Tomahawks, F-22, F-35, and carrier-based aircraft all engaged",
-                    "Israeli officials: Supreme Leader Khamenei killed \u2014 compound in Tehran struck",
+                    "Israeli officials: Supreme Leader Khamenei killed — compound in Tehran struck",
                     "40+ regime figures killed: IRGC commander, defense minister, Security Council secretary",
                     "Iranian Red Crescent: 200+ casualties reported across Iran"
                 ]
@@ -398,10 +405,10 @@ const theaterIntelData = [
             {
                 category: "IRAN RETALIATION",
                 items: [
-                    "Iran fired ~35 missiles (Emad/Ghadr) at Israel by 5:42 AM ET \u2014 air raid sirens active",
+                    "Iran fired ~35 missiles (Emad/Ghadr) at Israel by 5:42 AM ET — air raid sirens active",
                     "Iran strikes US bases across Bahrain, UAE, Kuwait, Jordan, Saudi Arabia",
-                    "Dubai International Airport concourse damaged by Iranian drone attack \u2014 4 staff injured",
-                    "Iraqi PMF airstrikes in Jurf al Sakhr \u2014 Kataib Hezbollah stronghold, 2 PMF killed",
+                    "Dubai International Airport concourse damaged by Iranian drone attack — 4 staff injured",
+                    "Iraqi PMF airstrikes in Jurf al Sakhr — Kataib Hezbollah stronghold, 2 PMF killed",
                     "CENTCOM: 'No U.S. casualties. No U.S. Navy ship struck. Armada fully operational.'",
                     "CENTCOM debunks Iran claims of 50 dead US service members as propaganda"
                 ]
@@ -409,10 +416,10 @@ const theaterIntelData = [
             {
                 category: "FORCE POSTURE (PRE-STRIKE BUILDUP)",
                 items: [
-                    "150+ aircraft deployed since Feb 17 \u2014 largest concentration since Iraq 2003",
+                    "150+ aircraft deployed since Feb 17 — largest concentration since Iraq 2003",
                     "Dual carrier strike groups: USS Ford (CVN-78) + USS Abraham Lincoln (CVN-72)",
                     "12x F-22 Raptors deployed to CENTCOM from RAF Lakenheath",
-                    "60+ attack aircraft at Muwaffaq Salti AB, Jordan \u2014 3x normal",
+                    "60+ attack aircraft at Muwaffaq Salti AB, Jordan — 3x normal",
                     "SSGN submarines deployed (Ohio-class: 154 Tomahawks each)",
                     "600+ Tomahawk cruise missiles available across fleet"
                 ]
@@ -422,10 +429,10 @@ const theaterIntelData = [
                 items: [
                     "Trump told Axios: 'I can go long and take over the whole thing, or end it in 2-3 days'",
                     "VP Vance monitoring from Situation Room; Trump from Mar-a-Lago",
-                    "Iranians celebrating in streets of Karaj and Galehdar City \u2014 regime collapse signals",
-                    "Polymarket: US strike resolved YES \u2014 $529M volume. Gulf state strike Iran by Mar 7: 46%",
-                    "Morningstar: strikes will boost defense stocks Monday \u2014 sector evolving into subscription model",
-                    "Markets closed Saturday \u2014 full impact expected Monday open"
+                    "Iranians celebrating in streets of Karaj and Galehdar City — regime collapse signals",
+                    "Polymarket: US strike resolved YES — $529M volume. Gulf state strike Iran by Mar 7: 46%",
+                    "Morningstar: strikes will boost defense stocks Monday — sector evolving into subscription model",
+                    "Markets closed Saturday — full impact expected Monday open"
                 ]
             }
         ],
@@ -448,12 +455,12 @@ const theaterIntelData = [
             {
                 category: "MILITARY POSTURE",
                 items: [
-                    "China 'Justice Mission 2025' \u2014 most extensive Taiwan exercises ever conducted (Dec 2025)",
-                    "$11.1B Taiwan arms sale \u2014 largest in history (HIMARS, ATACMS, Javelins)",
+                    "China 'Justice Mission 2025' — most extensive Taiwan exercises ever conducted (Dec 2025)",
+                    "$11.1B Taiwan arms sale — largest in history (HIMARS, ATACMS, Javelins)",
                     "$32B arms backlog with Indo-Pacific partners",
                     "Virginia-class submarine production critical for undersea dominance",
-                    "SDA satellite constellation expanding \u2014 RKLB $816M contract for space-based tracking",
-                    "NOTE: Middle East drawdown may temporarily reduce Pacific posture \u2014 strategic risk"
+                    "SDA satellite constellation expanding — RKLB $816M contract for space-based tracking",
+                    "NOTE: Middle East drawdown may temporarily reduce Pacific posture — strategic risk"
                 ]
             },
             {
@@ -467,8 +474,8 @@ const theaterIntelData = [
             {
                 category: "STRATEGIC POSTURE",
                 items: [
-                    "Golden Dome missile defense \u2014 $24B allocated in reconciliation bill (details classified)",
-                    "SDA $30M HALO tactical SATCOM demo \u2014 early warning capability",
+                    "Golden Dome missile defense — $24B allocated in reconciliation bill (details classified)",
+                    "SDA $30M HALO tactical SATCOM demo — early warning capability",
                     "Space-based tracking and ISR expansion to counter Chinese A2/AD"
                 ]
             }
@@ -491,8 +498,8 @@ const theaterIntelData = [
                 category: "ACTIVE CONFLICT",
                 items: [
                     "Feb 24, 2026 = 4th anniversary of Russia's invasion of Ukraine",
-                    "Russia launched 347 drones/missiles overnight Feb 21-22 \u2014 shifted targeting to water/railway systems",
-                    "4x hypersonic Zirkon cruise missiles used \u2014 escalation in weapon sophistication",
+                    "Russia launched 347 drones/missiles overnight Feb 21-22 — shifted targeting to water/railway systems",
+                    "4x hypersonic Zirkon cruise missiles used — escalation in weapon sophistication",
                     "Russia using Belarusian cellular infrastructure to coordinate drone strikes",
                     "Ukrainian forces advanced near Kupyansk and Novopavlivka despite bombardment",
                     "Russian cargo ship shadowing transatlantic undersea cables"
@@ -502,17 +509,17 @@ const theaterIntelData = [
                 category: "NATO REARMAMENT",
                 items: [
                     "All 32 NATO members now exceed 2% GDP defense spending",
-                    "New NATO target: 5% GDP \u2014 massive rearmament supercycle",
+                    "New NATO target: 5% GDP — massive rearmament supercycle",
                     "Front-line states (Poland, Baltics, Finland) accelerating defense orders",
-                    "European defense stocks at all-time highs \u2014 BAE, Rheinmetall +19%, Saab +22%"
+                    "European defense stocks at all-time highs — BAE, Rheinmetall +19%, Saab +22%"
                 ]
             },
             {
                 category: "DIPLOMATIC STATUS",
                 items: [
-                    "Trump-Putin peace talks collapsed Feb 12 \u2014 long war narrative reinforced",
+                    "Trump-Putin peace talks collapsed Feb 12 — long war narrative reinforced",
                     "Polymarket: Russia-Ukraine ceasefire by Feb 28 at 0% ($5.7M volume)",
-                    "NATO airspace incursions by Russia confirmed deliberate \u2014 not accidental"
+                    "NATO airspace incursions by Russia confirmed deliberate — not accidental"
                 ]
             }
         ],
@@ -533,7 +540,7 @@ const theaterIntelData = [
             {
                 category: "STATE ACTOR CAMPAIGNS",
                 items: [
-                    "Google Threat Intelligence Group (Feb 10): Russia UNC5792/UNC5976, Iran UNC1549/UNC6446, China APT5, NK APT43 \u2014 all targeting US defense contractor employees",
+                    "Google Threat Intelligence Group (Feb 10): Russia UNC5792/UNC5976, Iran UNC1549/UNC6446, China APT5, NK APT43 — all targeting US defense contractor employees",
                     "Dragos (Feb 17): Chinese Voltzite/Azurite + Iranian Pyroxene APT groups embedding in US critical infrastructure",
                     "FCC warns 4x increase in telecom ransomware attacks",
                     "Social engineering campaigns against defense employees at unprecedented scale"
@@ -544,7 +551,7 @@ const theaterIntelData = [
                 items: [
                     "AIS spoofing and GPS jamming surging in Strait of Hormuz",
                     "Iran seizing vessels claiming AIS non-transmission",
-                    "USDOT MARAD Advisory 2026-001 issued Feb 9 \u2014 official warning",
+                    "USDOT MARAD Advisory 2026-001 issued Feb 9 — official warning",
                     "Multiple vessels going AIS-dark simultaneously in Persian Gulf"
                 ]
             },
@@ -552,8 +559,8 @@ const theaterIntelData = [
                 category: "MARKET DYNAMICS",
                 items: [
                     "Google-Wiz $32B acquisition reshaping cybersecurity competitive landscape",
-                    "Pentagon AI guardrails dispute \u2014 Anthropic summoned, xAI/Google deals done",
-                    "Israeli arrest of Polymarket traders using classified intelligence \u2014 leak vector confirmed",
+                    "Pentagon AI guardrails dispute — Anthropic summoned, xAI/Google deals done",
+                    "Israeli arrest of Polymarket traders using classified intelligence — leak vector confirmed",
                     "CrowdStrike earnings miss (-9.85% Feb 23) but sector demand persistent"
                 ]
             }
@@ -575,20 +582,20 @@ const theaterIntelData = [
             {
                 category: "SPENDING ACCELERATION",
                 items: [
-                    "$153B Pentagon reconciliation spending plan released \u2014 accelerating all into 2026",
+                    "$153B Pentagon reconciliation spending plan released — accelerating all into 2026",
                     "$29B shipbuilding (new nuclear submarine), $24B munitions, $16B readiness",
                     "$24B Golden Dome missile defense (classified details)",
-                    "White House targeting $1.5T defense budget for FY2027 \u2014 50%+ increase",
-                    "FY2026 NDAA: $900.6B \u2014 first ever above $900B"
+                    "White House targeting $1.5T defense budget for FY2027 — 50%+ increase",
+                    "FY2026 NDAA: $900.6B — first ever above $900B"
                 ]
             },
             {
                 category: "NUCLEAR MODERNIZATION",
                 items: [
-                    "B-21 Raider production accelerated 25% with $4.5B boost \u2014 Northrop deal",
-                    "Sentinel ICBM program advancing \u2014 replacement for Minuteman III",
-                    "Columbia-class SSBN ramp \u2014 next-gen nuclear deterrent",
-                    "BWXT record $7.4B backlog \u2014 sole-source naval nuclear reactor supplier"
+                    "B-21 Raider production accelerated 25% with $4.5B boost — Northrop deal",
+                    "Sentinel ICBM program advancing — replacement for Minuteman III",
+                    "Columbia-class SSBN ramp — next-gen nuclear deterrent",
+                    "BWXT record $7.4B backlog — sole-source naval nuclear reactor supplier"
                 ]
             },
             {
@@ -596,7 +603,7 @@ const theaterIntelData = [
                 items: [
                     "Iran NYT (Feb 22): eyeing CONUS proxy strikes as retaliatory option",
                     "SDA satellite constellation for space-based early warning expanding",
-                    "AFA Warfare Symposium: 27 new portfolio acquisition executives \u2014 reform push",
+                    "AFA Warfare Symposium: 27 new portfolio acquisition executives — reform push",
                     "CCA drone wingmen started flying with weapons (Air Force, Feb 24)"
                 ]
             }
@@ -1158,203 +1165,9 @@ function renderETFTab() {
     const legendEl = document.getElementById("etfChartLegend");
     if (legendEl) {
         legendEl.innerHTML = `
-            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#22c55e;"></div> PPLX_DEFENSE</div>
-            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#06b6d4;"></div> ITA (Benchmark)</div>
-            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#64748b;"></div> SPY (S&P 500)</div>
-        `;
-    }
-
-    // Holdings table
-    const tbody = document.getElementById("etfHoldingsBody");
-    if (tbody) {
-        tbody.innerHTML = "";
-        backtestStocks.sort((a, b) => b.score - a.score || b.weight - a.weight);
-        const sortedAll = weightedHoldings.slice().sort((a, b) => b.score - a.score);
-        sortedAll.forEach((h, i) => {
-            const bt = backtestData.find(b => b.ticker === h.ticker);
-            const hasBacktest = bt && bt.start !== null;
-            const ret = hasBacktest ? (bt.end - bt.start) / bt.start : null;
-            const tr = document.createElement("tr");
-            tr.style.animationDelay = `${i * 0.02}s`;
-            const weightPct = (h.weight * 100).toFixed(1);
-            const barWidth = Math.min(((h.weight / 0.12) * 100), 100).toFixed(1);
-            const retStr = ret !== null ? `${ret >= 0 ? '+' : ''}${(ret * 100).toFixed(1)}%` : 'N/A';
-            const retClass = ret !== null ? (ret >= 0 ? 'return-positive' : 'return-negative') : '';
-
-            tr.innerHTML = `
-                <td style="text-align:center; font-weight:600; color:var(--text-muted);">${i + 1}</td>
-                <td class="ticker-cell">${tickerLink(h.ticker)}</td>
-                <td class="company-cell">${h.company}</td>
-                <td class="score-cell"><span class="score-badge bullish">+${h.score}</span></td>
-                <td style="text-align:center; font-weight:700; font-variant-numeric:tabular-nums;">${weightPct}%</td>
-                <td class="price-cell">${hasBacktest ? '$' + bt.start.toFixed(2) : '—'}</td>
-                <td class="price-cell">${hasBacktest ? '$' + bt.end.toFixed(2) : '—'}</td>
-                <td style="text-align:center;"><span class="${retClass}">${retStr}</span></td>
-                <td><div class="weight-bar-container"><div class="weight-bar-fill" style="width:${barWidth}%"></div><span class="weight-bar-label">${weightPct}%</span></div></td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    // Excluded
-    const excludedEl = document.getElementById("etfExcluded");
-    if (excludedEl) {
-        excludedEl.innerHTML = etfExcluded.map(e => `${tickerLink(e.ticker)} (${e.score > 0 ? '+' : ''}${e.score})`).join(' &bull; ');
-    }
-
-    // Narrative
-    const narrativeEl = document.getElementById("backtestNarrative");
-    if (narrativeEl) {
-        const alphaVsITA = ((etfReturn - itaReturn) * 100).toFixed(1);
-        const alphaSPY = ((etfReturn - spyReturn) * 100).toFixed(1);
-        narrativeEl.innerHTML = `
-            <strong>KEY TAKEAWAY:</strong> The PPLX_DEFENSE signal-driven approach generated <span class="highlight-green">+${(etfReturn * 100).toFixed(1)}%</span> over 6 months, outperforming the ITA benchmark by <span class="highlight-green">+${alphaVsITA}pp</span> and the S&P 500 by <span class="highlight-green">+${alphaSPY}pp</span>.
-            <br><br>
-            The signal weighting correctly overweighted top performers: <strong>${tickerLink('HII')}</strong> <span class="highlight-green">(+61.6%)</span>, <strong>${tickerLink('CW')}</strong> <span class="highlight-green">(+47.9%)</span>, <strong>${tickerLink('KTOS')}</strong> <span class="highlight-green">(+45.9%)</span>, <strong>${tickerLink('LMT')}</strong> <span class="highlight-green">(+44.4%)</span>, and <strong>${tickerLink('RKLB')}</strong> <span class="highlight-green">(+45.8%)</span>.
-            The model correctly <strong>excluded</strong> DOGE-devastated <strong>${tickerLink('BAH')}</strong> <span class="highlight-red">(-45%)</span> and <strong>${tickerLink('SAIC')}</strong> <span class="highlight-red">(-30%)</span>.
-        `;
-    }
-
-    // 10-Day Simulation
-    renderTenDaySection();
-
-    // Buyable Basket
-    renderBuyableBasket();
-}
-
-function renderETFChart() {
-    const canvas = document.getElementById("etfPerformanceChart");
-    if (!canvas) return;
-    if (_etfChartInstance) { _etfChartInstance.destroy(); _etfChartInstance = null; }
-    const ctx = canvas.getContext("2d");
-    _etfChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: perfLabels,
-            datasets: [
-                {
-                    label: 'PPLX_DEFENSE',
-                    data: perfETF,
-                    borderColor: '#22c55e',
-                    backgroundColor: 'rgba(34,197,94,0.06)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.35,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#22c55e',
-                    pointBorderColor: '#0a0e17',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 6
-                },
-                {
-                    label: 'ITA (Benchmark)',
-                    data: perfITA,
-                    borderColor: '#06b6d4',
-                    borderWidth: 2,
-                    borderDash: [6, 4],
-                    fill: false,
-                    tension: 0.35,
-                    pointRadius: 3,
-                    pointBackgroundColor: '#06b6d4',
-                    pointBorderColor: '#0a0e17',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 5
-                },
-                {
-                    label: 'SPY (S&P 500)',
-                    data: perfSPY,
-                    borderColor: '#64748b',
-                    borderWidth: 2,
-                    borderDash: [3, 3],
-                    fill: false,
-                    tension: 0.35,
-                    pointRadius: 3,
-                    pointBackgroundColor: '#64748b',
-                    pointBorderColor: '#0a0e17',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 5
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: { intersect: false, mode: 'index' },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: '#1a1f2e',
-                    borderColor: '#2d3a50',
-                    borderWidth: 1,
-                    titleFont: { family: "'IBM Plex Mono'", size: 11, weight: '600' },
-                    bodyFont: { family: "'IBM Plex Mono'", size: 12 },
-                    titleColor: '#94a3b8',
-                    bodyColor: '#e2e8f0',
-                    padding: 12,
-                    displayColors: true,
-                    boxWidth: 10,
-                    boxHeight: 3,
-                    callbacks: {
-                        label: function(context) {
-                            const val = context.parsed.y;
-                            const change = (val - 100).toFixed(1);
-                            const sign = change >= 0 ? '+' : '';
-                            return ` ${context.dataset.label}: ${sign}${change}%`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: { color: '#64748b', font: { family: "'IBM Plex Mono'", size: 10, weight: '500' } },
-                    grid: { color: 'rgba(30,41,59,0.5)', drawBorder: false }
-                },
-                y: {
-                    ticks: {
-                        color: '#64748b',
-                        font: { family: "'IBM Plex Mono'", size: 10, weight: '500' },
-                        callback: v => {
-                            const pct = v - 100;
-                            return (pct >= 0 ? '+' : '') + pct.toFixed(0) + '%';
-                        }
-                    },
-                    grid: { color: 'rgba(30,41,59,0.5)', drawBorder: false },
-                    suggestedMin: 88,
-                    suggestedMax: 132
-                }
-            }
-        }
-    });
-}
-
-// ============================================
-// RENDER ETF TAB — 10-DAY SIMULATION SECTION
-// ============================================
-function renderTenDaySection() {
-    // Hero row
-    const heroRow = document.getElementById("tenDayHeroRow");
-    if (heroRow) {
-        heroRow.innerHTML = `
-            <div class="etf-hero-card etf-primary">
-                <div class="etf-hero-label">PPLX_DEFENSE (10-DAY)</div>
-                <div class="etf-hero-value positive">+4.91%</div>
-                <div class="etf-hero-sub">Feb 10 &rarr; Feb 23, 2026</div>
-            </div>
-            <div class="etf-hero-card etf-bench">
-                <div class="etf-hero-label">ITA (10-DAY)</div>
-                <div class="etf-hero-value positive">+5.18%</div>
-                <div class="etf-hero-sub">iShares Aerospace &amp; Defense</div>
-            </div>
-            <div class="etf-hero-card etf-spy">
-                <div class="etf-hero-label">SPY (10-DAY)</div>
-                <div class="etf-hero-value positive">+0.54%</div>
-                <div class="etf-hero-sub">SPDR S&amp;P 500</div>
-            </div>
-            <div class="etf-hero-card" style="border-top:3px solid var(--red);">
-                <div class="etf-hero-label">ALPHA vs ITA</div>
-                <div class="etf-hero-value negative">&minus;0.26pp</div>
-                <div class="etf-hero-sub" style="color:var(--red);">Slight underperform vs benchmark</div>
-            </div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#22c55e;"></div> PPLX_DEFENSE (+25.6%)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#06b6d4;"></div> ITA (+22.8%)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#64748b;"></div> SPY (+6.3%)</div>
         `;
     }
 
@@ -1415,12 +1228,12 @@ function renderTenDaySection() {
     renderTenDayChart();
 
     // Legend
-    const legendEl = document.getElementById("tenDayChartLegend");
-    if (legendEl) {
-        legendEl.innerHTML = `
-            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#22c55e;"></div> PPLX_DEFENSE (+4.91%)</div>
-            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#06b6d4;"></div> ITA (+5.18%)</div>
-            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#64748b;"></div> SPY (+0.54%)</div>
+    const tenDayLegendEl = document.getElementById("tenDayChartLegend");
+    if (tenDayLegendEl) {
+        tenDayLegendEl.innerHTML = `
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#22c55e;"></div> PPLX_DEFENSE (+2.8%)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#06b6d4;"></div> ITA (+3.8%)</div>
+            <div class="etf-legend-item"><div class="etf-legend-dot" style="background:#64748b;"></div> SPY (+0.6%)</div>
         `;
     }
 }
@@ -1429,10 +1242,10 @@ function renderTenDayChart() {
     const canvas = document.getElementById("tenDayChart");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    const labels = ["Feb 10", "Feb 11", "Feb 12", "Feb 13", "Feb 14", "Feb 18", "Feb 19", "Feb 20", "Feb 21", "Feb 23"];
-    const etfData =  [100, 101.2, 102.1, 101.8, 102.9, 103.2, 103.8, 104.3, 104.9, 105.3];
-    const itaData =  [100, 100.9, 101.5, 101.2, 102.4, 102.8, 103.3, 103.8, 104.5, 104.8];
-    const spyData =  [100, 100.0, 100.3, 100.1, 100.5, 100.7, 100.5, 100.3, 100.1, 100.4];
+    const labels = ["Feb 13", "Feb 17", "Feb 18", "Feb 19", "Feb 20", "Feb 23", "Feb 24", "Feb 25", "Feb 26", "Feb 27"];
+    const etfData =  [100.0, 100.8, 102.9, 105.5, 103.4, 102.1, 102.6, 101.3, 102.7, 102.8];
+    const itaData =  [100.0, 101.4, 102.3, 103.7, 103.7, 102.7, 103.5, 102.7, 103.4, 103.8];
+    const spyData =  [100.0, 100.2, 100.7, 100.4, 101.1, 100.1, 100.8, 101.7, 101.1, 100.6];
 
     if (_tenDayChartInstance) { _tenDayChartInstance.destroy(); _tenDayChartInstance = null; }
     _tenDayChartInstance = new Chart(ctx, {
