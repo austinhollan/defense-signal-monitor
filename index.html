@@ -1,438 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Defense Signal Monitor</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0b0f14;
-      --panel: #101722;
-      --panel2: #0e141d;
-      --text: #e8eef7;
-      --muted: #9fb0c6;
-      --line: rgba(255,255,255,0.08);
-      --green: #00e676;
-      --red: #ff5252;
-      --amber: #ffb300;
-      --cyan: #00bcd4;
-      --blue: #5c7cfa;
-      --purple: #b197fc;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: radial-gradient(1200px 600px at 30% -10%, rgba(92,124,250,0.25), transparent 55%),
-                  radial-gradient(900px 500px at 80% 0%, rgba(177,151,252,0.22), transparent 60%),
-                  var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.35;
-    }
-
-    header {
-      padding: 22px 20px 16px;
-      border-bottom: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(16,23,34,0.9), rgba(11,15,20,0.2));
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(10px);
-    }
-
-    .title {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: Orbitron, sans-serif;
-      font-size: 22px;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-
-    .sub {
-      color: var(--muted);
-      font-size: 12.5px;
-    }
-
-    .wrap {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 14px;
-      padding: 16px 20px 22px;
-    }
-
-    @media (max-width: 980px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-
-    .panel {
-      background: rgba(16,23,34,0.75);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 20px 55px rgba(0,0,0,0.35);
-    }
-
-    .panel h2 {
-      margin: 0 0 8px;
-      font-size: 13px;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      color: rgba(232,238,247,0.88);
-    }
-
-    .row {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .tab {
-      font-size: 12px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(14,20,29,0.7);
-      color: rgba(232,238,247,0.9);
-      cursor: pointer;
-      user-select: none;
-      transition: transform 120ms ease, background 120ms ease;
-    }
-
-    .tab.active {
-      background: rgba(92,124,250,0.22);
-      border-color: rgba(92,124,250,0.35);
-    }
-
-    .tab:hover { transform: translateY(-1px); }
-
-    .section { display: none; margin-top: 12px; }
-    .section.active { display: block; }
-
-    /* Theater strip */
-    .theater {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 980px) {
-      .theater { grid-template-columns: 1fr; }
-    }
-
-    .theaterCard {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(14,20,29,0.65);
-      padding: 12px;
-      min-height: 108px;
-    }
-
-    .theaterTop {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .theaterName {
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      font-size: 12.5px;
-    }
-
-    .theaterTag {
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      color: rgba(232,238,247,0.9);
-    }
-
-    .t-red { background: rgba(255,82,82,0.12); border-color: rgba(255,82,82,0.35); }
-    .t-amber { background: rgba(255,179,0,0.12); border-color: rgba(255,179,0,0.35); }
-    .t-cyan { background: rgba(0,188,212,0.10); border-color: rgba(0,188,212,0.35); }
-
-    .theaterBody {
-      color: rgba(232,238,247,0.88);
-      font-size: 12px;
-    }
-
-    /* Stock table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-    }
-
-    thead th {
-      background: rgba(14,20,29,0.9);
-      border-bottom: 1px solid var(--line);
-      font-size: 11px;
-      text-align: left;
-      color: rgba(232,238,247,0.85);
-      padding: 10px 10px;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-    }
-
-    tbody td {
-      padding: 10px 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      font-size: 12.5px;
-      vertical-align: top;
-    }
-
-    tbody tr:hover {
-      background: rgba(92,124,250,0.08);
-    }
-
-    .ticker {
-      font-weight: 700;
-      font-family: Orbitron, sans-serif;
-      letter-spacing: 0.4px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      font-size: 11px;
-      line-height: 1;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .bull { background: rgba(0,230,118,0.12); border-color: rgba(0,230,118,0.35); color: rgba(232,238,247,0.95); }
-    .bear { background: rgba(255,82,82,0.10); border-color: rgba(255,82,82,0.32); color: rgba(232,238,247,0.95); }
-    .neutral { background: rgba(255,179,0,0.10); border-color: rgba(255,179,0,0.30); color: rgba(232,238,247,0.95); }
-
-    .chg-pos { color: var(--green); font-weight: 600; }
-    .chg-neg { color: var(--red); font-weight: 600; }
-    .muted { color: var(--muted); }
-
-    .note {
-      margin-top: 10px;
-      color: rgba(159,176,198,0.95);
-      font-size: 11.5px;
-    }
-
-    .note a { color: rgba(159,176,198,0.95); }
-
-    /* Signals */
-    .signal {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px;
-      background: rgba(14,20,29,0.65);
-      margin-bottom: 10px;
-    }
-
-    .signalTop {
-      display: flex;
-      gap: 10px;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-
-    .signalMeta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .signalTag {
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      color: rgba(232,238,247,0.92);
-    }
-
-    .tag-contract { background: rgba(92,124,250,0.14); border-color: rgba(92,124,250,0.35); }
-    .tag-miltrack { background: rgba(255,82,82,0.12); border-color: rgba(255,82,82,0.35); }
-    .tag-osint { background: rgba(0,188,212,0.10); border-color: rgba(0,188,212,0.35); }
-    .tag-polymarket { background: rgba(177,151,252,0.12); border-color: rgba(177,151,252,0.35); }
-    .tag-cyber { background: rgba(0,230,118,0.10); border-color: rgba(0,230,118,0.32); }
-    .tag-conflict { background: rgba(255,179,0,0.10); border-color: rgba(255,179,0,0.30); }
-
-    .signalTime {
-      font-size: 11px;
-      color: rgba(159,176,198,0.95);
-    }
-
-    .signalBody {
-      font-size: 12.5px;
-      color: rgba(232,238,247,0.9);
-    }
-
-    .sources {
-      margin-top: 8px;
-      font-size: 11.5px;
-      color: rgba(159,176,198,0.95);
-    }
-
-    .sources a {
-      color: rgba(159,176,198,0.95);
-      text-decoration: underline;
-      margin-right: 10px;
-    }
-
-    .ticker-link {
-      color: rgba(92,124,250,0.95);
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .ticker-link:hover { text-decoration: underline; }
-
-    /* Right column */
-    .rightCard {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      background: rgba(14,20,29,0.65);
-      margin-bottom: 12px;
-    }
-
-    .rightCard h3 {
-      margin: 0 0 6px;
-      font-size: 12px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: rgba(232,238,247,0.88);
-    }
-
-    .metric {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      font-size: 12.5px;
-    }
-
-    .metric:last-child { border-bottom: none; }
-
-    .k { color: rgba(159,176,198,0.95); }
-    .v { font-weight: 600; }
-
-    /* Charts */
-    canvas { max-width: 100%; }
-
-    /* Footer */
-    footer {
-      padding: 14px 20px 22px;
-      color: rgba(159,176,198,0.85);
-      font-size: 11.5px;
-      border-top: 1px solid var(--line);
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEFENSE SIGNAL MONITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.polygon.io; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="no-referrer">
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="title">
-        <h1>Defense Signal Monitor</h1>
-        <div class="sub">Live defense + conflict signals, updated hourly (market hours).</div>
-      </div>
-      <div class="tabs" id="tabs"></div>
+    <!-- Scanline + grid overlays -->
+    <div class="scanline-overlay"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <div class="header-title-group">
+                <div class="radar-icon">
+                    <svg viewBox="0 0 48 48" width="44" height="44">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
+                        <circle cx="24" cy="24" r="14" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
+                        <circle cx="24" cy="24" r="8" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
+                        <circle cx="24" cy="24" r="2" fill="#22c55e"/>
+                        <line x1="24" y1="24" x2="24" y2="4" stroke="#22c55e" stroke-width="1.5" class="radar-sweep"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="header-title">DEFENSE SIGNAL MONITOR</h1>
+                    <p class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</p>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">LAST UPDATED</span>
+                    <span class="meta-value" id="timestamp"></span>
+                </div>
+                <div class="meta-item threat-level">
+                    <span class="meta-label">THREAT/OPP LEVEL</span>
+                    <span class="threat-badge critical" style="background:rgba(255,0,0,0.15);color:#ff4444;border-color:rgba(255,0,0,0.35);">
+                        <span class="threat-dot" style="background:#ff4444;"></span>
+                        CRITICAL
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span class="status-label">ACTIVE THEATERS</span>
+            <span class="status-value">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">TRACKED TICKERS</span>
+            <span class="status-value">23</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BULLISH SIGNALS</span>
+            <span class="status-value green">13</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">NEUTRAL</span>
+            <span class="status-value amber">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">BEARISH</span>
+            <span class="status-value red">5</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">MIL EVENTS (90D)</span>
+            <span class="status-value" id="milEventsCount">—</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">CONTRACTS (90D)</span>
+            <span class="status-value" id="contractsCount">—</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">CYBER (90D)</span>
+            <span class="status-value" id="cyberCount">—</span>
+        </div>
     </div>
-  </header>
 
-  <main class="wrap">
-    <div class="grid">
-      <section class="panel">
-        <div class="theater" id="theater"></div>
-
-        <div class="row">
-          <h2 id="sectionTitle">Stocks</h2>
-          <div class="sub" id="sectionSubtitle">Defense tickers + cyber adjacents</div>
-        </div>
-
-        <div id="sections"></div>
-
-        <div class="note">
-          * Prices as of Mar 2, 2026, 10:03 AM PST — data via <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>
-        </div>
-      </section>
-
-      <aside>
-        <div class="rightCard">
-          <h3>Overview</h3>
-          <div class="metric"><span class="k">Risk level</span><span class="v" id="riskLevel">—</span></div>
-          <div class="metric"><span class="k">Top theater</span><span class="v" id="topTheater">—</span></div>
-          <div class="metric"><span class="k">Highest score</span><span class="v" id="topTicker">—</span></div>
-          <div class="metric"><span class="k">Biggest mover</span><span class="v" id="biggestMover">—</span></div>
-        </div>
-
-        <div class="rightCard">
-          <h3>ETF proxy</h3>
-          <div class="sub" style="margin-bottom:8px">ITA (Defense) vs SPY</div>
-          <canvas id="etfChart" height="180"></canvas>
-        </div>
-
-        <div class="rightCard">
-          <h3>Watch</h3>
-          <div class="sub" id="watchText">—</div>
-        </div>
-
-      </aside>
+    <!-- PRICE DATA FOOTNOTE -->
+    <div class="price-footnote" id="priceFootnote">
+        <span class="footnote-dot" id="priceStatusDot"></span>
+        <span id="priceFootnoteText">* Prices as of Mar 2, 2026, 10:22 AM PST <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
     </div>
-  </main>
 
-  <footer>
-    <div class="wrap">
-      Built for rapid situational awareness. Not investment advice.
+    <!-- THEATER RISK ASSESSMENT — pinned below header -->
+    <div class="theater-strip" id="theaterStrip"></div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout">
+
+        <!-- LEFT PANEL -->
+        <div class="panel-left">
+
+            <!-- STOCK INTEL TABLE -->
+            <div class="card stock-card">
+                <div class="card-header">
+                    <h2 class="card-title">STOCK SIGNALS</h2>
+                    <div class="card-controls">
+                        <span class="controls-label">SORT BY</span>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="score">SIGNAL SCORE</option>
+                            <option value="change">DAY CHANGE</option>
+                            <option value="price">PRICE</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="stock-table" id="stockTable">
+                        <thead>
+                            <tr>
+                                <th>TICKER</th>
+                                <th>COMPANY</th>
+                                <th>PRICE</th>
+                                <th>DAY</th>
+                                <th>SCORE</th>
+                                <th>SIGNAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filled by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- NATO AND ALLIES PANEL -->
+            <div class="card allies-card">
+                <div class="card-header">
+                    <h2 class="card-title">ALLIES / NATO EXPOSURE</h2>
+                    <div class="card-controls">
+                        <span class="controls-label">FILTER</span>
+                        <select id="alliesFilter" class="sort-select">
+                            <option value="all">ALL</option>
+                            <option value="europe">EUROPE</option>
+                            <option value="mideast">MIDEAST</option>
+                            <option value="asia">ASIA</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="allies-grid" id="alliesGrid"></div>
+            </div>
+
+            <!-- ETF / MARKET CONTEXT -->
+            <div class="card etf-card">
+                <div class="card-header">
+                    <h2 class="card-title">ETF / MARKET CONTEXT</h2>
+                    <div class="card-controls">
+                        <span class="controls-label">VIEW</span>
+                        <select id="etfViewSelect" class="sort-select">
+                            <option value="relative">RELATIVE PERFORMANCE</option>
+                            <option value="raw">RAW PRICE</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="etfChart"></canvas>
+                </div>
+
+                <div class="etf-legend" id="etfLegend"></div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="panel-right">
+
+            <!-- SIGNALS FEED -->
+            <div class="card feed-card">
+                <div class="card-header">
+                    <h2 class="card-title">SIGNALS FEED</h2>
+                    <div class="card-controls">
+                        <span class="controls-label">FILTER</span>
+                        <select id="feedFilter" class="sort-select">
+                            <option value="all">ALL</option>
+                            <option value="OSINT">OSINT</option>
+                            <option value="MILTRACK">MILTRACK</option>
+                            <option value="CONTRACT">CONTRACT</option>
+                            <option value="CYBER">CYBER</option>
+                            <option value="POLYMARKET">POLYMARKET</option>
+                            <option value="CONFLICT">CONFLICT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="feed" id="signalsFeed">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <!-- TABS: INTEL / NEWS / ABOUT -->
+            <div class="card tabs-card">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="intel">INTEL</button>
+                    <button class="tab-button" data-tab="news">NEWS</button>
+                    <button class="tab-button" data-tab="about">ABOUT</button>
+                </div>
+
+                <div class="tabs-content">
+
+                    <!-- INTEL TAB -->
+                    <div class="tab-panel active" id="tab-intel">
+                        <div class="intel-grid">
+
+                            <div class="intel-item">
+                                <div class="intel-label">LEAD SIGNAL</div>
+                                <div class="intel-value" id="leadSignal">—</div>
+                            </div>
+
+                            <div class="intel-item">
+                                <div class="intel-label">TOP MOVER</div>
+                                <div class="intel-value" id="topMover">—</div>
+                            </div>
+
+                            <div class="intel-item">
+                                <div class="intel-label">VOLATILITY</div>
+                                <div class="intel-value" id="volatility">—</div>
+                            </div>
+
+                            <div class="intel-item">
+                                <div class="intel-label">FEAR/GREED</div>
+                                <div class="intel-value" id="fearGreed">—</div>
+                            </div>
+
+                            <div class="intel-item">
+                                <div class="intel-label">GEOPOLITICAL RISK</div>
+                                <div class="intel-value" id="geoRisk">—</div>
+                            </div>
+
+                            <div class="intel-item">
+                                <div class="intel-label">DEFENSE BUDGET MOMENTUM</div>
+                                <div class="intel-value" id="budgetMomentum">—</div>
+                            </div>
+
+                        </div>
+
+                        <div class="intel-summary" id="intelSummary">
+                            <!-- Filled by JS -->
+                        </div>
+
+                        <div class="intel-footer">
+                            <div class="intel-footer-label">DISCLAIMER</div>
+                            <div class="intel-footer-text">
+                                Defense Signal Monitor is for informational purposes only and does not constitute investment advice.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEWS TAB -->
+                    <div class="tab-panel" id="tab-news">
+                        <div class="news-list" id="newsList"></div>
+                    </div>
+
+                    <!-- ABOUT TAB -->
+                    <div class="tab-panel" id="tab-about">
+                        <div class="about-content">
+                            <h3>What is Defense Signal Monitor?</h3>
+                            <p>
+                                Defense Signal Monitor (DSM) tracks defense-related equities and links their performance to
+                                real-time military, geopolitical, procurement, cyber, and political events.
+                            </p>
+
+                            <h3>How are signals generated?</h3>
+                            <p>
+                                Signals are manually curated based on public reporting, OSINT, DoD contract awards,
+                                congressional trading disclosures, and prediction markets.
+                            </p>
+
+                            <h3>Data sources</h3>
+                            <ul>
+                                <li>Polygon.io (intraday price data)</li>
+                                <li>Public news sources (Reuters, WSJ, etc.)</li>
+                                <li>Open-source intelligence monitors</li>
+                            </ul>
+
+                            <h3>Contact</h3>
+                            <p>
+                                For questions or feedback, reach out via GitHub.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
-  </footer>
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MODAL: STOCK DETAILS -->
+    <div class="modal" id="stockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">—</h3>
+                <button id="modalClose" class="modal-close">×</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
 
-  <!-- App logic split into parts -->
-  <script src="dsm_part1.js"></script>
-  <script src="dsm_part2.js"></script>
-  <script src="dsm_part3.js"></script>
-  <script src="dsm_part4.js"></script>
-  <script src="dsm_part5.js"></script>
-  <script src="dsm_part6.js"></script>
+    <!-- JAVASCRIPT (split into 6 parts) -->
+    <script src="./dsm_part1.js"></script>
+    <script src="./dsm_part2.js"></script>
+    <script src="./dsm_part3.js"></script>
+    <script src="./dsm_part4.js"></script>
+    <script src="./dsm_part5.js"></script>
+    <script src="./dsm_part6.js"></script>
 </body>
 </html>
