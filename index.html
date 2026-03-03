@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEFENSE SIGNAL MONITOR</title>
+    <title>Defense Signal Monitor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.polygon.io; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
@@ -14,86 +14,36 @@
     <meta name="referrer" content="no-referrer">
 </head>
 <body>
-    <!-- Scanline + grid overlays -->
-    <div class="scanline-overlay"></div>
-    <div class="grid-overlay"></div>
+    <div class="background-layer"></div>
 
     <!-- HEADER -->
-    <header class="header">
-        <div class="header-left">
-            <div class="header-title-group">
-                <div class="radar-icon">
-                    <svg viewBox="0 0 48 48" width="44" height="44">
-                        <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
-                        <circle cx="24" cy="24" r="14" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
-                        <circle cx="24" cy="24" r="8" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
-                        <circle cx="24" cy="24" r="2" fill="#22c55e"/>
-                        <line x1="24" y1="24" x2="24" y2="4" stroke="#22c55e" stroke-width="1.5" class="radar-sweep"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="header-title">DEFENSE SIGNAL MONITOR</h1>
-                    <p class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</p>
-                </div>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1>DEFENSE SIGNAL MONITOR</h1>
+                <p class="subtitle">Real-time defense & military escalation signals. Updated hourly.</p>
             </div>
-        </div>
-        <div class="header-right">
-            <div class="header-meta">
-                <div class="meta-item">
-                    <span class="meta-label">LAST UPDATED</span>
-                    <span class="meta-value" id="timestamp"></span>
+            <div class="header-right">
+                <div class="status-indicator">
+                    <span class="status-label">MARKET STATUS</span>
+                    <span class="status-value" id="marketStatus">PRE</span>
                 </div>
-                <div class="meta-item threat-level">
-                    <span class="meta-label">THREAT/OPP LEVEL</span>
-                    <span class="threat-badge critical" style="background:rgba(255,0,0,0.15);color:#ff4444;border-color:rgba(255,0,0,0.35);">
-                        <span class="threat-dot" style="background:#ff4444;"></span>
-                        CRITICAL
-                    </span>
+                <div class="status-indicator">
+                    <span class="status-label">SIGNALS</span>
+                    <span class="status-value" id="signalCount">23</span>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-label">BETTING MARKETS</span>
+                    <span class="status-value purple">14</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- STATUS BAR -->
-    <div class="status-bar">
-        <div class="status-item">
-            <span class="status-label">ACTIVE THEATERS</span>
-            <span class="status-value">5</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">TRACKED TICKERS</span>
-            <span class="status-value">23</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">BULLISH SIGNALS</span>
-            <span class="status-value green">13</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">NEUTRAL</span>
-            <span class="status-value amber">5</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">BEARISH</span>
-            <span class="status-value red">5</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">MIL EVENTS (90D)</span>
-            <span class="status-value">52</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">MILTRACK SIGNALS</span>
-            <span class="status-value teal">18</span>
-        </div>
-        <div class="status-item">
-            <span class="status-label">BETTING MARKETS</span>
-            <span class="status-value purple">14</span>
-        </div>
-    </div>
-
     <!-- PRICE DATA FOOTNOTE -->
     <div class="price-footnote" id="priceFootnote">
         <span class="footnote-dot" id="priceStatusDot"></span>
-        <span id="priceFootnoteText">* Prices as of Mar 3, 2026, 5:41 AM PST<a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
+        <span id="priceFootnoteText">* Prices as of Mar 3, 2026, 6:00 AM PST • Data: <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
     </div>
 
     <!-- THEATER RISK ASSESSMENT — pinned below header -->
@@ -102,187 +52,182 @@
     <!-- TAB NAVIGATION -->
     <nav class="tab-bar" id="tabBar">
         <button class="tab-btn active" data-tab="overview">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+            <span class="tab-icon">📊</span>
             OVERVIEW
         </button>
-        <button class="tab-btn" data-tab="matrix">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-            SIGNAL MATRIX
-        </button>
-        <button class="tab-btn" data-tab="etf">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-            PPLX_DEFENSE ETF
+        <button class="tab-btn" data-tab="signals">
+            <span class="tab-icon">⚡</span>
+            SIGNALS
         </button>
         <button class="tab-btn" data-tab="theater">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6.5 7.5 7.17c.526.668 1 1.28 1 1.83s-.5 1-.5 2v1c0 .552.448 1 1 1h1c.552 0 1-.448 1-1v-1c0-.552.448-1 1-1h.5c.552 0 1-.448 1-1V7a1 1 0 011-1h.757a5.96 5.96 0 01.411 2c0 .682-.131 1.332-.332 1.973-.5.137-1 .527-1.336 1.027H12a1 1 0 00-1 1v2.5a5.985 5.985 0 01-1 .168V13a1 1 0 00-1-1H8a1 1 0 00-1-1V9.5c0-.552-.448-1-1-1h-.67A5.97 5.97 0 014.332 8.027z"/></svg>
-            THEATER INTEL
+            <span class="tab-icon">🌍</span>
+            THEATER
         </button>
-        <button class="tab-btn" data-tab="watchlist">
-            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
-            WATCHLIST
+        <button class="tab-btn" data-tab="etf">
+            <span class="tab-icon">📈</span>
+            ETF
         </button>
     </nav>
 
-    <!-- ============ TAB CONTENT PANELS ============ -->
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
 
-    <!-- TAB: OVERVIEW -->
-    <div class="tab-panel active" id="panel-overview">
-        <div class="overview-grid">
-            <!-- LEFT COLUMN: Top 5 Stocks -->
-            <div class="overview-col overview-col-left">
-                <div class="widget-header">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-                    <span>TOP 5 SIGNAL STOCKS</span>
+        <!-- TAB: OVERVIEW -->
+        <div class="tab-panel active" id="panel-overview">
+            <!-- OVERVIEW GRID -->
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <h2>TOP SIGNALS</h2>
+                    <div class="top-signals" id="topSignals"></div>
                 </div>
-                <div class="mini-table-wrapper">
-                    <table class="mini-table" id="overviewStocks">
+                <div class="overview-card">
+                    <h2>MARKET MOVERS</h2>
+                    <div class="market-movers" id="marketMovers"></div>
+                </div>
+            </div>
+
+            <!-- STOCK TABLE -->
+            <div class="stock-table-container">
+                <div class="table-header">
+                    <h2>DEFENSE STOCKS</h2>
+                    <div class="table-controls">
+                        <button class="sort-btn active" data-sort="score">SIGNAL SCORE</button>
+                        <button class="sort-btn" data-sort="price">PRICE</button>
+                        <button class="sort-btn" data-sort="change">CHANGE</button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="stock-table" id="stockTable">
                         <thead>
-                            <tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
+                            <tr>
+                                <th>TICKER</th>
+                                <th>COMPANY</th>
+                                <th>PRICE</th>
+                                <th>DAY CHANGE</th>
+                                <th>SCORE</th>
+                                <th>SIGNAL</th>
+                                <th>SUMMARY</th>
+                            </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody id="stockTableBody"></tbody>
                     </table>
                 </div>
+            </div>
+        </div>
 
-                <!-- Bottom 3 stocks -->
-                <div class="widget-header" style="margin-top:16px;">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" style="color:var(--red);"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-                    <span>BOTTOM 3 — BEARISH</span>
+        <!-- TAB: SIGNALS -->
+        <div class="tab-panel" id="panel-signals">
+            <div class="signals-container">
+                <div class="signals-header">
+                    <h2>LATEST SIGNALS</h2>
+                    <div class="signal-filters">
+                        <button class="filter-btn active" data-filter="all">ALL</button>
+                        <button class="filter-btn" data-filter="contract">CONTRACTS</button>
+                        <button class="filter-btn" data-filter="conflict">CONFLICT</button>
+                        <button class="filter-btn" data-filter="miltrack">MILTRACK</button>
+                        <button class="filter-btn" data-filter="cyber">CYBER</button>
+                        <button class="filter-btn" data-filter="polymarket">MARKETS</button>
+                    </div>
                 </div>
-                <div class="mini-table-wrapper">
-                    <table class="mini-table" id="overviewBearish">
+                <div class="signals-feed" id="signalsFeed"></div>
+            </div>
+        </div>
+
+        <!-- TAB: THEATER -->
+        <div class="tab-panel" id="panel-theater">
+            <div class="theater-container">
+                <div class="theater-header">
+                    <h2>THEATER RISK ASSESSMENT</h2>
+                    <p>Real-time tracking of global conflict zones and escalation indicators.</p>
+                </div>
+                <div class="theater-grid" id="theaterGrid"></div>
+            </div>
+        </div>
+
+        <!-- TAB: ETF -->
+        <div class="tab-panel" id="panel-etf">
+            <!-- Position Changes Section (Feb 28 Update) -->
+            <div class="position-changes-section">
+                <div class="section-header">
+                    <h2 class="section-title etf-title">
+                        <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/></svg>
+                        POSITION CHANGES — FEB 28, 2026 SIGNAL UPDATE
+                    </h2>
+                    <span class="pos-change-timestamp">Based on $153B Pentagon reconciliation, F-22 CENTCOM surge, earnings data</span>
+                </div>
+                <div class="pos-change-summary-row" id="posChangeSummary"></div>
+                <div class="position-changes-grid" id="positionChangesGrid"></div>
+            </div>
+
+            <!-- ETF Hero Stats -->
+            <div class="etf-hero-row" id="etfHeroRow"></div>
+
+            <!-- Key Takeaway (positioned between callouts and chart) -->
+            <div class="backtest-narrative" id="backtestNarrative" style="margin-bottom: 24px;"></div>
+
+            <!-- Performance Chart -->
+            <div class="etf-chart-section">
+                <div class="section-header">
+                    <h2 class="section-title etf-title">
+                        <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+                        6-MONTH PERFORMANCE — AUG 29, 2025 → FEB 27, 2026
+                    </h2>
+                </div>
+                <div class="etf-chart-container">
+                    <canvas id="etfPerformanceChart"></canvas>
+                </div>
+                <div class="etf-chart-legend" id="etfChartLegend"></div>
+            </div>
+
+            <!-- Holdings Table -->
+            <div class="etf-holdings-section">
+                <div class="section-header">
+                    <h2 class="section-title etf-title">
+                        HOLDINGS & SIGNAL WEIGHTS
+                    </h2>
+                </div>
+                <div class="matrix-table-wrapper">
+                    <table class="matrix-table etf-table" id="etfHoldingsTable">
                         <thead>
-                            <tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
+                            <tr>
+                                <th>RANK</th>
+                                <th>TICKER</th>
+                                <th>COMPANY</th>
+                                <th>SIGNAL</th>
+                                <th>WEIGHT</th>
+                                <th>START</th>
+                                <th>CURRENT</th>
+                                <th>RETURN</th>
+                                <th class="weight-bar-col">ALLOCATION</th>
+                            </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody id="etfHoldingsBody"></tbody>
                     </table>
                 </div>
-            </div>
-
-            <!-- CENTER COLUMN: ETF Performance Mini Chart -->
-            <div class="overview-col overview-col-center">
-                <div class="widget-header">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-                    <span>PPLX_DEFENSE vs BENCHMARKS</span>
-                </div>
-                <div class="overview-chart-wrap">
-                    <canvas id="overviewChart"></canvas>
-                </div>
-                <div class="overview-perf-row" id="overviewPerfRow"></div>
-            </div>
-
-            <!-- RIGHT COLUMN: Recent Activity Feed -->
-            <div class="overview-col overview-col-right">
-                <div class="widget-header">
-                    <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1v1h10V6H5zm0 3v1h10V9H5zm0 3v1h7v-1H5z"/></svg>
-                    <span>RECENT SIGNALS</span>
-                    <span class="live-indicator"><span class="pulse-dot"></span>LIVE</span>
-                </div>
-                <div class="signals-feed compact-feed" id="overviewFeed"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB: SIGNAL MATRIX -->
-    <div class="tab-panel" id="panel-matrix">
-        <div class="section-header">
-            <h2 class="section-title">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
-                SIGNAL MATRIX — 23 TRACKED SECURITIES
-            </h2>
-            <div class="matrix-controls">
-                <div class="filter-group">
-                    <label class="filter-label">FILTER</label>
-                    <select id="signalFilter" class="filter-select">
-                        <option value="all">ALL SIGNALS</option>
-                        <option value="bullish">BULLISH ONLY</option>
-                        <option value="bearish">BEARISH ONLY</option>
-                        <option value="neutral">NEUTRAL ONLY</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">SORT BY</label>
-                    <select id="sortBy" class="filter-select">
-                        <option value="score">SIGNAL SCORE</option>
-                        <option value="change">DAILY CHANGE</option>
-                        <option value="price">PRICE</option>
-                        <option value="ticker">TICKER</option>
-                    </select>
+                <div class="etf-excluded">
+                    <span class="etf-excluded-label">EXCLUDED (SCORE ≤ 0):</span>
+                    <span id="etfExcluded"></span>
                 </div>
             </div>
-        </div>
-        <div class="stock-grid" id="stockGrid"></div>
-    </div>
 
-    <!-- TAB: ETF -->
-    <div class="tab-panel" id="panel-etf">
-        <div class="section-header">
-            <h2 class="section-title">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-                PPLX_DEFENSE ETF PERFORMANCE
-            </h2>
-        </div>
-        <div class="etf-grid">
-            <div class="etf-card">
-                <div class="etf-title">ETF COMPOSITION</div>
-                <div class="etf-desc">Weighted by signal strength + market cap</div>
-                <div class="etf-weights" id="etfWeights"></div>
-            </div>
-            <div class="etf-card">
-                <div class="etf-title">PERFORMANCE VS BENCHMARKS</div>
-                <div class="chart-container">
-                    <canvas id="etfChart"></canvas>
+            <!-- 10-Day Simulation Section -->
+            <div class="ten-day-section" id="tenDaySection">
+                <div class="section-header">
+                    <h2 class="section-title etf-title">
+                        <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+                        10-DAY SIMULATION — HONEST ASSESSMENT (FEB 6–20, 2026)
+                    </h2>
                 </div>
-                <div class="perf-summary" id="perfSummary"></div>
+                <!-- Hero Stats Row -->
+                <div class="etf-hero-row ten-day-hero" id="tenDayHeroRow"></div>
+                <!-- Gap Analysis -->
+                <div class="gap-analysis-grid" id="gapAnalysisGrid"></div>
             </div>
         </div>
-    </div>
 
-    <!-- TAB: THEATER INTEL -->
-    <div class="tab-panel" id="panel-theater">
-        <div class="section-header">
-            <h2 class="section-title">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6.5 7.5 7.17c.526.668 1 1.28 1 1.83s-.5 1-.5 2v1c0 .552.448 1 1 1h1c.552 0 1-.448 1-1v-1c0-.552.448-1 1-1h.5c.552 0 1-.448 1-1V7a1 1 0 011-1h.757a5.96 5.96 0 01.411 2c0 .682-.131 1.332-.332 1.973-.5.137-1 .527-1.336 1.027H12a1 1 0 00-1 1v2.5a5.985 5.985 0 01-1 .168V13a1 1 0 00-1-1H8a1 1 0 00-1-1V9.5c0-.552-.448-1-1-1h-.67A5.97 5.97 0 014.332 8.027z"/></svg>
-                THEATER INTEL — ACTIVE CONFLICT ZONES
-            </h2>
-        </div>
-        <div class="theater-grid" id="theaterGrid"></div>
-    </div>
+    </main>
 
-    <!-- TAB: WATCHLIST -->
-    <div class="tab-panel" id="panel-watchlist">
-        <div class="section-header">
-            <h2 class="section-title">
-                <svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
-                WATCHLIST BUILDER
-            </h2>
-        </div>
-        <div class="watchlist-container">
-            <div class="watchlist-card">
-                <div class="watchlist-title">CUSTOM WATCHLIST</div>
-                <div class="watchlist-desc">Select tickers to build a custom defense watchlist</div>
-                <div class="watchlist-controls">
-                    <button class="btn" id="selectAllBtn">SELECT ALL</button>
-                    <button class="btn" id="clearAllBtn">CLEAR</button>
-                    <button class="btn primary" id="exportBtn">EXPORT</button>
-                </div>
-                <div class="watchlist-grid" id="watchlistGrid"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-left">
-            <span class="footer-label">DATA SOURCES</span>
-            <span class="footer-value">CENTCOM • DOD CONTRACTS • OSINT • POLYMARKET • PPLX FINANCE • POLYGON.IO</span>
-        </div>
-        <div class="footer-right">
-            <span class="footer-label">VERSION</span>
-            <span class="footer-value">2.1</span>
-        </div>
-    </footer>
-
-    <!-- Load JS parts in order -->
+    <!-- SCRIPTS -->
     <script src="./dsm_part1.js"></script>
     <script src="./dsm_part2.js"></script>
     <script src="./dsm_part3.js"></script>
