@@ -16,7 +16,7 @@ function linkifyTickers(text) {
     const sorted = UNIQUE_TICKERS.slice().sort((a, b) => b.length - a.length);
     let result = text;
     sorted.forEach(ticker => {
-        const regex = new RegExp(`(?<![\\w/">])\\b(${ticker})\\b(?![^<]*<\\/a>)(?![-\\w])`, 'g');
+        const regex = new RegExp(`(?<![\\w/\">])\\b(${ticker})\\b(?![^<]*<\\/a>)(?![-\\w])`, 'g');
         result = result.replace(regex, `<a href="https://perplexity.ai/finance/${ticker}" target="_blank" rel="noopener" class="ticker-link">$1</a>`);
     });
     return result;
