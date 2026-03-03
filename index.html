@@ -60,180 +60,356 @@ CRITICAL
 <span class="status-value">23</span>
 </div>
 <div class="status-item">
-<span class="status-label">MARKET STATUS</span>
-<span class="status-value" id="marketStatus">CLOSED</span>
+<span class="status-label">BULLISH SIGNALS</span>
+<span class="status-value green">13</span>
 </div>
 <div class="status-item">
-<span class="status-label">DATA FEED</span>
-<span class="status-value">LIVE</span>
+<span class="status-label">NEUTRAL</span>
+<span class="status-value amber">5</span>
 </div>
 <div class="status-item">
-<span class="status-label">SIGNAL STRENGTH</span>
-<span class="status-value" id="signalStrength">HIGH</span>
+<span class="status-label">BEARISH</span>
+<span class="status-value red">5</span>
+</div>
+<div class="status-item">
+<span class="status-label">MIL EVENTS (90D)</span>
+<span class="status-value">52</span>
+</div>
+<div class="status-item">
+<span class="status-label">MILTRACK SIGNALS</span>
+<span class="status-value teal">18</span>
+</div>
+<div class="status-item">
+<span class="status-label">BETTING MARKETS</span>
+<span class="status-value purple">14</span>
 </div>
 </div>
-
-<div class="container">
-<div class="theater-strip">
-<div class="theater-header">
-<span class="theater-title">ACTIVE THEATERS</span>
-<span class="theater-subtitle">Real-time conflict monitoring</span>
+<div class="price-footnote" id="priceFootnote">
+<span class="footnote-dot" id="priceStatusDot"></span>
+<span id="priceFootnoteText">* Prices as of Mar 3, 2:43 PM PST. <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
 </div>
-<div class="theater-grid" id="theaterGrid"></div>
+<div class="theater-strip" id="theaterStrip"></div>
+<nav class="tab-bar" id="tabBar">
+<button class="tab-btn active" data-tab="overview">
+<svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+OVERVIEW
+</button>
+<button class="tab-btn" data-tab="matrix">
+<svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+SIGNAL MATRIX
+</button>
+<button class="tab-btn" data-tab="etf">
+<svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+PPLX_DEFENSE ETF
+</button>
+<button class="tab-btn" data-tab="theater">
+<svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6.5 7.5 7.17c.526.668 1 1.28 1 1.83s-.5 1-.5 2v1c0 .552.448 1 1 1h1c.552 0 1-.448 1-1v-1c0-.552.448-1 1-1h.5c.552 0 1-.448 1-1V7a1 1 0 011-1h.757a5.96 5.96 0 01.411 2c0 .682-.131 1.332-.332 1.973-.5.137-1 .527-1.336 1.027H12a1 1 0 00-1 1v2.5a5.985 5.985 0 01-1 .168V13a1 1 0 00-1-1H8a1 1 0 00-1-1V9.5c0-.552-.448-1-1-1h-.67A5.97 5.97 0 014.332 8.027z"/></svg>
+THEATER INTEL
+</button>
+<button class="tab-btn" data-tab="watchlist">
+<svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
+WATCHLIST
+</button>
+</nav>
+<div class="tab-panel active" id="panel-overview">
+<div class="overview-grid">
+<div class="overview-col overview-col-left">
+<div class="widget-header">
+<svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+<span>TOP 5 SIGNAL STOCKS</span>
 </div>
-
-<div class="main-layout">
-<!-- LEFT SIDEBAR -->
-<div class="sidebar">
-<div class="sidebar-section">
-<div class="section-header">
-<span class="section-title">TOP SIGNALS</span>
-</div>
-<div class="signals-feed" id="signalsFeed"></div>
-</div>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="main-content">
-<div class="tabs">
-<button class="tab-button active" data-tab="stocks">STOCKS</button>
-<button class="tab-button" data-tab="etf">ETF ANALYSIS</button>
-<button class="tab-button" data-tab="signals">SIGNALS</button>
-<button class="tab-button" data-tab="political">POLITICAL</button>
-<button class="tab-button" data-tab="settings">SETTINGS</button>
-</div>
-
-<!-- STOCKS TAB -->
-<div class="tab-content active" id="stocks">
-<div class="stocks-header">
-<div class="stocks-title">
-<h2>DEFENSE STOCK INTELLIGENCE</h2>
-<p>Real-time tracking of defense contractor equities</p>
-</div>
-<div class="stocks-controls">
-<select id="sortSelect" class="sort-select">
-<option value="score">Sort by Signal Score</option>
-<option value="change">Sort by Price Change</option>
-<option value="price">Sort by Price</option>
-<option value="ticker">Sort by Ticker</option>
-</select>
-</div>
-</div>
-<div class="stocks-grid" id="stocksGrid"></div>
-</div>
-
-<!-- ETF TAB -->
-<div class="tab-content" id="etf">
-<div class="etf-layout">
-<div class="etf-main">
-<div class="etf-header">
-<h2>DEFENSE ETF TRACKING</h2>
-<p>iShares U.S. Aerospace & Defense ETF (ITA) analysis</p>
-</div>
-<div class="chart-container">
-<canvas id="etfChart"></canvas>
-</div>
-<div class="etf-metrics" id="etfMetrics"></div>
-</div>
-<div class="etf-sidebar">
-<div class="etf-composition">
-<h3>TOP HOLDINGS</h3>
-<div class="holdings-list" id="holdingsList"></div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- SIGNALS TAB -->
-<div class="tab-content" id="signals">
-<div class="signals-header">
-<h2>SIGNALS DATABASE</h2>
-<p>Historical signal archive and analysis</p>
-</div>
-<div class="signals-controls">
-<input type="text" id="signalSearch" class="search-input" placeholder="Search signals...">
-<select id="tagFilter" class="filter-select">
-<option value="all">All Tags</option>
-<option value="contract">Contracts</option>
-<option value="conflict">Conflicts</option>
-<option value="miltrack">Military Tracking</option>
-<option value="osint">OSINT</option>
-<option value="political">Political</option>
-<option value="cyber">Cyber</option>
-<option value="earnings">Earnings</option>
-<option value="polymarket">Polymarket</option>
-</select>
-</div>
-<div class="signals-table-container">
-<table class="signals-table" id="signalsTable">
+<div class="mini-table-wrapper">
+<table class="mini-table" id="overviewStocks">
 <thead>
-<tr>
-<th>Date/Time</th>
-<th>Tag</th>
-<th>Signal</th>
-<th>Sources</th>
-</tr>
+<tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
 </thead>
-<tbody id="signalsTableBody"></tbody>
+<tbody></tbody>
+</table>
+</div>
+<div class="widget-header" style="margin-top:16px;">
+<svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor" style="color:var(--red);"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+<span>BOTTOM 3 — BEARISH</span>
+</div>
+<div class="mini-table-wrapper">
+<table class="mini-table" id="overviewBearish">
+<thead>
+<tr><th>TICKER</th><th>COMPANY</th><th>PRICE</th><th>SIGNAL</th><th>DIR</th></tr>
+</thead>
+<tbody></tbody>
 </table>
 </div>
 </div>
-
-<!-- POLITICAL TAB -->
-<div class="tab-content" id="political">
-<div class="political-header">
-<h2>POLITICAL INTELLIGENCE</h2>
-<p>Congressional trading and political risk monitoring</p>
+<div class="overview-col overview-col-center">
+<div class="widget-header">
+<svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+<span>PPLX_DEFENSE vs BENCHMARKS</span>
 </div>
-<div class="political-grid" id="politicalGrid"></div>
+<div class="overview-chart-wrap">
+<canvas id="overviewChart"></canvas>
 </div>
-
-<!-- SETTINGS TAB -->
-<div class="tab-content" id="settings">
-<div class="settings-header">
-<h2>SYSTEM SETTINGS</h2>
-<p>Configure monitor parameters and alerts</p>
+<div class="overview-perf-row" id="overviewPerfRow"></div>
 </div>
-<div class="settings-grid">
-<div class="setting-card">
-<h3>UPDATE FREQUENCY</h3>
-<p>Data refresh interval: <strong>5 minutes</strong></p>
+<div class="overview-col overview-col-right">
+<div class="widget-header">
+<svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3 1v1h10V6H5zm0 3v1h10V9H5zm0 3v1h7v-1H5z"/></svg>
+<span>RECENT SIGNALS</span>
+<span class="live-indicator"><span class="pulse-dot"></span>LIVE</span>
 </div>
-<div class="setting-card">
-<h3>ALERT THRESHOLDS</h3>
-<p>Price movement alert: <strong>±5%</strong></p>
-<p>Signal score alert: <strong>4+</strong></p>
-</div>
-<div class="setting-card">
-<h3>DATA SOURCES</h3>
-<p>Market data: <strong>Polygon.io</strong></p>
-<p>News feeds: <strong>Multi-source</strong></p>
-<p>Social: <strong>X/Twitter</strong></p>
-</div>
-<div class="setting-card">
-<h3>SYSTEM STATUS</h3>
-<p>All systems operational</p>
-<p>Last sync: <span id="lastSync"></span></p>
+<div class="signals-feed compact-feed" id="overviewFeed"></div>
 </div>
 </div>
 </div>
+<div class="tab-panel" id="panel-matrix">
+<div class="section-header">
+<h2 class="section-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+SIGNAL MATRIX — 23 TRACKED SECURITIES
+</h2>
+<div class="matrix-controls">
+<div class="filter-group">
+<label class="filter-label">FILTER</label>
+<select id="signalFilter" class="filter-select">
+<option value="all">ALL SIGNALS</option>
+<option value="bullish">BULLISH ONLY</option>
+<option value="bearish">BEARISH ONLY</option>
+<option value="neutral">NEUTRAL ONLY</option>
+</select>
+</div>
+<div class="filter-group">
+<label class="filter-label">SORT</label>
+<select id="signalSort" class="filter-select">
+<option value="score-desc">SCORE ↓</option>
+<option value="score-asc">SCORE ↑</option>
+<option value="ticker">TICKER A-Z</option>
+<option value="price-desc">PRICE ↓</option>
+<option value="price-asc">PRICE ↑</option>
+</select>
+</div>
+<input type="text" id="tickerSearch" class="ticker-search" placeholder="SEARCH TICKER...">
 </div>
 </div>
-
-<!-- FOOTER -->
-<footer class="footer">
-<div class="footer-content">
-<div class="footer-section">
-<span class="footnote-dot" id="priceStatusDot"></span>
-<span id="priceFootnoteText">* Prices as of Mar 3, 2:05 PM PST. <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
+<div class="matrix-table-wrapper">
+<table class="matrix-table" id="matrixTable">
+<thead>
+<tr>
+<th class="col-ticker">TICKER</th>
+<th class="col-company">COMPANY</th>
+<th class="col-price">PRICE</th>
+<th class="col-score">SIGNAL</th>
+<th class="col-direction">DIR</th>
+<th class="col-summary">KEY SIGNAL SUMMARY</th>
+</tr>
+</thead>
+<tbody id="matrixBody"></tbody>
+</table>
 </div>
-<div class="footer-section">
-<span class="footnote-dot"></span>
-<span>* Not investment advice. For informational purposes only.</span>
+</div>
+<div class="tab-panel" id="panel-etf">
+<div class="position-changes-section">
+<div class="section-header">
+<h2 class="section-title etf-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/></svg>
+POSITION CHANGES — FEB 28, 2026 SIGNAL UPDATE
+</h2>
+<span class="pos-change-timestamp">Based on $153B Pentagon reconciliation, F-22 CENTCOM surge, earnings data</span>
+</div>
+<div class="pos-change-summary-row" id="posChangeSummary"></div>
+<div class="position-changes-grid" id="positionChangesGrid"></div>
+</div>
+<div class="etf-hero-row" id="etfHeroRow"></div>
+<div class="backtest-narrative" id="backtestNarrative" style="margin-bottom: 24px;"></div>
+<div class="etf-chart-section">
+<div class="section-header">
+<h2 class="section-title etf-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+6-MONTH PERFORMANCE — AUG 29, 2025 → FEB 27, 2026
+</h2>
+</div>
+<div class="etf-chart-container">
+<canvas id="etfPerformanceChart"></canvas>
+</div>
+<div class="etf-chart-legend" id="etfChartLegend"></div>
+</div>
+<div class="etf-holdings-section">
+<div class="section-header">
+<h2 class="section-title etf-title">
+HOLDINGS & SIGNAL WEIGHTS
+</h2>
+</div>
+<div class="matrix-table-wrapper">
+<table class="matrix-table etf-table" id="etfHoldingsTable">
+<thead>
+<tr>
+<th>RANK</th>
+<th>TICKER</th>
+<th>COMPANY</th>
+<th>SIGNAL</th>
+<th>WEIGHT</th>
+<th>START</th>
+<th>CURRENT</th>
+<th>RETURN</th>
+<th class="weight-bar-col">ALLOCATION</th>
+</tr>
+</thead>
+<tbody id="etfHoldingsBody"></tbody>
+</table>
+</div>
+<div class="etf-excluded">
+<span class="etf-excluded-label">EXCLUDED (SCORE ≤ 0):</span>
+<span id="etfExcluded"></span>
 </div>
 </div>
+<div class="ten-day-section" id="tenDaySection">
+<div class="section-header">
+<h2 class="section-title etf-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+10-DAY SIMULATION — HONEST ASSESSMENT (FEB 6–20, 2026)
+</h2>
+</div>
+<div class="etf-hero-row ten-day-hero" id="tenDayHeroRow"></div>
+<div class="gap-analysis-grid" id="gapAnalysisGrid"></div>
+<div class="ten-day-chart-section">
+<div class="ten-day-chart-label">DAILY PERFORMANCE — INDEXED TO 100 (FEB 6–20)</div>
+<div class="etf-chart-container" style="height:280px;">
+<canvas id="tenDayChart"></canvas>
+</div>
+<div class="etf-chart-legend" id="tenDayChartLegend"></div>
+</div>
+</div>
+<div class="ten-day-section basket-section" id="basketSection">
+<div class="section-header">
+<h2 class="section-title etf-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg>
+BUYABLE BASKET — EXECUTE THIS STRATEGY
+</h2>
+</div>
+<div class="matrix-table-wrapper">
+<table class="basket-table" id="basketTable">
+<thead>
+<tr>
+<th>#</th>
+<th>TICKER</th>
+<th>COMPANY</th>
+<th>SIGNAL</th>
+<th>WEIGHT</th>
+<th>$10K ALLOCATION</th>
+<th>~SHARES</th>
+<th>RATIONALE</th>
+</tr>
+</thead>
+<tbody id="basketBody"></tbody>
+</table>
+</div>
+<div class="basket-instructions" id="basketInstructions"></div>
+</div>
+<div class="etf-strategy-section">
+<div class="etf-strategy-grid">
+<div class="etf-strategy-card">
+<div class="etf-strat-label">STRATEGY</div>
+<div class="etf-strat-value">Multi-variable signal-driven active management. Combines military event analysis, congressional insider trading signals, prediction market probabilities, theater risk, and momentum scoring.</div>
+</div>
+<div class="etf-strategy-card">
+<div class="etf-strat-label">REBALANCING</div>
+<div class="etf-strat-value">Signal-triggered (not calendar-based). Rebalances when composite signal score changes by ≥2 points or when new intelligence triggers.</div>
+</div>
+<div class="etf-strategy-card">
+<div class="etf-strat-label">UNIVERSE</div>
+<div class="etf-strat-value">22 defense/security stocks across primes, mid-caps, cyber, and emerging platforms.</div>
+</div>
+<div class="etf-strategy-card">
+<div class="etf-strat-label">BENCHMARK</div>
+<div class="etf-strat-value">iShares U.S. Aerospace & Defense ETF (ITA)</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tab-panel" id="panel-theater">
+<div class="section-header">
+<h2 class="section-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6.5 7.5 7.17c.526.668 1 1.28 1 1.83s-.5 1-.5 2v1c0 .552.448 1 1 1h1c.552 0 1-.448 1-1v-1c0-.552.448-1 1-1h.5c.552 0 1-.448 1-1V7a1 1 0 011-1h.757a5.96 5.96 0 01.411 2c0 .682-.131 1.332-.332 1.973-.5.137-1 .527-1.336 1.027H12a1 1 0 00-1 1v2.5a5.985 5.985 0 01-1 .168V13a1 1 0 00-1-1H8a1 1 0 00-1-1V9.5c0-.552-.448-1-1-1h-.67A5.97 5.97 0 014.332 8.027z"/></svg>
+THEATER INTELLIGENCE — WHY EACH REGION IS AT ITS CURRENT STATUS
+</h2>
+</div>
+<div class="theater-intel-grid" id="theaterIntelGrid"></div>
+</div>
+<div class="tab-panel" id="panel-watchlist">
+<div class="watchlist-section">
+<div class="section-header">
+<h2 class="section-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
+POLITICIAN WATCHLIST — CONGRESSIONAL INSIDER TRACKING
+</h2>
+</div>
+<div class="politician-cards" id="politicianCards"></div>
+</div>
+<div class="watchlist-section" style="margin-top:28px;">
+<div class="section-header methodology-header" id="methodologyToggle">
+<h2 class="section-title">
+<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" style="vertical-align:middle; margin-right:6px;"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/></svg>
+SIGNAL METHODOLOGY & SOURCES
+</h2>
+<span class="toggle-icon" id="toggleIcon">▸</span>
+</div>
+<div class="methodology-content" id="methodologyContent">
+<div class="methodology-grid">
+<div class="method-card">
+<h3>Military Event Relevance</h3>
+<p>Events scored +1 to +3 based on direct impact to defense segment. Weighted by recency (90-day window, exponential decay). Includes: conflict escalation, contract awards, arms sales, military exercises, and deployments.</p>
+</div>
+<div class="method-card">
+<h3>Congressional Trading Signals</h3>
+<p>+1 per buy by defense committee member (SASC, HASC, HPSCI). -1 per sell. Weighted by committee overlap and suspicion level. Timing correlation with contracts/events increases weight.</p>
+</div>
+<div class="method-card">
+<h3>DOGE Fiscal Risk</h3>
+<p>-1 to -3 based on revenue exposure to government IT services and consulting. Hardware/production-centric contractors rated low risk. Service-heavy firms rated high risk.</p>
+</div>
+<div class="method-card">
+<h3>Theater Exposure Analysis</h3>
+<p>Each stock mapped to 1-5 operational theaters. Active conflict zones with consumable demand boost scores. Ceasefire risks flagged as headwinds. NATO spending increases benefit European-exposed names.</p>
+</div>
+<div class="method-card method-card-purple">
+<h3>Prediction Markets + PizzINT</h3>
+<p>Polymarket contract probabilities tracked for conflict events. Sharp probability movements (>10% in 24h) trigger signal updates. Pentagon Pizza Index (DOUGHCON levels) used as supplementary OSINT indicator for imminent military action.</p>
+</div>
+<div class="method-card method-card-teal">
+<h3>Military Asset Tracking (MILTRACK)</h3>
+<p>Real-time OSINT monitoring of military movements via ADS-B Exchange (unfiltered flight tracking), MarineTraffic/VesselFinder (AIS ship tracking), and social OSINT accounts. Tracks carrier strike groups, airlift surges, SEAD deployments, ISR patterns, and AIS dark periods. Scored against historical baselines to distinguish "normal" from "abnormal" force postures.</p>
+</div>
+<div class="method-card method-card-teal">
+<h3>OSINT Social Intelligence</h3>
+<p>Aggregated from verified OSINT accounts: @sentdefender (1.9M followers), @AirSpecInt, @Terror_Alarm, @MT_Anderson, and Reddit communities r/OSINT, r/CredibleDefense, r/ADSB. Telegram channels and Instagram mil accounts monitored for early deployment imagery. Eurovision OSINT hex code database for carrier aviation asset identification.</p>
+</div>
+<div class="method-card">
+<h3>Momentum & Backlog</h3>
+<p>Order backlog growth, book-to-bill ratios, and contract pipeline scored. Stocks with accelerating backlogs get +1. Production ramp confirmations add additional weight.</p>
+</div>
+</div>
+<div class="method-sources">
+<span class="source-label">DATA SOURCES:</span>
+<a href="https://www.capitoltrades.com/" target="_blank" rel="noopener" class="source-link">Capitol Trades</a> &bull;
+<a href="https://www.quiverquant.com/" target="_blank" rel="noopener" class="source-link">Quiver Quantitative</a> &bull;
+<a href="https://www.defensenews.com/" target="_blank" rel="noopener" class="source-link">Defense News</a> &bull;
+<a href="https://www.sipri.org/" target="_blank" rel="noopener" class="source-link">SIPRI</a> &bull;
+<a href="https://www.reuters.com/business/aerospace-defense/" target="_blank" rel="noopener" class="source-link">Reuters Defense</a> &bull;
+<a href="https://www.defense.gov/News/Contracts/" target="_blank" rel="noopener" class="source-link">DoD Contracts</a> &bull;
+<a href="https://unusualwhales.com/" target="_blank" rel="noopener" class="source-link">Unusual Whales</a> &bull;
+<a href="https://www.opensecrets.org/" target="_blank" rel="noopener" class="source-link">OpenSecrets</a> &bull;
+<a href="https://polymarket.com/predictions/war" target="_blank" rel="noopener" class="source-link">Polymarket</a> &bull;
+<a href="https://pizzint.watch" target="_blank" rel="noopener" class="source-link">PizzINT</a> &bull;
+<a href="https://globe.adsbexchange.com/" target="_blank" rel="noopener" class="source-link">ADS-B Exchange</a> &bull;
+<a href="https://www.marinetraffic.com/" target="_blank" rel="noopener" class="source-link">MarineTraffic</a> &bull;
+<a href="https://x.com/sentdefender" target="_blank" rel="noopener" class="source-link">@sentdefender</a> &bull;
+<a href="https://spotlight.ebu.ch/p/iran-armada-osint-intelligence-guide" target="_blank" rel="noopener" class="source-link">Eurovision OSINT</a> &bull;
+<a href="https://www.reddit.com/r/OSINT/" target="_blank" rel="noopener" class="source-link">r/OSINT</a> &bull;
+<a href="https://www.reddit.com/r/CredibleDefense/" target="_blank" rel="noopener" class="source-link">r/CredibleDefense</a> &bull;
+<a href="https://news.usni.org/" target="_blank" rel="noopener" class="source-link">USNI News</a> &bull;
+<a href="https://www.flightradar24.com/" target="_blank" rel="noopener" class="source-link">Flightradar24</a> &bull;
+<a href="https://www.aljazeera.com/" target="_blank" rel="noopener" class="source-link">Al Jazeera</a>
+</p>
+<p class="footer-copy">DEFENSE SIGNAL MONITOR &mdash; Multi-Variable Military-Political Stock Intelligence &mdash; 2026</p>
+</p>
 </footer>
-
 <script src="./loader.js"></script>
 </body>
 </html>
