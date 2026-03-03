@@ -1,182 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DEFENSE SIGNAL MONITOR</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="./style.css">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.polygon.io; img-src 'self' data:; base-uri 'self'; form-action 'none'; frame-ancestors 'self';">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="no-referrer">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Defense Signal Monitor</title>
+
+  <!--
+    ============================================================
+    DEFENSE SIGNAL MONITOR — SINGLE PAGE APP
+    Loader.js dynamically merges 6 parts into one executed script.
+    CRITICAL: Do NOT edit architecture.
+    ============================================================
+  -->
+
+  <!-- Meta tags -->
+  <meta name="description" content="A real-time defense equities and conflict signal dashboard." />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<div class="scanline-overlay"></div>
-<div class="grid-overlay"></div>
-<header class="header">
-<div class="header-left">
-<div class="header-title-group">
-<div class="radar-icon">
-<svg viewBox="0 0 48 48" width="44" height="44">
-<circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.3"/>
-<circle cx="24" cy="24" r="14" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
-<circle cx="24" cy="24" r="8" fill="none" stroke="#22c55e" stroke-width="1" opacity="0.5"/>
-<circle cx="24" cy="24" r="2" fill="#22c55e"/>
-<line x1="24" y1="24" x2="24" y2="4" stroke="#22c55e" stroke-width="1.5" class="radar-sweep"/>
-</svg>
-</div>
-<div>
-<h1 class="header-title">DEFENSE SIGNAL MONITOR</h1>
-<p class="header-subtitle">Multi-Variable Military-Political Stock Intelligence</p>
-</div>
-</div>
-</div>
-<div class="header-right">
-<div class="header-meta">
-<div class="meta-item">
-<span class="meta-label">LAST UPDATED</span>
-<span class="meta-value" id="lastUpdated">--</span>
-</div>
-<div class="meta-item">
-<span class="meta-label">MARKET STATUS</span>
-<span class="meta-value" id="marketStatus">--</span>
-</div>
-</div>
-</div>
-</header>
 
-<div class="container">
+  <header>
+    <div class="header-content">
+      <h1>Defense Signal Monitor</h1>
+      <p class="subtitle">Real-time defense equities and conflict signals</p>
+    </div>
+  </header>
 
-<!-- === TOP SUMMARY STRIP === -->
-<div class="top-strip">
-<div class="top-strip-left">
-<div class="strip-label">THEATER</div>
-<div class="theater-strip" id="theaterStrip">
-<div class="theater-item theater-active" data-theater="me">MIDDLE EAST</div>
-<div class="theater-item" data-theater="eu">EUROPE</div>
-<div class="theater-item" data-theater="ap">INDO-PACIFIC</div>
-</div>
-</div>
-<div class="top-strip-right">
-<div class="strip-label">SIGNAL FEED</div>
-<div class="feed-toggle" id="feedToggle">ALL</div>
-</div>
-</div>
+  <main>
 
-<!-- === SIGNAL FEED (LEFT) + TICKER GRID (RIGHT) === -->
-<div class="main-grid">
+    <!-- Theater Strip -->
+    <section id="theater-strip" class="theater-strip">
+      <div class="theater-row" id="theater-row"></div>
+    </section>
 
-<!-- SIGNAL FEED PANEL -->
-<div class="panel signal-feed">
-<div class="panel-header">
-<h2 class="panel-title">LIVE SIGNALS</h2>
-<div class="panel-subtitle">Real-time military-political intelligence feed</div>
-</div>
-<div class="feed-controls">
-<div class="feed-search">
-<input type="text" id="feedSearch" placeholder="Search signals...">
-</div>
-<div class="feed-filters">
-<button class="filter-btn active" data-filter="all">ALL</button>
-<button class="filter-btn" data-filter="conflict">CONFLICT</button>
-<button class="filter-btn" data-filter="contract">CONTRACT</button>
-<button class="filter-btn" data-filter="congress">CONGRESS</button>
-<button class="filter-btn" data-filter="polymarket">POLYMARKET</button>
-</div>
-</div>
-<div class="feed-list" id="signalsFeed"></div>
-</div>
+    <!-- Tabs -->
+    <section class="tabs">
+      <button class="tab-button active" data-tab="overview">Overview</button>
+      <button class="tab-button" data-tab="signals">Signals Feed</button>
+      <button class="tab-button" data-tab="matrix">Signal Matrix</button>
+      <button class="tab-button" data-tab="etf">ETF Correlation</button>
+    </section>
 
-<!-- TICKER GRID PANEL -->
-<div class="panel ticker-panel">
-<div class="panel-header">
-<h2 class="panel-title">DEFENSE TICKERS</h2>
-<div class="panel-subtitle">Real-time pricing + signal-weighted scoring</div>
-</div>
+    <!-- Overview Tab -->
+    <section id="overview" class="tab-content active">
+      <div class="overview-grid" id="overview-grid"></div>
 
-<div class="ticker-controls">
-<div class="sort-controls">
-<button class="sort-btn active" data-sort="score">SORT: SCORE</button>
-<button class="sort-btn" data-sort="change">SORT: CHANGE</button>
-<button class="sort-btn" data-sort="price">SORT: PRICE</button>
-</div>
-<div class="view-controls">
-<button class="view-btn active" data-view="grid">GRID</button>
-<button class="view-btn" data-view="list">LIST</button>
-</div>
-</div>
+      <div class="price-footnote">
+        <span>Prices as of Mar 3, 12:44 PM PST</span>
+        <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>
+      </div>
+    </section>
 
-<div class="ticker-grid" id="tickerGrid"></div>
+    <!-- Signals Feed Tab -->
+    <section id="signals" class="tab-content">
+      <div class="signals-feed" id="signals-feed"></div>
+    </section>
 
-<div class="ticker-footnote">
-<span class="footnote-dot" id="priceStatusDot"></span>
-<span id="priceFootnoteText">* Prices as of Mar 3, 12:22 PM PST. <a href="https://polygon.io" target="_blank" rel="noopener">Polygon.io</a>.</span>
-</div>
-</div>
+    <!-- Matrix Tab -->
+    <section id="matrix" class="tab-content">
+      <div class="matrix-container" id="matrix-container"></div>
+    </section>
 
-</div>
+    <!-- ETF Correlation Tab -->
+    <section id="etf" class="tab-content">
+      <div class="etf-container">
+        <canvas id="etfChart"></canvas>
+      </div>
+    </section>
 
-<!-- === MARKET REGIME + NEWS === -->
-<div class="lower-grid">
+  </main>
 
-<div class="panel market-panel">
-<div class="panel-header">
-<h2 class="panel-title">MARKET REGIME</h2>
-<div class="panel-subtitle">Defense sector performance vs benchmarks</div>
-</div>
+  <!-- Loader -->
+  <script src="loader.js"></script>
 
-<div class="chart-container">
-<canvas id="sectorChart"></canvas>
-</div>
-
-<div class="market-stats" id="marketStats"></div>
-</div>
-
-<div class="panel news-panel">
-<div class="panel-header">
-<h2 class="panel-title">SIGNAL ANALYSIS</h2>
-<div class="panel-subtitle">Automated interpretation + trade signals</div>
-</div>
-
-<div class="analysis-tabs">
-<button class="tab-btn active" data-tab="summary">SUMMARY</button>
-<button class="tab-btn" data-tab="drivers">DRIVERS</button>
-<button class="tab-btn" data-tab="risk">RISK</button>
-</div>
-
-<div class="tab-content active" id="summaryTab">
-<div class="analysis-section">
-<h3>Current Regime</h3>
-<p id="regimeText">--</p>
-</div>
-<div class="analysis-section">
-<h3>Key Signals</h3>
-<ul id="keySignals">--</ul>
-</div>
-</div>
-
-<div class="tab-content" id="driversTab">
-<div class="analysis-section">
-<h3>Performance Drivers</h3>
-<ul id="driversList">--</ul>
-</div>
-</div>
-
-<div class="tab-content" id="riskTab">
-<div class="analysis-section">
-<h3>Risk Factors</h3>
-<ul id="riskList">--</ul>
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-
-<script src="./loader.js"></script>
 </body>
 </html>
