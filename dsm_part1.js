@@ -41,12 +41,12 @@ const stockData = [
     { ticker: "BA", company: "Boeing", price: 210.82, dayChange: -1.24, score: 2, direction: "neutral", summary: "F-47 NGAD win. CCA weapon integration testing begun (YFQ-44A inert AIM-120 Feb 23). BUT commercial crisis, high leverage." },
     { ticker: "LDOS", company: "Leidos Holdings", price: 168.98, dayChange: 0.91, score: 2, direction: "neutral", summary: "DOGE risk materializing. Navy NGEN. DOGE cuts hitting IT services." },
     { ticker: "FTNT", company: "Fortinet", price: 83.16, dayChange: -1.57, score: 1, direction: "neutral", summary: "OT/ICS security growth. Google-Wiz deal ($32B) competitive threat. Chinese/Iranian APTs targeting defense industry (Feb 17 Dragos report)." },
-    { ticker: "CRWD", company: "CrowdStrike", price: 433.2, dayChange: 2.21, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
+    { ticker: "CRWD", company: "CrowdStrike", price: 433.20, dayChange: 2.21, score: 0, direction: "bearish", summary: "DOWNGRADED TO EXCLUDED: Earnings miss — stock -9.85% Feb 23. Execution failure. Moved to excluded on negative momentum despite persistent cyber demand." },
     { ticker: "JOBY", company: "Joby Aviation", price: 9.93, dayChange: 1.12, score: 1, direction: "neutral", summary: "Military logistics potential. But pre-revenue, limited defense utility." },
     { ticker: "ACHR", company: "Archer Aviation", price: 6.29, dayChange: 2.78, score: 0, direction: "neutral", summary: "Limited defense utility. eVTOL speculation." },
     { ticker: "PANW", company: "Palo Alto Networks", price: 169.19, dayChange: 1.04, score: -1, direction: "bearish", summary: "Platformization headwinds. Near 52-week low. Google-Wiz deal pressuring valuation. APT competition heating." },
     { ticker: "SAIC", company: "Science Applications", price: 94.58, dayChange: 1.64, score: -2, direction: "bearish", summary: "$95M GAO IT modernization contract win (Feb 27). Still DOGE-exposed but new contract provides some cushion. Upgrading from -3 to -2." },
-    { ticker: "BAH", company: "Booz Allen Hamilton", price: 77.12, dayChange: 1.8, score: -3, direction: "bearish", summary: "DOGE devastation offset: $697M Army MCTP training contract win (Feb 27). Active combat operations = surge in training/simulation demand. But still DOGE-exposed on civil side. Upgrading from -5 to -3 on new contract." }
+    { ticker: "BAH", company: "Booz Allen Hamilton", price: 77.12, dayChange: 1.80, score: -3, direction: "bearish", summary: "DOGE devastation offset: $697M Army MCTP training contract win (Feb 27). Active combat operations = surge in training/simulation demand. But still DOGE-exposed on civil side. Upgrading from -5 to -3 on new contract." }
 ];
 
 // === SIGNALS FEED DATA ===
